@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>img/bg.jpeg</file>
+        <file>img/card.png</file>
+        <file>img/image 2.png</file>
+        <file>img/image.png</file>
+        <file>img/logo-removebg-preview.png</file>
+        <file>img/pdf.png</file>
+        <file>img/soccer-ball 1.png</file>
+        <file>img/soccer-player.png</file>
+        <file>img/user.png</file>
+    </qresource>
+</RCC>
