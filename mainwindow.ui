@@ -183,8 +183,8 @@ background-color: #619D80;}</string>
    <widget class="QWidget" name="box" native="true">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>100</y>
+      <x>140</x>
+      <y>90</y>
       <width>421</width>
       <height>441</height>
      </rect>
@@ -200,7 +200,7 @@ background-color: #619D80;}</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>30</y>
+       <y>60</y>
        <width>63</width>
        <height>20</height>
       </rect>
@@ -220,8 +220,8 @@ background-color: #619D80;}</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>110</y>
-       <width>63</width>
+       <y>130</y>
+       <width>141</width>
        <height>20</height>
       </rect>
      </property>
@@ -239,9 +239,9 @@ background-color: #619D80;}</string>
     <widget class="QLabel" name="creation_date">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>210</y>
-       <width>63</width>
+       <x>20</x>
+       <y>190</y>
+       <width>161</width>
        <height>20</height>
       </rect>
      </property>
@@ -259,8 +259,8 @@ background-color: #619D80;}</string>
     <widget class="QLabel" name="prizes">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>280</y>
+       <x>30</x>
+       <y>260</y>
        <width>63</width>
        <height>20</height>
       </rect>
@@ -317,8 +317,8 @@ background-color: #619D80;}</string>
     <widget class="QLineEdit" name="prizesEdit">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>270</y>
+       <x>190</x>
+       <y>250</y>
        <width>113</width>
        <height>26</height>
       </rect>
@@ -377,11 +377,43 @@ background:transparent;
     <widget class="QDateEdit" name="dateEdit">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>200</y>
+       <x>190</x>
+       <y>190</y>
        <width>110</width>
        <height>26</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>320</y>
+       <width>63</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>coach:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="coachEdit">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>310</y>
+       <width>113</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    background-color: white;  /* White background */
+    color: black;             /* Black text */
+    border: 2px solid #619D80; /* Green border */
+    border-radius: 5px;       /* Slightly rounded edges */
+    padding: 5px;             /* Spacing inside */
+}</string>
      </property>
     </widget>
    </widget>
@@ -409,8 +441,8 @@ background:transparent;
    <widget class="QPushButton" name="delete_2">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>310</y>
+      <x>930</x>
+      <y>300</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -424,36 +456,6 @@ background:transparent;}</string>
     <property name="text">
      <string>Delete</string>
     </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>90</y>
-      <width>501</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>Creation_Date</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Team_name</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Nouvelle colonne</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Prizes</string>
-     </property>
-    </column>
    </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
@@ -512,6 +514,37 @@ search{
     </property>
     <property name="placeholderText">
      <string>Search..</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>490</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>read</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>100</y>
+      <width>501</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#tableView{
+   background-color: rgba(97, 157, 128, 0.4); /* Adjusted RGBA version of #619D80 */
+   border-radius: 10px;
+   padding:5px;
+
+}</string>
     </property>
    </widget>
   </widget>

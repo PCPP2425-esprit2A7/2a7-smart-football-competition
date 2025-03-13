@@ -1,31 +1,46 @@
 #ifndef EQUIPE_H
 #define EQUIPE_H
+#include <QDate>
 
+//new
+#include<QSqlQuery>
+#include<QsqlQueryModel>
+#include<QTableView>
+//new
 #include <QString>
 
 class Equipe {
 private:
     int id;
-    QString teamName;
-    QString creationDate;
+    QString team_name;
+    QDate creation_date;
     int prizes;
+    QString coach;
 
 public:
     // Constructeurs
     Equipe();
-    Equipe(int id, QString teamName, QString creationDate, int prizes);
-
+    Equipe(int id, QString team_name, QDate creation_date, int prizes, QString coach);
+    bool ajouter();
+    bool supprimer(int id);
+     bool modify(int id);
+    void afficher(QTableView *tableView);
     // Getters
-    int getId() const;
-    QString getTeamName() const;
-    QString getCreationDate() const;
-    int getPrizes() const;
-
+    int getid() const;
+    QString getteam_name() const;
+    QDate getcreation_date() const;
+    int getprizes() const;
+    QString getcoach() const;
     // Setters
-    void setId(int id);
-    void setTeamName(QString teamName);
-    void setCreationDate(QString creationDate);
-    void setPrizes(int prizes);
+    void setid(int id);
+    void setteam_name(QString team_name);
+    void setcreation_date(QDate creation_date);
+    void setprizes(int prizes);
+    void setcoach(QString coach);
+    //new
+
+    //new
+
 };
 
 #endif // EQUIPE_H
