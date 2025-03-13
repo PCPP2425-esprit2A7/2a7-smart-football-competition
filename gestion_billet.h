@@ -7,7 +7,8 @@
 #include <QSqlQuery>
 #include <QString>
 #include <QDate>
-#include <QTableWidgetItem>
+#include <QSqlQueryModel>
+#include <QTableView>
 
 class gestion_billet
 {
@@ -41,8 +42,15 @@ public:
     void setdate_event(QDate);
     //database operation
     bool add();
-    void afficher(QTableWidget* tableWidget);
+    void afficher(QTableView* tableView);
     bool modify(int id);
+    bool delete_2(int id);
+    QSqlQueryModel* triPrixCroissant();
+    QSqlQueryModel* triPrixDecroissant();
+    QSqlQueryModel* triid();
+    bool isValid();
+
+
 };
 
 #endif // GESTION_BILLET_H
