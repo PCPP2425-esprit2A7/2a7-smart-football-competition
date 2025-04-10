@@ -1,0 +1,10 @@
+release/arbitre.o
+release/emaildialog.o
+release/main.o
+release/mainwindow.o
+release/connection.o
+release/statistique.o
+release/qrc_resource.o
+release/moc_emaildialog.o
+release/moc_mainwindow.o
+release/moc_statistique.o
