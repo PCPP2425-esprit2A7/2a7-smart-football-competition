@@ -9,5 +9,10 @@
         <file>img/soccer-ball 1.png</file>
         <file>img/soccer-player.png</file>
         <file>img/user.png</file>
+        <file>img/14108.jpg</file>
+        <file>img/bg_ticket.jpg</file>
+        <file>img/bg_ticket-fotor.png</file>
     </qresource>
+    <qresource prefix="/themes"/>
+    <qresource prefix="/"/>
 </RCC>

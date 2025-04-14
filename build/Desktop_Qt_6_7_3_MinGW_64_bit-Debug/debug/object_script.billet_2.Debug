@@ -1,0 +1,12 @@
+debug/qrcodegen.o
+debug/dialog.o
+debug/connection.o
+debug/dialog_billet.o
+debug/generate_tickets.o
+debug/gestion_billet.o
+debug/main.o
+debug/mainwindow.o
+debug/qrc_resource.o
+debug/moc_dialog.o
+debug/moc_dialog_billet.o
+debug/moc_mainwindow.o

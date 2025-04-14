@@ -6,33 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1424</width>
-    <height>814</height>
+    <width>1427</width>
+    <height>801</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>-10</y>
-      <width>1411</width>
-      <height>781</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="resource.qrc">:/image/img/bg.jpeg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QWidget" name="menu" native="true">
     <property name="geometry">
      <rect>
@@ -348,6 +329,9 @@ background:rgba(214, 215, 222, 0.4);
 }
 </string>
      </property>
+     <property name="placeholderText">
+      <string>Enter Id</string>
+     </property>
     </widget>
     <widget class="QComboBox" name="type">
      <property name="geometry">
@@ -432,6 +416,9 @@ background:rgba(214, 215, 222, 0.4);
 }
 </string>
      </property>
+     <property name="placeholderText">
+      <string>Enter Price</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="quantity">
      <property name="geometry">
@@ -449,6 +436,9 @@ background:rgba(214, 215, 222, 0.4);
     background: white; 
 }
 </string>
+     </property>
+     <property name="placeholderText">
+      <string>Enter Quantity</string>
      </property>
     </widget>
     <widget class="QDateEdit" name="date_issue">
@@ -567,8 +557,8 @@ border-radius: 10px;         /* Rounded corners */
    <widget class="QComboBox" name="tri">
     <property name="geometry">
      <rect>
-      <x>1090</x>
-      <y>150</y>
+      <x>1030</x>
+      <y>130</y>
       <width>231</width>
       <height>31</height>
      </rect>
@@ -601,30 +591,11 @@ border-radius: 10px;         /* Rounded corners */
      </property>
     </item>
    </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>150</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="resource.qrc">:/image/img/pdf.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="modify">
     <property name="geometry">
      <rect>
-      <x>1300</x>
-      <y>460</y>
+      <x>1290</x>
+      <y>670</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -704,8 +675,8 @@ border-radius: 10px;         /* Rounded corners */
    <widget class="QPushButton" name="delete_2">
     <property name="geometry">
      <rect>
-      <x>1180</x>
-      <y>460</y>
+      <x>1160</x>
+      <y>670</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -728,13 +699,13 @@ border-radius: 10px;         /* Rounded corners */
      <string>Delete</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_10">
+   <widget class="QLabel" name="logo">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>181</width>
-      <height>141</height>
+      <x>20</x>
+      <y>20</y>
+      <width>121</width>
+      <height>111</height>
      </rect>
     </property>
     <property name="text">
@@ -751,9 +722,9 @@ border-radius: 10px;         /* Rounded corners */
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>210</y>
+      <y>170</y>
       <width>841</width>
-      <height>221</height>
+      <height>491</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -764,13 +735,139 @@ background:rgba(33, 133, 85, 0.4);
 }</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pdf">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>130</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PDF</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resource.qrc">
+      <normaloff>:/image/img/pdf.png</normaloff>:/image/img/pdf.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="light">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>710</y>
+      <width>93</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#light {
+    background-color:transparent; 
+    color: #333; 
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 5px 10px; 
+}
+
+#light:hover {
+    background-color: #e0e0e0;
+    border: 2px solid #bbb;
+}
+
+#light:pressed {
+    background-color: #d0d0d0; 
+    border: 2px solid #999;
+}</string>
+    </property>
+    <property name="text">
+     <string>Light</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dark">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>710</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#dark {
+    background-color: #333; /* Dark gray background */
+    color: white; /* White text */
+    border: 2px solid #555; /* Slightly lighter border */
+   border-radius: 10px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better appearance */
+}
+#dark:hover {
+    background-color: #444; /* Slightly lighter on hover */
+    border: 2px solid #777;
+}
+
+#dark:pressed {
+    background-color: #222; /* Even darker when pressed */
+    border: 2px solid #999;
+}</string>
+    </property>
+    <property name="text">
+     <string>Dark</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bg">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1431</width>
+      <height>761</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bg{
+	background-image: url(:/image/img/bg.jpeg);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>bg</zorder>
+   <zorder>menu</zorder>
+   <zorder>form</zorder>
+   <zorder>search_bar</zorder>
+   <zorder>tri</zorder>
+   <zorder>modify</zorder>
+   <zorder>stat</zorder>
+   <zorder>generate</zorder>
+   <zorder>delete_2</zorder>
+   <zorder>logo</zorder>
+   <zorder>table</zorder>
+   <zorder>pdf</zorder>
+   <zorder>light</zorder>
+   <zorder>dark</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1424</width>
+     <width>1427</width>
      <height>26</height>
     </rect>
    </property>

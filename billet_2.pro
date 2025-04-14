@@ -2,7 +2,14 @@ QT += core gui printsupport
 QT       += core gui sql
 QT       += core gui
 
-QT += gui charts
+QT += core gui widgets charts
+QT += core gui multimedia
+CONFIG += c++11
+SOURCES += qrcodegen.cpp \
+    dialog.cpp
+HEADERS += qrcodegen.hpp \
+    dialog.h
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,16 +21,22 @@ CONFIG += c++17
 
 SOURCES += \
     connection.cpp \
+    dialog_billet.cpp \
+    generate_tickets.cpp \
     gestion_billet.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     connection.h \
+    dialog_billet.h \
+    generate_tickets.h \
     gestion_billet.h \
     mainwindow.h
 
 FORMS += \
+    dialog.ui \
+    dialog_billet.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -33,3 +46,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES +=

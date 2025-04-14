@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
@@ -29,7 +30,6 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QLabel *label;
     QWidget *menu;
     QLabel *user;
     QLabel *joueur;
@@ -56,13 +56,16 @@ public:
     QPushButton *cancel;
     QLineEdit *search_bar;
     QComboBox *tri;
-    QLabel *label_9;
     QPushButton *modify;
     QPushButton *stat;
     QPushButton *generate;
     QPushButton *delete_2;
-    QLabel *label_10;
+    QLabel *logo;
     QTableView *table;
+    QPushButton *pdf;
+    QPushButton *light;
+    QPushButton *dark;
+    QLabel *bg;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -70,14 +73,9 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1424, 814);
+        MainWindow->resize(1427, 801);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(0, -10, 1411, 781));
-        label->setPixmap(QPixmap(QString::fromUtf8(":/image/img/bg.jpeg")));
-        label->setScaledContents(true);
         menu = new QWidget(centralwidget);
         menu->setObjectName("menu");
         menu->setGeometry(QRect(30, 150, 120, 511));
@@ -273,7 +271,7 @@ public:
         tri->addItem(QString());
         tri->addItem(QString());
         tri->setObjectName("tri");
-        tri->setGeometry(QRect(1090, 150, 231, 31));
+        tri->setGeometry(QRect(1030, 130, 231, 31));
         tri->setStyleSheet(QString::fromUtf8("#tri\n"
 " {\n"
 "   border: 2px solid gray;       /* Border color and thickness */\n"
@@ -281,14 +279,9 @@ public:
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
 "}"));
-        label_9 = new QLabel(centralwidget);
-        label_9->setObjectName("label_9");
-        label_9->setGeometry(QRect(1340, 150, 31, 31));
-        label_9->setPixmap(QPixmap(QString::fromUtf8(":/image/img/pdf.png")));
-        label_9->setScaledContents(true);
         modify = new QPushButton(centralwidget);
         modify->setObjectName("modify");
-        modify->setGeometry(QRect(1300, 460, 93, 29));
+        modify->setGeometry(QRect(1290, 670, 93, 29));
         modify->setFont(font3);
         modify->setStyleSheet(QString::fromUtf8("#modify{\n"
 "\n"
@@ -318,7 +311,7 @@ public:
 "; }"));
         delete_2 = new QPushButton(centralwidget);
         delete_2->setObjectName("delete_2");
-        delete_2->setGeometry(QRect(1180, 460, 93, 29));
+        delete_2->setGeometry(QRect(1160, 670, 93, 29));
         delete_2->setFont(font3);
         delete_2->setStyleSheet(QString::fromUtf8("#delete_2\n"
 "{\n"
@@ -326,23 +319,90 @@ public:
 "                    /* Padding for text */\n"
 "    background: transparent; \n"
 "}"));
-        label_10 = new QLabel(centralwidget);
-        label_10->setObjectName("label_10");
-        label_10->setGeometry(QRect(0, 10, 181, 141));
-        label_10->setPixmap(QPixmap(QString::fromUtf8(":/image/img/logo-removebg-preview.png")));
-        label_10->setScaledContents(true);
+        logo = new QLabel(centralwidget);
+        logo->setObjectName("logo");
+        logo->setGeometry(QRect(20, 20, 121, 111));
+        logo->setPixmap(QPixmap(QString::fromUtf8(":/image/img/logo-removebg-preview.png")));
+        logo->setScaledContents(true);
         table = new QTableView(centralwidget);
         table->setObjectName("table");
-        table->setGeometry(QRect(530, 210, 841, 221));
+        table->setGeometry(QRect(530, 170, 841, 491));
         table->setStyleSheet(QString::fromUtf8("#table{\n"
 "background:rgba(33, 133, 85, 0.4);\n"
 " border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;\n"
 "}"));
+        pdf = new QPushButton(centralwidget);
+        pdf->setObjectName("pdf");
+        pdf->setGeometry(QRect(1290, 130, 71, 31));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/image/img/pdf.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        pdf->setIcon(icon);
+        light = new QPushButton(centralwidget);
+        light->setObjectName("light");
+        light->setGeometry(QRect(20, 710, 93, 31));
+        light->setFont(font2);
+        light->setStyleSheet(QString::fromUtf8("#light {\n"
+"    background-color:transparent; \n"
+"    color: #333; \n"
+"    border: 2px solid #ccc;\n"
+"    border-radius: 10px;\n"
+"    padding: 5px 10px; \n"
+"}\n"
+"\n"
+"#light:hover {\n"
+"    background-color: #e0e0e0;\n"
+"    border: 2px solid #bbb;\n"
+"}\n"
+"\n"
+"#light:pressed {\n"
+"    background-color: #d0d0d0; \n"
+"    border: 2px solid #999;\n"
+"}"));
+        dark = new QPushButton(centralwidget);
+        dark->setObjectName("dark");
+        dark->setGeometry(QRect(120, 710, 93, 29));
+        dark->setFont(font2);
+        dark->setStyleSheet(QString::fromUtf8("#dark {\n"
+"    background-color: #333; /* Dark gray background */\n"
+"    color: white; /* White text */\n"
+"    border: 2px solid #555; /* Slightly lighter border */\n"
+"   border-radius: 10px; /* Rounded corners */\n"
+"    padding: 5px 10px; /* Padding for better appearance */\n"
+"}\n"
+"#dark:hover {\n"
+"    background-color: #444; /* Slightly lighter on hover */\n"
+"    border: 2px solid #777;\n"
+"}\n"
+"\n"
+"#dark:pressed {\n"
+"    background-color: #222; /* Even darker when pressed */\n"
+"    border: 2px solid #999;\n"
+"}"));
+        bg = new QLabel(centralwidget);
+        bg->setObjectName("bg");
+        bg->setGeometry(QRect(0, 0, 1431, 761));
+        bg->setStyleSheet(QString::fromUtf8("#bg{\n"
+"	background-image: url(:/image/img/bg.jpeg);\n"
+"}"));
         MainWindow->setCentralWidget(centralwidget);
+        bg->raise();
+        menu->raise();
+        form->raise();
+        search_bar->raise();
+        tri->raise();
+        modify->raise();
+        stat->raise();
+        generate->raise();
+        delete_2->raise();
+        logo->raise();
+        table->raise();
+        pdf->raise();
+        light->raise();
+        dark->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1424, 26));
+        menubar->setGeometry(QRect(0, 0, 1427, 26));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -356,7 +416,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        label->setText(QString());
         user->setText(QString());
         joueur->setText(QString());
         arbitre->setText(QString());
@@ -370,6 +429,7 @@ public:
         label_6->setText(QCoreApplication::translate("MainWindow", "Area :", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Date_issue :", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Date_event :", nullptr));
+        id->setPlaceholderText(QCoreApplication::translate("MainWindow", "Enter Id", nullptr));
         type->setItemText(0, QCoreApplication::translate("MainWindow", "Eco", nullptr));
         type->setItemText(1, QCoreApplication::translate("MainWindow", "Standard ", nullptr));
         type->setItemText(2, QCoreApplication::translate("MainWindow", "VIP", nullptr));
@@ -378,6 +438,8 @@ public:
         area->setItemText(1, QCoreApplication::translate("MainWindow", "B", nullptr));
         area->setItemText(2, QCoreApplication::translate("MainWindow", "C", nullptr));
 
+        price->setPlaceholderText(QCoreApplication::translate("MainWindow", "Enter Price", nullptr));
+        quantity->setPlaceholderText(QCoreApplication::translate("MainWindow", "Enter Quantity", nullptr));
         add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
         cancel->setText(QCoreApplication::translate("MainWindow", "Cancel", nullptr));
         search_bar->setPlaceholderText(QCoreApplication::translate("MainWindow", "search...", nullptr));
@@ -386,12 +448,15 @@ public:
         tri->setItemText(2, QCoreApplication::translate("MainWindow", "Cheap", nullptr));
 
         tri->setPlaceholderText(QString());
-        label_9->setText(QString());
         modify->setText(QCoreApplication::translate("MainWindow", "Modify", nullptr));
         stat->setText(QCoreApplication::translate("MainWindow", "Report statistics", nullptr));
         generate->setText(QCoreApplication::translate("MainWindow", "Generate", nullptr));
         delete_2->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
-        label_10->setText(QString());
+        logo->setText(QString());
+        pdf->setText(QCoreApplication::translate("MainWindow", "PDF", nullptr));
+        light->setText(QCoreApplication::translate("MainWindow", "Light", nullptr));
+        dark->setText(QCoreApplication::translate("MainWindow", "Dark", nullptr));
+        bg->setText(QString());
     } // retranslateUi
 
 };

@@ -178,7 +178,7 @@ QSqlQueryModel* gestion_billet::triPrixCroissant() {
     QSqlQueryModel* model = new QSqlQueryModel();
 
     // Requête pour trier par prix croissant
-    QString queryStr = "SELECT id, type, price, quantity, area, date_issue, date_event FROM BILLET ORDER BY price ASC";
+    QString queryStr = "SELECT id, type, price, quantity, area, date_issue, date_event,TICKETS FROM BILLET ORDER BY price ASC";
 
     model->setQuery(queryStr);
 
@@ -190,6 +190,7 @@ QSqlQueryModel* gestion_billet::triPrixCroissant() {
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Zone"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date d'émission"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date de l'événement"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Ticket Image"));
 
     return model;
 }
@@ -197,7 +198,7 @@ QSqlQueryModel* gestion_billet::triPrixDecroissant() {
     QSqlQueryModel* model = new QSqlQueryModel();
 
     // Requête pour trier par prix décroissant
-    QString queryStr = "SELECT id, type, price, quantity, area, date_issue, date_event FROM BILLET ORDER BY price DESC";
+    QString queryStr = "SELECT id, type, price, quantity, area, date_issue, date_event,TICKETS FROM BILLET ORDER BY price DESC";
 
     model->setQuery(queryStr);
 
@@ -209,6 +210,7 @@ QSqlQueryModel* gestion_billet::triPrixDecroissant() {
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Zone"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date d'émission"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date de l'événement"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Ticket Image"));
 
     return model;
 }
@@ -216,7 +218,7 @@ QSqlQueryModel* gestion_billet::triid() {
     QSqlQueryModel* model = new QSqlQueryModel();
 
     // Requête pour trier par prix décroissant
-    QString queryStr = "SELECT id, type, price, quantity, area, date_issue, date_event FROM BILLET ORDER BY id";
+    QString queryStr = "SELECT id, type, price, quantity, area, date_issue, date_event,TICKETS FROM BILLET ORDER BY id";
 
     model->setQuery(queryStr);
 
@@ -228,6 +230,7 @@ QSqlQueryModel* gestion_billet::triid() {
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Zone"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date d'émission"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date de l'événement"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Ticket Image"));
 
     return model;
 }

@@ -45,7 +45,12 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "on_table_clicked",
     "QModelIndex",
     "index",
-    "on_tri_activated"
+    "on_tri_activated",
+    "on_pdf_clicked",
+    "on_stat_clicked",
+    "on_generate_clicked",
+    "on_dark_clicked",
+    "on_light_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -58,7 +63,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,13 +71,18 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   56,    2, 0x08,    1 /* Private */,
-       3,    0,   57,    2, 0x08,    2 /* Private */,
-       4,    0,   58,    2, 0x08,    3 /* Private */,
-       5,    0,   59,    2, 0x08,    4 /* Private */,
-       6,    0,   60,    2, 0x08,    5 /* Private */,
-       7,    1,   61,    2, 0x08,    6 /* Private */,
-      10,    1,   64,    2, 0x08,    8 /* Private */,
+       1,    0,   86,    2, 0x08,    1 /* Private */,
+       3,    0,   87,    2, 0x08,    2 /* Private */,
+       4,    0,   88,    2, 0x08,    3 /* Private */,
+       5,    0,   89,    2, 0x08,    4 /* Private */,
+       6,    0,   90,    2, 0x08,    5 /* Private */,
+       7,    1,   91,    2, 0x08,    6 /* Private */,
+      10,    1,   94,    2, 0x08,    8 /* Private */,
+      11,    0,   97,    2, 0x08,   10 /* Private */,
+      12,    0,   98,    2, 0x08,   11 /* Private */,
+      13,    0,   99,    2, 0x08,   12 /* Private */,
+      14,    0,  100,    2, 0x08,   13 /* Private */,
+      15,    0,  101,    2, 0x08,   14 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -82,6 +92,11 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 8,    9,
     QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -110,7 +125,17 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
         // method 'on_tri_activated'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'on_pdf_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_stat_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_generate_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_dark_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_light_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -128,6 +153,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->on_cancel_clicked(); break;
         case 5: _t->on_table_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
         case 6: _t->on_tri_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 7: _t->on_pdf_clicked(); break;
+        case 8: _t->on_stat_clicked(); break;
+        case 9: _t->on_generate_clicked(); break;
+        case 10: _t->on_dark_clicked(); break;
+        case 11: _t->on_light_clicked(); break;
         default: ;
         }
     }
@@ -152,13 +182,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 12)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 12;
     }
     return _id;
 }

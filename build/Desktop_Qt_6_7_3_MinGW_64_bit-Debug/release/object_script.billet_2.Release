@@ -1,0 +1,12 @@
+release/qrcodegen.o
+release/dialog.o
+release/connection.o
+release/dialog_billet.o
+release/generate_tickets.o
+release/gestion_billet.o
+release/main.o
+release/mainwindow.o
+release/qrc_resource.o
+release/moc_dialog.o
+release/moc_dialog_billet.o
+release/moc_mainwindow.o
