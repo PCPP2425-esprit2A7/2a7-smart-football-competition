@@ -58,6 +58,7 @@ void EmailDialog::envoyerEmail(QString email, QString sujet, QString message)
     QString output = process.readAllStandardOutput();
     QString errors = process.readAllStandardError();
     qDebug() << "Email envoyé à :" << email;
-    qDebug() << "Sortie standard : " << process.readAllStandardOutput();
-    qDebug() << "Erreur standard : " << process.readAllStandardError();
+    qDebug() << "Sortie standard : " << output;
+    qDebug() << "Erreur standard : " << errors;
+
 }

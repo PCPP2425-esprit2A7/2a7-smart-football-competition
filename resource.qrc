@@ -14,8 +14,4 @@
         <file>img/icons8-search-50.png</file>
         <file>img/icons8-notifications-50.png</file>
     </qresource>
-    <qresource prefix="/">
-        <file>../../../OneDrive/Desktop/icons8-notifications-50.png</file>
-        <file>../../../OneDrive/Desktop/icons8-search-50.png</file>
-    </qresource>
 </RCC>

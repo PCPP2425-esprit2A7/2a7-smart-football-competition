@@ -20,8 +20,9 @@ mot_de_passe = "ngtj dltv yesv vagl"
 # Construction du message
 msg = MIMEText(message)
 msg["Subject"] = sujet
-msg["From"] = email_expediteur
+msg["From"] = "Notification Match <email_expediteur>"
 msg["To"] = destinataire
+msg["Reply-To"] = email_expediteur
 
 try:
     print("Connexion à smtp.gmail.com sur le port 465...")

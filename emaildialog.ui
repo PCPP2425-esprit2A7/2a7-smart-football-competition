@@ -6,25 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>477</height>
+    <width>1281</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>651</width>
-     <height>401</height>
+     <x>20</x>
+     <y>30</y>
+     <width>1241</width>
+     <height>421</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Email de l'arbitre</string>
       </property>
@@ -32,6 +42,13 @@
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Message </string>
       </property>
@@ -39,6 +56,13 @@
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Date</string>
       </property>
@@ -47,25 +71,57 @@
     <item row="2" column="1">
      <widget class="QDateEdit" name="dateEdit_dateMatch"/>
     </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_email"/>
-    </item>
     <item row="5" column="1">
      <widget class="QPushButton" name="btn_annuler">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_annuler{
+background:rgba(33,133,85,0.4);
+border-radius:10px;
+padding:5px;
+}</string>
+      </property>
       <property name="text">
-       <string>annuler</string>
+       <string>Annuler</string>
       </property>
      </widget>
     </item>
     <item row="4" column="1">
      <widget class="QPushButton" name="btn_envoyer">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_envoyer{
+background:rgba(33,133,85,0.4);
+border-radius:10px;
+padding:5px;
+}</string>
+      </property>
       <property name="text">
-       <string>envoyer</string>
+       <string>Envoyer</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
      <widget class="QTextEdit" name="textEdit_message"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineEdit_email">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

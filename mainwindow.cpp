@@ -16,6 +16,18 @@
 #include <QPageSize>
 #include "emaildialog.h"
 #include <QRandomGenerator>
+#include <QFile>
+#include <QTextStream>
+#include <QDateTime>
+#include "historiqueDialog.h"
+#include <QProcess>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
+#include "reclamationwindow.h"
+#include <QInputDialog>
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -30,22 +42,24 @@ MainWindow::MainWindow(QWidget *parent)
     afficher();  // Charge les arbitres dès le lancement
 
 
+
     // Connecte les boutons aux méthodes correspondantes
-    connect(ui->pushButton_ajouter, &QPushButton::clicked, this, &MainWindow::on_pushButton_ajouter_clicked);
+    connect(ui->pushButton_ajouter, SIGNAL(clicked()), this, SLOT(on_pushButton_ajouter_clicked()));
     connect(ui->pushButton_modifier, &QPushButton::clicked, this, &MainWindow::on_pushButton_modifier_clicked);
     connect(ui->tableView, &QTableView::clicked, this, &MainWindow::selectionnerArbitre);
-    connect(ui->pushButton_cancel, &QPushButton::clicked, this, &MainWindow::on_cancel_clicked);
+    connect(ui->pushButton_cancel, &QPushButton::clicked, this, &MainWindow::on_pushButton_cancel_clicked);
     connect(ui->lineEdit_rechercher, &QLineEdit::textChanged, this, &MainWindow::on_lineEdit_rechercher_textChanged);
     connect(ui->radioButton_night, &QRadioButton::clicked, this, &MainWindow::on_radioButton_night_clicked);
     connect(ui->radioButton_light, &QRadioButton::clicked, this, &MainWindow::on_radioButton_light_clicked);
     connect(ui->comboBox_tri, &QComboBox::currentTextChanged, this, &MainWindow::trierArbitres);
     connect(ui->PDF, &QPushButton::clicked, this, &MainWindow::exporterListeArbitresPDF);
+    connect(ui->btn_ouvrirEmailDialog, &QPushButton::clicked, this, &MainWindow::on_btn_ouvrirEmailDialog_clicked);
     connect(ui->pushButton_guess, &QPushButton::clicked, this, &MainWindow::on_pushButton_guess_clicked);
-    connect(ui->pushButton_guess, &QPushButton::clicked, this, &MainWindow::on_pushButton_guess_clicked);
-
-
-
-
+    connect(ui->pushButton_Historique, &QPushButton::clicked, this, &MainWindow::on_pushButton_Historique_clicked);
+    connect(ui->btn_test_voice, &QPushButton::clicked, this, &MainWindow::on_btn_test_voice_clicked);
+    reclamationWindow = new ReclamationWindow(this);
+    connect(reclamationWindow, &ReclamationWindow::reclamationSubmitted, this, &MainWindow::onReclamationSubmitted);
+    loadReclamations();
 
 }
 
@@ -54,7 +68,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_cancel_clicked()
+void MainWindow::on_pushButton_cancel_clicked()
 {
     // Nettoyer les champs de saisie
     ui->lineEdit->clear();
@@ -65,8 +79,10 @@ void MainWindow::on_cancel_clicked()
     ui->lineEdit_6->clear();
     ui->comboBox->setCurrentIndex(0);
     ui->tableView->clearSelection(); // Réinitialiser la sélection
+    logAction("cancel d'un arbitre");
 }
 void MainWindow::on_pushButton_ajouter_clicked() {
+    qDebug() << "Ajout bouton cliqué";
     if (ui->lineEdit->text().isEmpty() || ui->lineEdit_2->text().isEmpty() ||
         ui->lineEdit_3->text().isEmpty() || ui->lineEdit_4->text().isEmpty() ||
         ui->lineEdit_5->text().isEmpty() || ui->lineEdit_6->text().isEmpty())
@@ -114,11 +130,27 @@ void MainWindow::on_pushButton_ajouter_clicked() {
         QMessageBox::information(this, "Succès", "Arbitre ajouté avec succès!");
         afficher();
     } else {
-        QMessageBox::critical(this, "Erreur", "Erreur lors de l'ajout de l'arbitre.");
+        qDebug() << "Test a échoué malgré ajout réussi.";
+        //QMessageBox::critical(this, "Erreur", "Erreur lors de l'ajout de l'arbitre.");
     }
-    /* Mettre à jour les statistiques après l'ajout
-    Statistique *stat = new Statistique(this);  // Passer 'this' comme parent pour éviter la fuite mémoire
-    stat->exec();  // Afficher les statistiques de manière modale*/
+    if (test) {
+        QMessageBox::information(this, "Succès", "Arbitre ajouté avec succès!");
+        afficher();
+
+        QString logDetail = QString("Ajout arbitre : ID=%1, Nom=%2, Prénom=%3, Email=%4, Catégorie=%5, Matchs=%6, Cartons=%7")
+                                .arg(id)
+                                .arg(name)
+                                .arg(last_name)
+                                .arg(email)
+                                .arg(category)
+                                .arg(nb_match_a)
+                                .arg(nb_carton);
+
+        logAction(logDetail);  // Log uniquement cette ligne avec tous les détails
+    } else {
+        qDebug() << "Test a échoué malgré ajout réussi.";
+    }
+
 }
 void MainWindow::afficher()
 {
@@ -182,12 +214,22 @@ void MainWindow::on_pushButton_modifier_clicked() {
     if (query.exec()) {
         QMessageBox::information(this, "Succès", "Arbitre modifié avec succès!");
         afficher();
+        QString logDetail = QString("Modification arbitre : ID=%1, Nouveau Nom=%2, Nouveau Prénom=%3, Nouveau Email=%4")
+                                .arg(id)
+                                .arg(name)
+                                .arg(last_name)
+                                .arg(email);
+        logAction(logDetail);
     } else {
-        QMessageBox::critical(this, "Erreur", "Erreur lors de la modification de l'arbitre.");
+        QMessageBox::critical(this, "Erreur", "Erreur lors de la modification.");
     }
+
+
+
     /*Mettre à jour les statistiques après l'ajout
     Statistique *stat = new Statistique(this);  // Passer 'this' comme parent pour éviter la fuite mémoire
     stat->exec();  // Afficher les statistiques de manière modale*/
+    //logAction("modification d'un arbitre");
 }
 
 void MainWindow::selectionnerArbitre() {
@@ -234,19 +276,32 @@ void MainWindow::on_pushButton_supprimer_clicked() {
         if (a.supprimer(id)) {  // Appel de la méthode supprimer
             QMessageBox::information(this, "Succès", "Arbitre supprimé avec succès !");
             afficher();
+            QString logDetail = QString("Suppression arbitre : ID=%1")
+                                    .arg(id);
+            logAction(logDetail);
         } else {
-            QMessageBox::critical(this, "Erreur", "Erreur lors de la suppression de l'arbitre.");
+            QMessageBox::critical(this, "Erreur", "Erreur lors de la suppression.");
         }
+
     }
     /* Mettre à jour les statistiques après l'ajout
     Statistique *stat = new Statistique(this);  // Passer 'this' comme parent pour éviter la fuite mémoire
     stat->exec();  // Afficher les statistiques de manière modale*/
+    logAction("supprision d'un arbitre");
+}
+void MainWindow::on_lineEdit_rechercher_textChanged(const QString &arg1) {
+    arbitre a(0, "", "", 0, 0, "", ""); //
+    ui->tableView->setModel(a.rechercher(arg1));
+
+
+    if (!arg1.isEmpty()) {
+        QString logDetail = QString("Recherche d'un arbitre avec le terme : %1").arg(arg1);
+        logAction(logDetail);  //
+    } else {
+        logAction("Recherche d'un arbitre (champ vide)");
+    }
 }
 
-void MainWindow::on_lineEdit_rechercher_textChanged(const QString &arg1) {
-    arbitre a(0, "", "", 0, 0, "", ""); // Création d'un objet arbitre temporaire
-    ui->tableView->setModel(a.rechercher(arg1));
-}
 
 void MainWindow::on_radioButton_night_clicked() {
     qApp->setStyleSheet(
@@ -327,6 +382,7 @@ void MainWindow::trierArbitres(const QString &colonne)
 
     // Appliquer le modèle au QTableView pour afficher les données triées
     ui->tableView->setModel(model);
+     logAction("Tri des arbitres par catégorie: " + colonne);
 }
 
 
@@ -334,6 +390,7 @@ void MainWindow::on_pushButton_statistiques_clicked()
 {
     Statistique stats;
     stats.exec();
+    logAction("Affichage des statistiques d'un arbitre");
 }
 
 
@@ -427,39 +484,261 @@ void MainWindow::exporterListeArbitresPDF()
     // 7. Fin de l'écriture et message de succès
     painter.end();
     QMessageBox::information(this, "Succès", "L'exportation a été effectuée avec succès !");
+    logAction("export d'un pdf d'un arbitre");
 }
+
+
+
+
 void MainWindow::on_btn_ouvrirEmailDialog_clicked()
 {
     EmailDialog dialog(this);
     dialog.exec(); // Affiche la fenêtre modale
+    logAction("email envoyer a un arbitre");
 }
 void MainWindow::on_pushButton_guess_clicked()
 {
     QSqlQuery query("SELECT NAME, EMAIL FROM ARBITRE");
 
-    QVector<QPair<QString, QString>> arbitre;
+    QVector<QPair<QString, QString>> arbitresDisponibles;
 
     while (query.next()) {
         QString nom = query.value(0).toString();
         QString email = query.value(1).toString();
-        arbitre.append(qMakePair(nom, email));
+
+        // نتحقق هل الإيميل موجود في جدول التظلمات
+        bool aFaitReclamation = false;
+        for (int i = 0; i < ui->tableWidget_reclamations->rowCount(); ++i) {
+            QString emailReclamation = ui->tableWidget_reclamations->item(i, 1)->text(); // العمود 1 فيه الإيميل
+            if (emailReclamation == email) {
+                aFaitReclamation = true;
+                break;
+            }
+        }
+
+        if (!aFaitReclamation) {
+            arbitresDisponibles.append(qMakePair(nom, email));
+        }
     }
 
-    if (arbitre.isEmpty()) {
-        ui->label_resultat->setText("Aucun arbitre trouvé !");
+    if (arbitresDisponibles.isEmpty()) {
+        ui->label_resultat->setText("Aucun arbitre disponible ! Tous ont réclamé.");
         return;
     }
 
-    int index = QRandomGenerator::global()->bounded(arbitre.size());
-    QPair<QString, QString> arbitreChoisi = arbitre[index];
+    int index = QRandomGenerator::global()->bounded(arbitresDisponibles.size());
+    QPair<QString, QString> arbitreChoisi = arbitresDisponibles[index];
 
-    // Mise à jour de l'affichage
     QString message = QString("🎉 Chanceux ! Tu vas arbitrer le prochain match !\n\n")
                       + QString("Nom : %1\nEmail : %2")
                             .arg(arbitreChoisi.first)
                             .arg(arbitreChoisi.second);
-    ui->label_resultat->setStyleSheet("font-family: Arial; font-weight: bold; font-size: 10pt;");
 
-    // Affichage du message et des informations
+    ui->label_resultat->setStyleSheet("font-family: Arial; font-weight: bold; font-size: 10pt;");
     ui->label_resultat->setText(message);
+
+    envoyerEmail(arbitreChoisi.second, arbitreChoisi.first);
+
+    QMessageBox::information(this, "Succès", "L'email a été envoyé avec succès au juge sélectionné!");
+}
+
+void MainWindow::envoyerEmail(const QString &email, const QString &nom)
+{
+    QString pythonScript = "C:/scripts/envoyer_email.py";  // Assure-toi que le chemin est correct
+    QString pythonExe = "C:/Users/Hammami Yessmie/AppData/Local/Programs/Python/Python313/python.exe";  // Vérifie que Python est installé à ce chemin
+
+    QProcess process;
+    QStringList arguments;
+    arguments << pythonScript << email << nom;  // On passe les arguments nécessaires (email et nom)
+
+    process.start(pythonExe, arguments);  // Lance le script Python avec les arguments
+    process.waitForFinished();
+
+    // Lire la sortie du script Python
+    QString output = process.readAllStandardOutput();
+    QString errorOutput = process.readAllStandardError();
+
+    qDebug() << "Python Output:" << output;
+    qDebug() << "Python Error:" << errorOutput;
+
+    // Vérification de l'envoi de l'email
+    if (output.contains("Email envoyé avec succès")) {
+        QMessageBox::information(this, "Succès", "📬 L'email a été envoyé avec succès !");
+        logAction(QString("Email envoyé à %1 (%2)").arg(nom, email));
+    } /*else {
+        QMessageBox::warning(this, "Erreur", "❌ Problème lors de l'envoi de l'email.\n" + errorOutput);
+    }*/
+}
+
+
+
+void MainWindow::logAction(const QString &actionDetails)
+{
+    QFile file("historique.txt");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
+        out << timestamp << " | " << actionDetails << "\n";
+    }
+}
+
+
+
+
+
+    // Dans mainwindow.cpp
+void MainWindow::on_pushButton_Historique_clicked()
+{
+    HistoriqueDialog h(this);
+    h.exec();
+}
+void MainWindow::on_btn_test_voice_clicked() {
+    QString spokentest = "أرسل إيميل إلى هشام";
+    testerCommandeVocale(spokentest);
+}
+
+void MainWindow::testerCommandeVocale(QString spokenText)
+{
+    QString pythonExe = "C:/Users/Hammami Yessmie/AppData/Local/Programs/Python/Python313/python.exe";
+    QString scriptPath = "C:/Users/Hammami Yessmie/OneDrive/Desktop/Atelier_Connexion (2)/Atelier_Connexion/voice_command_system/understand_command.py";
+
+    qDebug() << "Spoken Text: " << spokenText;
+
+    QStringList arguments;
+    arguments << scriptPath << spokenText;
+
+    QProcess process;
+    process.start(pythonExe, arguments);
+    process.waitForFinished();
+
+    QString output = process.readAllStandardOutput().trimmed();
+    qDebug() << "Python Output: " << output;
+
+    QStringList result = output.split(":");
+
+    QString commandType = result.value(0);
+    QString target = result.value(1);
+    qDebug() << "Spoken Text: " << spokenText;
+    qDebug() << "Python Output: " << output;
+    qDebug() << "Command Type: " << commandType;
+    qDebug() << "Target: " << target;
+
+
+    if (commandType == "search") {
+        on_lineEdit_rechercher_textChanged(target);
+    } else if (commandType == "email") {
+        QString email = target + "@example.com";
+        envoyerEmail(email, target);
+    } else {
+        QMessageBox::warning(this, "خطأ", "لم يتم فهم الأمر الصوتي.");
+    }
+}
+void MainWindow::on_pushButton_reclamer_clicked()
+{
+    ReclamationWindow *reclamationWindow = new ReclamationWindow(this);
+    connect(reclamationWindow, &ReclamationWindow::reclamationSubmitted,
+            this, &MainWindow::onReclamationSubmitted);
+    reclamationWindow->exec();
+}
+
+
+
+
+void MainWindow::onReclamationSubmitted(const QString &name, const QString &email, const QString &reason)
+{
+    ui->tableWidget_reclamations->setColumnCount(5);
+    QStringList headers;
+    headers << "Nom" << "Email" << "Raison" << "Modifier" << "Supprimer";
+    ui->tableWidget_reclamations->setHorizontalHeaderLabels(headers);
+
+    QFile file("reclamations.txt");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << name << "|" << email << "|" << reason << "\n";
+        file.close();
+    }
+
+
+    int row = ui->tableWidget_reclamations->rowCount();
+    ui->tableWidget_reclamations->insertRow(row);
+    ui->tableWidget_reclamations->setItem(row, 0, new QTableWidgetItem(name));
+    ui->tableWidget_reclamations->setItem(row, 1, new QTableWidgetItem(email));
+    ui->tableWidget_reclamations->setItem(row, 2, new QTableWidgetItem(reason));
+    QPushButton *btnModifier = new QPushButton("Modifier");
+    connect(btnModifier, &QPushButton::clicked, this, [this, row]() {
+        modifierReclamation(row);
+    });
+    ui->tableWidget_reclamations->setCellWidget(row, 3, btnModifier);
+
+    // الزر "حذف"
+    QPushButton *btnSupprimer = new QPushButton("Supprimer");
+    connect(btnSupprimer, &QPushButton::clicked, this, [this, row]() {
+        supprimerReclamation(row);
+    });
+    ui->tableWidget_reclamations->setCellWidget(row, 4, btnSupprimer);
+
+}
+void MainWindow::supprimerReclamation(int row)
+{
+    ui->tableWidget_reclamations->removeRow(row);
+
+
+    enregistrerToutesLesReclamationsDansFichier();
+}
+void MainWindow::modifierReclamation(int row)
+{
+    QString nom = ui->tableWidget_reclamations->item(row, 0)->text();
+    QString email = ui->tableWidget_reclamations->item(row, 1)->text();
+    QString raison = ui->tableWidget_reclamations->item(row, 2)->text();
+
+    // مثال: افتح نافذة إدخال جديدة (أو استعمل QInputDialog)
+    bool ok;
+    QString nouveauNom = QInputDialog::getText(this, "Modifier", "Nouveau nom :", QLineEdit::Normal, nom, &ok);
+    if (!ok || nouveauNom.isEmpty()) return;
+
+    ui->tableWidget_reclamations->item(row, 0)->setText(nouveauNom);
+
+
+
+
+    enregistrerToutesLesReclamationsDansFichier();
+}
+void MainWindow::enregistrerToutesLesReclamationsDansFichier()
+{
+    QFile file("reclamations.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+    for (int row = 0; row < ui->tableWidget_reclamations->rowCount(); ++row) {
+        QString nom = ui->tableWidget_reclamations->item(row, 0)->text();
+        QString email = ui->tableWidget_reclamations->item(row, 1)->text();
+        QString raison = ui->tableWidget_reclamations->item(row, 2)->text();
+
+        out << nom << ";" << email << ";" << raison << "\n";
+    }
+
+    file.close();
+}
+
+
+void MainWindow::loadReclamations()
+{
+    QFile file("reclamations.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split("|");
+        if (parts.size() == 3) {
+            int row = ui->tableWidget_reclamations->rowCount();
+            ui->tableWidget_reclamations->insertRow(row);
+            ui->tableWidget_reclamations->setItem(row, 0, new QTableWidgetItem(parts[0]));
+            ui->tableWidget_reclamations->setItem(row, 1, new QTableWidgetItem(parts[1]));
+            ui->tableWidget_reclamations->setItem(row, 2, new QTableWidgetItem(parts[2]));
+        }
+    }
+    file.close();
 }

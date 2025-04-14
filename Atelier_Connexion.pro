@@ -3,11 +3,14 @@
 # Project created by QtCreator 2018-10-26T21:45:23
 #
 #-------------------------------------------------
+QT += sql
 
 QT       += core gui sql
 QT += charts
 QT += printsupport
-FORMS += emaildialog.ui
+FORMS += emaildialog.ui \
+    historiquedialog.ui \
+    reclamationwindow.ui
 
 
 
@@ -38,16 +41,20 @@ CONFIG += c++11
 SOURCES += \
     arbitre.cpp \
     emaildialog.cpp \
+    historiquedialog.cpp \
     main.cpp \
     mainwindow.cpp \
     connection.cpp \
+    reclamationwindow.cpp \
     statistique.cpp
 
 HEADERS += \
     arbitre.h \
     emaildialog.h \
+    historiquedialog.h \
     mainwindow.h \
     connection.h \
+    reclamationwindow.h \
     statistique.h
 
 FORMS += \
@@ -60,3 +67,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    img/icons8-notifications-50.png \
+    img/icons8-search-50.png
