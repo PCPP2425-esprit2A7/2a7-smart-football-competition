@@ -1,13 +1,16 @@
 QT += core gui printsupport
 QT       += core gui sql
 QT       += core gui
+QT += serialport
 
 QT += core gui widgets charts
 QT += core gui multimedia
 CONFIG += c++11
 SOURCES += qrcodegen.cpp \
+    arduino.cpp \
     dialog.cpp
 HEADERS += qrcodegen.hpp \
+    arduino.h \
     dialog.h
 
 

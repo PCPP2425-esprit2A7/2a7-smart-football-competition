@@ -5,7 +5,7 @@
 #include <QTableView>
 // Default constructor
 gestion_billet::gestion_billet() {
-    id = 0;
+    id = "";
     type = "";
     price = 0;
     quantity = 0;
@@ -15,7 +15,7 @@ gestion_billet::gestion_billet() {
 }
 
 // Parameterized constructor
-gestion_billet::gestion_billet(int id, QString type, int price, int quantity, QString area, QDate date_issue, QDate date_event) {
+gestion_billet::gestion_billet(QString id, QString type, int price, int quantity, QString area, QDate date_issue, QDate date_event) {
     this->id = id;
     this->type = type;
     this->price = price;
@@ -26,7 +26,7 @@ gestion_billet::gestion_billet(int id, QString type, int price, int quantity, QS
 }
 
 // Getters
-int gestion_billet::getid() { return id; }
+QString gestion_billet::getid() { return id; }
 QString gestion_billet::gettype() { return type; }
 int gestion_billet::getprice() { return price; }
 int gestion_billet::getquantity() { return quantity; }
@@ -35,7 +35,7 @@ QDate gestion_billet::getdate_issue() { return date_issue; }
 QDate gestion_billet::getdate_event() { return date_event; }
 
 // Setters
-void gestion_billet::setid(int id) { this->id = id; }
+void gestion_billet::setid(QString id) { this->id = id; }
 void gestion_billet::settype(QString type) { this->type = type; }
 void gestion_billet::setprice(int price) { this->price = price; }
 void gestion_billet::setquantity(int quantity) { this->quantity = quantity; }
@@ -77,7 +77,6 @@ bool gestion_billet::isValid(){
 // Add a new ticket to the database
 bool gestion_billet::add() {
     QSqlQuery query;
-    QString res = QString::number(id );
     if (!isValid()) {
         qDebug() << "add invalid";
         return false;
@@ -87,7 +86,7 @@ bool gestion_billet::add() {
                   "VALUES (:ID, :TYPE, :PRICE, :QUANTITY, :AREA, :DATE_ISSUE, :DATE_EVENT)");
 
     // Bind values to the query
-    query.bindValue(":ID", res);
+    query.bindValue(":ID", id);
     query.bindValue(":TYPE", type);
     query.bindValue(":PRICE", price);
     query.bindValue(":QUANTITY", quantity);

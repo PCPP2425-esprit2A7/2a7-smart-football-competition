@@ -149,13 +149,13 @@ void generate_tickets::on_table_b_clicked(const QModelIndex &index)
     int row = index.row();
 
     // Assuming your table has columns: ID, Type, Price, Quantity, Area, Date Issue, Date Event
-    int id = ui->table_b->model()->data(ui->table_b->model()->index(row, 0)).toInt(); // Column 0 is ID
+    QString id = ui->table_b->model()->data(ui->table_b->model()->index(row, 0)).toString(); // Column 0 is ID
     QString date_issue = ui->table_b->model()->data(ui->table_b->model()->index(row, 4)).toString(); //colmun 4 is date_issue
     int price =  ui->table_b->model()->data(ui->table_b->model()->index(row, 2)).toInt(); //colmun 4 is date_issue
     QString area = ui->table_b->model()->data(ui->table_b->model()->index(row, 3)).toString(); //colmun 4 is date_issue
 
     // Set the values to the form
-    ui->id_qr->setText(QString::number(id));
+    ui->id_qr->setText(id);
     ui->date_issue->setText(date_issue);
     ui->price->setText("$" + QString::number(price));
     ui->area->setText("Area : "+area);
@@ -230,10 +230,10 @@ void generate_tickets::on_delete_qr_clicked()
 
 void generate_tickets::on_save_clicked() {
     // Get the ticket ID from the label
-    int selectedTicketId = ui->id_qr->text().toInt();
+    QString selectedTicketId = ui->id_qr->text();
 
     // Check if the ID is valid
-    if (selectedTicketId <= 0) {
+    if (selectedTicketId =="") {
         QMessageBox::warning(this, "Warning", "Invalid ticket ID. Please select a valid ticket.");
         return;
     }

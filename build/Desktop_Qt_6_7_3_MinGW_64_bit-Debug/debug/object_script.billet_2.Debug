@@ -1,4 +1,5 @@
 debug/qrcodegen.o
+debug/arduino.o
 debug/dialog.o
 debug/connection.o
 debug/dialog_billet.o

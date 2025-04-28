@@ -1,4 +1,5 @@
 release/qrcodegen.o
+release/arduino.o
 release/dialog.o
 release/connection.o
 release/dialog_billet.o

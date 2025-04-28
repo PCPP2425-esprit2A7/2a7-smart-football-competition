@@ -6,6 +6,9 @@
 #include <QSortFilterProxyModel>
 #include "dialog_billet.h"
 #include"dialog.h"
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include "arduino.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -13,6 +16,7 @@ class MainWindow;
 }
 class generate_tickets;
 class Dialog;
+class arduino;
 
 QT_END_NAMESPACE
 
@@ -23,6 +27,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+    void readSerial();
+    void verifierUID(const QString& uid);
 
 private slots:
     void on_add_clicked();
@@ -40,11 +48,13 @@ private slots:
     void on_dark_clicked();
 
     void on_light_clicked();
-
 private:
     Ui::MainWindow *ui;
     generate_tickets *generate_tickets_window;
     Dialog *dialog_window;
+    QSerialPort *serial;
+    QByteArray data;
+    arduino *A;
 
 };
 #endif // MAINWINDOW_H

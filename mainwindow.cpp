@@ -22,16 +22,52 @@
 #include <QWidget>
 //dialog
 #include"dialog_billet.h"
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include "arduino.h"  // Include arduino header in your mainwindow cpp file
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     afficher();  // Charger les billets dès l'ouverture de l'application
+    // A = new arduino();
+    // int ret=A->connect_arduino();
+    // switch(ret){
+    // case(0):qDebug()<<"arduino is avaible and connected to : "<<A->getarduino_port_name();
+    //     connect(A->getserial(), &QSerialPort::readyRead, this, &MainWindow::handleSerialData);
+    //     break;
+    // case(1):qDebug() << "arduino is available but not connected to :" << A->getarduino_port_name();
+    //     break;
+    // case(-1): qDebug() << "arduino is not available";
+    //     break;
+    // }
+    // Configure Serial
+    // Avant tout : Créer un nouvel objet QSerialPort
+    serial = new QSerialPort(this);   // <<< ✅ TRÈS IMPORTANT
+
+    // Maintenant tu peux configurer
+    serial->setPortName("COM4");      // ⚡ ton port Arduino ici
+    serial->setBaudRate(QSerialPort::Baud9600);
+    serial->setDataBits(QSerialPort::Data8);
+    serial->setParity(QSerialPort::NoParity);
+    serial->setStopBits(QSerialPort::OneStop);
+    serial->setFlowControl(QSerialPort::NoFlowControl);
+
+    if (serial->open(QIODevice::ReadOnly)) {
+        connect(serial, &QSerialPort::readyRead, this, &MainWindow::readSerial);
+        qDebug() << "Connexion série réussie !";
+    } else {
+        qDebug() << "Erreur ouverture port série";
+    }
+
+
 }
 
 MainWindow::~MainWindow()
 {
+    serial->close();
     delete ui;
 }
 
@@ -187,7 +223,7 @@ void MainWindow::on_add_clicked()
     }
 
     // Récupération des valeurs des champs
-    int id = ui->id->text().toInt();
+    QString id = ui->id->text();
     QString type = ui->type->currentText();
     int price = ui->price->text().toInt();
     int quantity = ui->quantity->text().toInt();
@@ -308,7 +344,7 @@ void MainWindow::on_table_clicked(const QModelIndex &index)
     int row = index.row();
 
     // Assuming your table has columns: ID, Type, Price, Quantity, Area, Date Issue, Date Event
-    int id = ui->table->model()->data(ui->table->model()->index(row, 0)).toInt(); // Column 0 is ID
+    QString id = ui->table->model()->data(ui->table->model()->index(row, 0)).toString(); // Column 0 is ID
     QString type = ui->table->model()->data(ui->table->model()->index(row, 1)).toString(); // Column 1 is Type
     int price = ui->table->model()->data(ui->table->model()->index(row, 2)).toInt(); // Column 2 is Price
     int quantity = ui->table->model()->data(ui->table->model()->index(row, 3)).toInt(); // Column 3 is Quantity
@@ -317,7 +353,7 @@ void MainWindow::on_table_clicked(const QModelIndex &index)
     QDate date_event = ui->table->model()->data(ui->table->model()->index(row, 6)).toDate(); // Column 6 is Date Event
 
     // Set the values to the form
-    ui->id->setText(QString::number(id));
+    ui->id->setText(QString(id));
     ui->type->setCurrentText(type);
     ui->price->setText(QString::number(price));
     ui->quantity->setText(QString::number(quantity));
@@ -609,5 +645,108 @@ void MainWindow::on_light_clicked()
     ui->bg->setStyleSheet("#bg{background-image: url(:/image/img/bg.jpeg);}");
 
 }
+// void MainWindow::handleSerialData()
+// {
+//     QByteArray rawData = A->read_from_arduino();
 
+//     if (!rawData.isEmpty()) {
+//         QString scanned_uid = QString::fromUtf8(rawData).trimmed();
+//         qDebug() << "UID reçu depuis Arduino:" << scanned_uid;
+//         ui->label_rfid->setText(scanned_uid);
+//     } else {
+//         qDebug() << "Aucune donnée reçue pour l'instant.";
+//     }
+// }
+void MainWindow::readSerial()
+{
+    QByteArray data = serial->readAll();
+    static QString buffer;
+
+    buffer += QString::fromUtf8(data);
+
+    // Dès qu'on reçoit un \n (fin de l'UID)
+    if (buffer.contains("\n")) {
+        QString uid = buffer.trimmed();  // Enlève \r \n etc.
+        qDebug() << "UID reçu:" << uid;
+        verifierUID(uid);
+        //ui->label_rfid->setText("tickets with UID :"+uid+"welcom");   // ✅ Affiche dans ton QLabel
+
+        buffer.clear();  // Réinitialiser pour le prochain scan
+    }
+}
+/*void MainWindow::verifierUID(const QString& uid)
+{
+    QSqlQuery query;
+    query.prepare("SELECT id FROM BILLET WHERE id = :uid");
+    query.bindValue(":uid", uid);
+
+    if (query.exec()) {
+        if (query.next()) {
+            // UID trouvé
+            qDebug() << " UID trouvé dans la base de données !";
+            ui->label_rfid->setText("tickets with UID :"+uid+"welcom");
+
+            QMessageBox::information(this, "Access Authorized", "welcome !");
+            serial->write("WELCOME\n");  // (optionnel si tu veux répondre à Arduino)
+        } else {
+            // UID non trouvé
+            qDebug() << " UID not in the data base";
+            ui->label_rfid->setText("Access denied: " + uid);
+
+            QMessageBox::warning(this, "Access denied", "ticket not recognized !");
+            serial->write("ACCESS_DENIED\n");  // (optionnel)
+        }
+    } else {
+        qDebug() << "Erreur requête SQL:" << query.lastError().text();
+    }
+}
+*/
+void MainWindow::verifierUID(const QString& uid)
+{
+    QSqlQuery query;
+    query.prepare("SELECT id FROM BILLET WHERE id = :uid");
+    query.bindValue(":uid", uid);
+
+    if (query.exec()) {
+        if (query.next()) {
+            // UID found
+            qDebug() << "UID found in the database!";
+
+            // Now, check the match status using a JOIN query
+            QSqlQuery statusQuery;
+            statusQuery.prepare("SELECT m.status FROM MATCH m JOIN BILLET b ON b.ID_M = m.ID WHERE b.id = :uid");
+            statusQuery.bindValue(":uid", uid);
+
+            if (statusQuery.exec()) {
+                if (statusQuery.next()) {
+                    QString status = statusQuery.value(0).toString();
+
+                    if (status == "pending") {
+                        ui->label_rfid->setText("tickt number: " + uid +" Welcome!");
+                        QMessageBox::information(this,"Access Granted", "Welcome!");
+
+                        serial->write("WELCOME\n");
+                    } else {
+                        ui->label_rfid->setText("Match in progress: " + uid);
+                        QMessageBox::warning(this, "Match in Progress", "The match is still ongoing.");
+                        serial->write("MATCH_IN_PROGRESS\n");  // Optionally respond to Arduino
+                    }
+                } else {
+                    qDebug() << " Error: Match status not found.";
+                    QMessageBox::warning(this, "Error", "Unable to retrieve the match status.");
+                }
+            } else {
+                qDebug() << " Error in status query:" << statusQuery.lastError().text();
+            }
+        } else {
+            // UID not found
+            qDebug() << "UID not in the database";
+            ui->label_rfid->setText("Access denied for: " + uid);
+            QMessageBox::warning(this, "Access Denied", "Ticket not recognized!");
+            serial->write("ACCESS_DENIED\n");  // Optionally respond to Arduino
+        }
+    } else {
+        qDebug() << "Error in SQL query:" << query.lastError().text();
+    }
+}
 

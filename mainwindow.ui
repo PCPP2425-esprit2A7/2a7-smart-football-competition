@@ -847,6 +847,26 @@ background:rgba(33, 133, 85, 0.4);
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="label_rfid">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>271</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>11</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>bg</zorder>
    <zorder>menu</zorder>
    <zorder>form</zorder>
@@ -861,6 +881,7 @@ background:rgba(33, 133, 85, 0.4);
    <zorder>pdf</zorder>
    <zorder>light</zorder>
    <zorder>dark</zorder>
+   <zorder>label_rfid</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

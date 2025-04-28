@@ -66,6 +66,7 @@ public:
     QPushButton *light;
     QPushButton *dark;
     QLabel *bg;
+    QLabel *label_rfid;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -385,6 +386,14 @@ public:
         bg->setStyleSheet(QString::fromUtf8("#bg{\n"
 "	background-image: url(:/image/img/bg.jpeg);\n"
 "}"));
+        label_rfid = new QLabel(centralwidget);
+        label_rfid->setObjectName("label_rfid");
+        label_rfid->setGeometry(QRect(200, 20, 271, 101));
+        QFont font4;
+        font4.setFamilies({QString::fromUtf8("Sylfaen")});
+        font4.setPointSize(11);
+        font4.setBold(true);
+        label_rfid->setFont(font4);
         MainWindow->setCentralWidget(centralwidget);
         bg->raise();
         menu->raise();
@@ -400,6 +409,7 @@ public:
         pdf->raise();
         light->raise();
         dark->raise();
+        label_rfid->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 1427, 26));
@@ -457,6 +467,7 @@ public:
         light->setText(QCoreApplication::translate("MainWindow", "Light", nullptr));
         dark->setText(QCoreApplication::translate("MainWindow", "Dark", nullptr));
         bg->setText(QString());
+        label_rfid->setText(QString());
     } // retranslateUi
 
 };

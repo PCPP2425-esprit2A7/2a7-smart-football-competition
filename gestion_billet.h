@@ -13,7 +13,7 @@
 class gestion_billet
 {
 private:
-    int id;
+    QString id;
     QString type;
     int price;
     int quantity;
@@ -22,9 +22,9 @@ private:
     QDate date_event;
 public:
     gestion_billet();
-    gestion_billet(int id, QString type, int price, int quantity, QString area, QDate date_issue, QDate date_event);
+    gestion_billet(QString id, QString type, int price, int quantity, QString area, QDate date_issue, QDate date_event);
     // Getters
-    int getid() ;
+    QString getid() ;
     QString gettype() ;
     int getprice() ;
     int getquantity() ;
@@ -33,7 +33,7 @@ public:
     QDate getdate_event() ;
 
     // Setters
-    void setid(int);
+    void setid(QString);
     void settype(QString);
     void setprice(int);
     void setquantity(int);
