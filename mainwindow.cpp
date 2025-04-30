@@ -674,33 +674,6 @@ void MainWindow::readSerial()
         buffer.clear();  // Réinitialiser pour le prochain scan
     }
 }
-/*void MainWindow::verifierUID(const QString& uid)
-{
-    QSqlQuery query;
-    query.prepare("SELECT id FROM BILLET WHERE id = :uid");
-    query.bindValue(":uid", uid);
-
-    if (query.exec()) {
-        if (query.next()) {
-            // UID trouvé
-            qDebug() << " UID trouvé dans la base de données !";
-            ui->label_rfid->setText("tickets with UID :"+uid+"welcom");
-
-            QMessageBox::information(this, "Access Authorized", "welcome !");
-            serial->write("WELCOME\n");  // (optionnel si tu veux répondre à Arduino)
-        } else {
-            // UID non trouvé
-            qDebug() << " UID not in the data base";
-            ui->label_rfid->setText("Access denied: " + uid);
-
-            QMessageBox::warning(this, "Access denied", "ticket not recognized !");
-            serial->write("ACCESS_DENIED\n");  // (optionnel)
-        }
-    } else {
-        qDebug() << "Erreur requête SQL:" << query.lastError().text();
-    }
-}
-*/
 void MainWindow::verifierUID(const QString& uid)
 {
     QSqlQuery query;

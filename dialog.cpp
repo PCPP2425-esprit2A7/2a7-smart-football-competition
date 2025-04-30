@@ -133,7 +133,6 @@ Dialog::~Dialog()
     ui->statisticsWidget->show();  // Ensure the widget is shown
 }
 */
-
 void Dialog::displayStatistics()
 {
     if (!ui->statisticsWidget) {
@@ -160,7 +159,12 @@ void Dialog::displayStatistics()
         return;
     }
 
-    QList<QColor> colorList = {Qt::darkGray, Qt::darkGreen, Qt::lightGray};
+    //QList<QColor> colorList = {Qt::#218555, Qt::#D3D3D0, Qt::#619D80};
+    QList<QColor> colorList = {
+        QColor("#218555"),
+        QColor("#D3D3D0"),
+        QColor("#619D80")
+    };
     QMap<QString, QColor> ticketColors;
     QMap<QString, int> ticketData;
     int totalTickets = 0;
@@ -183,65 +187,47 @@ void Dialog::displayStatistics()
         return;
     }
 
-    QGraphicsScene *scene = new QGraphicsScene();
-    scene->setBackgroundBrush(Qt::transparent);
-
-    QGraphicsView *view = new QGraphicsView(scene);
-    view->setRenderHint(QPainter::Antialiasing);
-    view->setStyleSheet("background: transparent; border: none;");
-
-    QRectF rect(10, 10, 400, 400);
-    int startAngle = 0;
-
+    // Create pie chart series
+    QPieSeries *series = new QPieSeries();
     for (auto it = ticketData.begin(); it != ticketData.end(); ++it) {
-        int count = it.value();
-        double percentage = (count * 100.0) / totalTickets;
-        int angleSpan = (percentage * 360.0 / 100.0) * 16;
+        series->append(it.key(), it.value());
+    }
 
-        QColor color = ticketColors.value(it.key(), Qt::gray);
+    // Customize slices
+    QFont labelFont("Arial", 10, QFont::Bold);
+    int index = 0;
+    for (QPieSlice *slice : series->slices()) {
+        QString key = ticketData.keys().at(index);
+        double percentage = (ticketData[key] * 100.0) / totalTickets;
+        QColor color = ticketColors.value(key, Qt::gray);
 
-        QGraphicsEllipseItem *slice = new QGraphicsEllipseItem(rect);
-        slice->setStartAngle(startAngle);
-        slice->setSpanAngle(angleSpan);
         slice->setBrush(color);
-        slice->setPen(Qt::NoPen);
-        scene->addItem(slice);
-
-        startAngle += angleSpan;
+        slice->setLabel(QString("%1: %2%").arg(key).arg(percentage, 0, 'f', 1));
+        slice->setLabelFont(labelFont);
+        slice->setLabelVisible(true);
+        index++;
     }
 
-    // Create a layout for the whole display (pie + legend)
-    QHBoxLayout *mainLayout = new QHBoxLayout(ui->statisticsWidget);
-    mainLayout->addWidget(view, 1); // Pie chart takes most space
+    series->setHoleSize(0.4); // donut style
 
-    // Create legend layout
-    QVBoxLayout *legendLayout = new QVBoxLayout();
+    // Create chart
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Répartition des Billets par Type");
+    chart->setTitleFont(QFont("Arial", 16, QFont::Bold));
+    chart->legend()->setAlignment(Qt::AlignRight);
+    chart->setBackgroundBrush(Qt::transparent);
+    chart->setPlotAreaBackgroundBrush(Qt::transparent);
+    chart->setPlotAreaBackgroundVisible(false);
 
-    for (auto it = ticketData.begin(); it != ticketData.end(); ++it) {
-        QString type = it.key();
-        int count = it.value();
-        double percentage = (count * 100.0) / totalTickets;
-        QColor color = ticketColors.value(type, Qt::gray);
+    // Create chart view
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setStyleSheet("background: transparent; border: none;");
 
-        QWidget *legendItem = new QWidget();
-        QHBoxLayout *itemLayout = new QHBoxLayout(legendItem);
-        itemLayout->setContentsMargins(5, 2, 5, 2);
-
-        QLabel *colorBox = new QLabel();
-        colorBox->setFixedSize(15, 15);
-        colorBox->setStyleSheet(QString("background-color: %1; bordaer: 1px solid black;")
-                                    .arg(color.name()));
-
-        QLabel *textLabel = new QLabel(QString("%1 - %2%").arg(type).arg(percentage, 0, 'f', 1));
-        textLabel->setStyleSheet("font: 10pt Arial;");
-
-        itemLayout->addWidget(colorBox);
-        itemLayout->addWidget(textLabel);
-
-        legendLayout->addWidget(legendItem);
-    }
-
-    mainLayout->addLayout(legendLayout); // Add legend to the right
+    // Layout
+    QVBoxLayout *mainLayout = new QVBoxLayout(ui->statisticsWidget);
+    mainLayout->addWidget(chartView);
     ui->statisticsWidget->setLayout(mainLayout);
     ui->statisticsWidget->show();
 }

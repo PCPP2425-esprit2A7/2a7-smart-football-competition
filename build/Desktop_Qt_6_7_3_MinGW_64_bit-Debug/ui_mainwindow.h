@@ -164,11 +164,12 @@ public:
         label_8->setFont(font1);
         id = new QLineEdit(form);
         id->setObjectName("id");
-        id->setGeometry(QRect(150, 50, 151, 26));
+        id->setGeometry(QRect(150, 50, 151, 31));
         id->setStyleSheet(QString::fromUtf8("#id {\n"
-"    border-radius: 10px;         /* Rounded corners */\n"
+"    border-radius: 10px ;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         type = new QComboBox(form);
@@ -181,6 +182,7 @@ public:
 "    border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         area = new QComboBox(form);
@@ -193,42 +195,52 @@ public:
 "    border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"	\n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         price = new QLineEdit(form);
         price->setObjectName("price");
-        price->setGeometry(QRect(152, 160, 151, 26));
+        price->setGeometry(QRect(152, 160, 151, 31));
         price->setStyleSheet(QString::fromUtf8("#price {\n"
 "    border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"	\n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         quantity = new QLineEdit(form);
         quantity->setObjectName("quantity");
-        quantity->setGeometry(QRect(152, 210, 151, 26));
+        quantity->setGeometry(QRect(152, 210, 151, 31));
         quantity->setStyleSheet(QString::fromUtf8("#quantity {\n"
 "    border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"	\n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         date_issue = new QDateEdit(form);
         date_issue->setObjectName("date_issue");
-        date_issue->setGeometry(QRect(160, 320, 141, 26));
+        date_issue->setGeometry(QRect(160, 320, 141, 31));
         date_issue->setStyleSheet(QString::fromUtf8("#date_issue {\n"
 "    border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"\n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         date_event = new QDateEdit(form);
         date_event->setObjectName("date_event");
-        date_event->setGeometry(QRect(160, 380, 141, 26));
+        date_event->setGeometry(QRect(160, 380, 141, 31));
         date_event->setStyleSheet(QString::fromUtf8("#date_event {\n"
 "    border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;                /* Padding for text */\n"
 "    background: white; \n"
+"\n"
+"	border:2px solid #619D80;\n"
 "}\n"
 ""));
         add = new QPushButton(form);
