@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     serial->setStopBits(QSerialPort::OneStop);
     serial->setFlowControl(QSerialPort::NoFlowControl);
 
-    if (serial->open(QIODevice::ReadOnly)) {
+    if (serial->open(QIODevice::ReadWrite)) {
         connect(serial, &QSerialPort::readyRead, this, &MainWindow::readSerial);
         qDebug() << "Connexion série réussie !";
     } else {
