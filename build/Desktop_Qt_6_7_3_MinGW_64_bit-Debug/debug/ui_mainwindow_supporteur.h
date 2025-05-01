@@ -25,7 +25,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindow
+class Ui_MainWindowSupporteur
 {
 public:
     QWidget *centralwidget;
@@ -63,12 +63,12 @@ public:
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
-    void setupUi(QMainWindow *MainWindow)
+    void setupUi(QMainWindow *MainWindowSupporteur)
     {
-        if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1303, 735);
-        centralwidget = new QWidget(MainWindow);
+        if (MainWindowSupporteur->objectName().isEmpty())
+            MainWindowSupporteur->setObjectName("MainWindowSupporteur");
+        MainWindowSupporteur->resize(1303, 735);
+        centralwidget = new QWidget(MainWindowSupporteur);
         centralwidget->setObjectName("centralwidget");
         menu = new QWidget(centralwidget);
         menu->setObjectName("menu");
@@ -348,7 +348,7 @@ public:
 "    background-image:url(:/img/img/bg.jpg);\n"
 "}\n"
 ""));
-        MainWindow->setCentralWidget(centralwidget);
+        MainWindowSupporteur->setCentralWidget(centralwidget);
         label->raise();
         menu->raise();
         form->raise();
@@ -362,45 +362,45 @@ public:
         light_ilyes->raise();
         dark_ilyes->raise();
         label_2->raise();
-        menubar = new QMenuBar(MainWindow);
+        menubar = new QMenuBar(MainWindowSupporteur);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 1303, 25));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
+        MainWindowSupporteur->setMenuBar(menubar);
+        statusbar = new QStatusBar(MainWindowSupporteur);
         statusbar->setObjectName("statusbar");
-        MainWindow->setStatusBar(statusbar);
+        MainWindowSupporteur->setStatusBar(statusbar);
 
-        retranslateUi(MainWindow);
+        retranslateUi(MainWindowSupporteur);
 
-        QMetaObject::connectSlotsByName(MainWindow);
+        QMetaObject::connectSlotsByName(MainWindowSupporteur);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
+    void retranslateUi(QMainWindow *MainWindowSupporteur)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindowSupporteur->setWindowTitle(QCoreApplication::translate("MainWindowSupporteur", "MainWindow", nullptr));
         btn_support->setText(QString());
         btn_joueur->setText(QString());
         btn_arbitre->setText(QString());
         btn_equipe->setText(QString());
         btn_match->setText(QString());
         btn_billet->setText(QString());
-        id->setText(QCoreApplication::translate("MainWindow", "id", nullptr));
-        NAME->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
-        add->setText(QCoreApplication::translate("MainWindow", "add", nullptr));
-        cancel->setText(QCoreApplication::translate("MainWindow", "Cancel", nullptr));
-        LAST_NAME->setText(QCoreApplication::translate("MainWindow", "Last_Name", nullptr));
-        DATE_NAIS->setText(QCoreApplication::translate("MainWindow", "Date_Nais", nullptr));
-        GRADE->setText(QCoreApplication::translate("MainWindow", "Number", nullptr));
-        search_bar->setPlaceholderText(QCoreApplication::translate("MainWindow", "search...", nullptr));
-        tri->setItemText(0, QCoreApplication::translate("MainWindow", "youngest", nullptr));
-        tri->setItemText(1, QCoreApplication::translate("MainWindow", "oldest", nullptr));
+        id->setText(QCoreApplication::translate("MainWindowSupporteur", "id", nullptr));
+        NAME->setText(QCoreApplication::translate("MainWindowSupporteur", "Name", nullptr));
+        add->setText(QCoreApplication::translate("MainWindowSupporteur", "add", nullptr));
+        cancel->setText(QCoreApplication::translate("MainWindowSupporteur", "Cancel", nullptr));
+        LAST_NAME->setText(QCoreApplication::translate("MainWindowSupporteur", "Last_Name", nullptr));
+        DATE_NAIS->setText(QCoreApplication::translate("MainWindowSupporteur", "Date_Nais", nullptr));
+        GRADE->setText(QCoreApplication::translate("MainWindowSupporteur", "Number", nullptr));
+        search_bar->setPlaceholderText(QCoreApplication::translate("MainWindowSupporteur", "search...", nullptr));
+        tri->setItemText(0, QCoreApplication::translate("MainWindowSupporteur", "youngest", nullptr));
+        tri->setItemText(1, QCoreApplication::translate("MainWindowSupporteur", "oldest", nullptr));
 
-        delete_2->setText(QCoreApplication::translate("MainWindow", "delete", nullptr));
-        modify->setText(QCoreApplication::translate("MainWindow", "modify", nullptr));
-        stat->setText(QCoreApplication::translate("MainWindow", "report statistique", nullptr));
-        pdf->setText(QCoreApplication::translate("MainWindow", "PDF", nullptr));
-        light_ilyes->setText(QCoreApplication::translate("MainWindow", "light", nullptr));
-        dark_ilyes->setText(QCoreApplication::translate("MainWindow", "Dark", nullptr));
+        delete_2->setText(QCoreApplication::translate("MainWindowSupporteur", "delete", nullptr));
+        modify->setText(QCoreApplication::translate("MainWindowSupporteur", "modify", nullptr));
+        stat->setText(QCoreApplication::translate("MainWindowSupporteur", "report statistique", nullptr));
+        pdf->setText(QCoreApplication::translate("MainWindowSupporteur", "PDF", nullptr));
+        light_ilyes->setText(QCoreApplication::translate("MainWindowSupporteur", "light", nullptr));
+        dark_ilyes->setText(QCoreApplication::translate("MainWindowSupporteur", "Dark", nullptr));
         label_2->setText(QString());
         label->setText(QString());
     } // retranslateUi
@@ -408,7 +408,7 @@ public:
 };
 
 namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
+    class MainWindowSupporteur: public Ui_MainWindowSupporteur {};
 } // namespace Ui
 
 QT_END_NAMESPACE

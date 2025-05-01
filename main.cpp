@@ -1,4 +1,6 @@
 #include "mainwindow_supporteur.h"
+#include "mainwindow_billet.h"
+
 #include "connection.h"
 #include <QMessageBox>
 #include <QApplication>
@@ -13,7 +15,7 @@ int main(int argc, char *argv[])
                                  QObject::tr("Connection successful.\n"
                                              "Click OK to continue."), QMessageBox::Ok);
 
-        MainWindow w;
+        MainWindowBillet w;
         w.show();
 
         return a.exec();

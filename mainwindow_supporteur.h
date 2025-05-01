@@ -8,19 +8,19 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+class MainWindowSupporteur;
 }
 class Dialog;
 class arduino;
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindowSupporteur : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    MainWindowSupporteur(QWidget *parent = nullptr);
+    ~MainWindowSupporteur();
 
 private slots:
     void on_add_clicked();
@@ -44,10 +44,10 @@ private slots:
     void on_light_ilyes_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindowSupporteur *ui;
     Dialog *dialog_window;
     QByteArray data;
-    Arduino A;
+    arduino A;
     QSerialPort *serial;
 };
 

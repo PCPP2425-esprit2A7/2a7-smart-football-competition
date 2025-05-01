@@ -17,9 +17,9 @@
 #include "arduino.h"
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindowSupporteur::MainWindowSupporteur(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindowSupporteur)
 {
     ui->setupUi(this);
     afficher();/*
@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-MainWindow::~MainWindow()
+MainWindowSupporteur::~MainWindowSupporteur()
 {
     delete ui;
 }
@@ -80,7 +80,7 @@ MainWindow::~MainWindow()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }*/
-void MainWindow::afficher()
+void MainWindowSupporteur::afficher()
 {
     QSqlQueryModel *model = new QSqlQueryModel();
     model->setQuery("SELECT id, NAME, LAST_NAME, DATE_NAIS, GRADE FROM SUPPORTEUR");
@@ -139,7 +139,7 @@ void MainWindow::afficher()
         QMessageBox::critical(this, "Erreur", "L'ajout a échoué. Vérifiez la console pour plus de détails.");
     }
 }*/
-void MainWindow::on_add_clicked() {
+void MainWindowSupporteur::on_add_clicked() {
     // Validation des champs vides avec des messages d'erreur spécifiques pour chaque champ
     if (ui->IdEdit->text().isEmpty()) {
         QMessageBox::critical(this, "Erreur", "L'ID ne peut pas être vide !");
@@ -185,7 +185,7 @@ void MainWindow::on_add_clicked() {
     }
 }
 
-void MainWindow::on_delete_2_clicked()
+void MainWindowSupporteur::on_delete_2_clicked()
 {
     QModelIndexList selectedRows = ui->tableView->selectionModel()->selectedRows();
 
@@ -216,7 +216,7 @@ void MainWindow::on_delete_2_clicked()
     qDebug() << "Form has been reset.";
 }*/
 
-void MainWindow::on_modify_clicked()
+void MainWindowSupporteur::on_modify_clicked()
 {
     QModelIndexList selectedIndexes = ui->tableView->selectionModel()->selectedRows();
 
@@ -254,7 +254,7 @@ void MainWindow::on_modify_clicked()
 
 
 
-void MainWindow::on_tableView_clicked(const QModelIndex &index)
+void MainWindowSupporteur::on_tableView_clicked(const QModelIndex &index)
 {
     int row = index.row();
 
@@ -274,86 +274,86 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 }
 
 
-void MainWindow::on_pdf_clicked()
+void MainWindowSupporteur::on_pdf_clicked()
 {
-        qDebug() << "on_pdf_clicked() called.";
+    qDebug() << "on_pdf_clicked() called.";
 
-        // Fetch data from the database
-        QSqlQuery query;
-        query.prepare("SELECT id, NAME, LAST_NAME, DATE_NAIS, GRADE FROM SUPPORTEUR");
+    // Fetch data from the database
+    QSqlQuery query;
+    query.prepare("SELECT id, NAME, LAST_NAME, DATE_NAIS, GRADE FROM SUPPORTEUR");
 
-        if (!query.exec()) {
-            QMessageBox::critical(this, "Database Error", "Failed to retrieve data: " + query.lastError().text());
-            qDebug() << "SQL Error: " << query.lastError().text();
-            return;
+    if (!query.exec()) {
+        QMessageBox::critical(this, "Database Error", "Failed to retrieve data: " + query.lastError().text());
+        qDebug() << "SQL Error: " << query.lastError().text();
+        return;
+    }
+
+    int rowCount = 0;
+    QString html = "<h2>Tickets List</h2><table border='1' width='100%'>";
+    html += "<tr><th>ID</th><th>NAME</th><th>LAST_NAME</th><th>Birth Date</th><th></th>Grade</tr>";
+
+    while (query.next()) {
+        rowCount++;
+        html += "<tr>";
+        html += "<td>" + query.value(0).toString() + "</td>";
+        html += "<td>" + query.value(1).toString() + "</td>";
+        html += "<td>" + query.value(2).toString() + "</td>";
+        html += "<td>" + query.value(3).toString() + "</td>";
+        html += "<td>" + query.value(4).toString() + "</td>";
+        html += "<td>" + query.value(5).toDate().toString("yyyy-MM-dd") + "</td>";
+        html += "<td>" + query.value(6).toDate().toString("yyyy-MM-dd") + "</td>";
+        html += "</tr>";
+        qDebug() << "Row retrieved: " << query.value(0).toString();
+    }
+
+    html += "</table>";
+
+    if (rowCount == 0) {
+        QMessageBox::warning(this, "No Data", "No tickets found in the database.");
+        qDebug() << "No tickets found!";
+        return;
+    }
+
+    // Create a QTextDocument for preview
+    QTextDocument doc;
+    doc.setHtml(html);
+
+    // Create a QPrintPreviewDialog to allow preview of the document
+    QPrinter printer(QPrinter::HighResolution);
+    QPrintPreviewDialog previewDialog(&printer, this);
+
+    connect(&previewDialog, &QPrintPreviewDialog::paintRequested, [&doc](QPrinter *printer) {
+        doc.print(printer);  // Print the document to the printer selected
+    });
+
+    // Show the print preview dialog
+    previewDialog.exec();
+
+    // If the user decides to save, ask for the file path
+    if (printer.outputFileName().isEmpty()) {
+        QString pdfPath = QFileDialog::getSaveFileName(this, "Save PDF", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/tickets_list.pdf", "PDF Files (*.pdf)");
+
+        if (pdfPath.isEmpty()) {
+            return;  // User canceled the save dialog
         }
 
-        int rowCount = 0;
-        QString html = "<h2>Tickets List</h2><table border='1' width='100%'>";
-        html += "<tr><th>ID</th><th>NAME</th><th>LAST_NAME</th><th>Birth Date</th><th></th>Grade</tr>";
+        // Set the output file name to save the PDF
+        printer.setOutputFileName(pdfPath);
 
-        while (query.next()) {
-            rowCount++;
-            html += "<tr>";
-            html += "<td>" + query.value(0).toString() + "</td>";
-            html += "<td>" + query.value(1).toString() + "</td>";
-            html += "<td>" + query.value(2).toString() + "</td>";
-            html += "<td>" + query.value(3).toString() + "</td>";
-            html += "<td>" + query.value(4).toString() + "</td>";
-            html += "<td>" + query.value(5).toDate().toString("yyyy-MM-dd") + "</td>";
-            html += "<td>" + query.value(6).toDate().toString("yyyy-MM-dd") + "</td>";
-            html += "</tr>";
-            qDebug() << "Row retrieved: " << query.value(0).toString();
-        }
+        // Print the document (this time to the file)
+        doc.print(&printer);
 
-        html += "</table>";
+        qDebug() << "PDF saved at: " << pdfPath;
+        QMessageBox::information(this, "PDF Export", "The PDF has been saved successfully.");
 
-        if (rowCount == 0) {
-            QMessageBox::warning(this, "No Data", "No tickets found in the database.");
-            qDebug() << "No tickets found!";
-            return;
-        }
-
-        // Create a QTextDocument for preview
-        QTextDocument doc;
-        doc.setHtml(html);
-
-        // Create a QPrintPreviewDialog to allow preview of the document
-        QPrinter printer(QPrinter::HighResolution);
-        QPrintPreviewDialog previewDialog(&printer, this);
-
-        connect(&previewDialog, &QPrintPreviewDialog::paintRequested, [&doc](QPrinter *printer) {
-            doc.print(printer);  // Print the document to the printer selected
-        });
-
-        // Show the print preview dialog
-        previewDialog.exec();
-
-        // If the user decides to save, ask for the file path
-        if (printer.outputFileName().isEmpty()) {
-            QString pdfPath = QFileDialog::getSaveFileName(this, "Save PDF", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/tickets_list.pdf", "PDF Files (*.pdf)");
-
-            if (pdfPath.isEmpty()) {
-                return;  // User canceled the save dialog
-            }
-
-            // Set the output file name to save the PDF
-            printer.setOutputFileName(pdfPath);
-
-            // Print the document (this time to the file)
-            doc.print(&printer);
-
-            qDebug() << "PDF saved at: " << pdfPath;
-            QMessageBox::information(this, "PDF Export", "The PDF has been saved successfully.");
-
-            // Optionally, open the PDF file in the default PDF viewer
-            QDesktopServices::openUrl(QUrl::fromLocalFile(pdfPath));
-        }
+        // Optionally, open the PDF file in the default PDF viewer
+        QDesktopServices::openUrl(QUrl::fromLocalFile(pdfPath));
+    }
 
 }
 
 
-void MainWindow::on_tri_activated(int index)
+void MainWindowSupporteur::on_tri_activated(int index)
 {
     supporteur s;
     QSqlQueryModel *model = nullptr;
@@ -382,7 +382,7 @@ void MainWindow::on_tri_activated(int index)
 
 
 
-void MainWindow::on_stat_clicked()
+void MainWindowSupporteur::on_stat_clicked()
 {
     dialog_window = new Dialog(this);
     dialog_window->setAttribute(Qt::WA_DeleteOnClose); // Ensure memory cleanup
@@ -527,10 +527,10 @@ void MainWindow::on_stat_clicked()
 // }
 
 
-void MainWindow::on_dark_ilyes_clicked()
+void MainWindowSupporteur::on_dark_ilyes_clicked()
 {
     //Set dark mode styles for the QTableView widget
-        QString darkTableStyle = R"(
+    QString darkTableStyle = R"(
             QTableView {
                 background-color:#A9A9A9;   /* Black background */
                 color: white;                /* White text */
@@ -548,10 +548,10 @@ void MainWindow::on_dark_ilyes_clicked()
             }
         )";
 
-        // Apply the stylesheet to the table widget
-        ui->tableView->setStyleSheet(darkTableStyle);
-        // Set styles for the Form widget (background black, white border)
-        QString formStyle = R"(
+    // Apply the stylesheet to the table widget
+    ui->tableView->setStyleSheet(darkTableStyle);
+    // Set styles for the Form widget (background black, white border)
+    QString formStyle = R"(
             #form {
                 background-color: #A9A9A9;   /* Black background */
                 border: 2px solid white;     /* White border */
@@ -582,10 +582,10 @@ void MainWindow::on_dark_ilyes_clicked()
             }
         )";
 
-        // Apply the stylesheet to the Form widget
-        ui->form->setStyleSheet(formStyle);
-        // Set common button style (transparent background, white border, white text)
-        QString buttonStyle = R"(
+    // Apply the stylesheet to the Form widget
+    ui->form->setStyleSheet(formStyle);
+    // Set common button style (transparent background, white border, white text)
+    QString buttonStyle = R"(
             QPushButton {
                 background-color: black;  /* Transparent background */
                 color: white;                   /* White text */
@@ -603,27 +603,27 @@ void MainWindow::on_dark_ilyes_clicked()
             }
         )";
 
-        // Apply the button style to all buttons
-        ui->add->setStyleSheet(buttonStyle);
-        ui->cancel->setStyleSheet("#cancel{border-radius: 10px;background: transparent;}");
-        ui->modify->setStyleSheet(buttonStyle);
-        ui->stat->setStyleSheet(buttonStyle);
-        ui->delete_2->setStyleSheet("#delete_2{border-radius: 10px;background: transparent;}");
-        ui->dark_ilyes->setStyleSheet("#dark {background-color:transparent;color: #333; border: 2px solid #ccc;border-radius: 10px;padding: 5px 10px; }#dark:hover {background-color: #e0e0e0;border: 2px solid #bbb;}#dark:pressed {background-color: #d0d0d0; border: 2px solid #999;}");
-        ui->light_ilyes->setStyleSheet("#light{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #444;border: 2px solid #777;}#light:pressed {background-color: #222;border: 2px solid #999;}");
-        ui->label->setStyleSheet("#bg{background-color:#F5F5F5;}");
-        ui->menu->setStyleSheet("#menu{background-color:#A9A9A9;border-radius: 10px;padding: 5px;}");
-        ui->IdEdit->setStyleSheet("#IdEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
-        ui->NameEdit->setStyleSheet("#NameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
-        ui->LastnameEdit->setStyleSheet("#LastnameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
-        ui->DateEdit->setStyleSheet("#DateEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
-        ui->GradeEdit->setStyleSheet("#GradeEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    // Apply the button style to all buttons
+    ui->add->setStyleSheet(buttonStyle);
+    ui->cancel->setStyleSheet("#cancel{border-radius: 10px;background: transparent;}");
+    ui->modify->setStyleSheet(buttonStyle);
+    ui->stat->setStyleSheet(buttonStyle);
+    ui->delete_2->setStyleSheet("#delete_2{border-radius: 10px;background: transparent;}");
+    ui->dark_ilyes->setStyleSheet("#dark {background-color:transparent;color: #333; border: 2px solid #ccc;border-radius: 10px;padding: 5px 10px; }#dark:hover {background-color: #e0e0e0;border: 2px solid #bbb;}#dark:pressed {background-color: #d0d0d0; border: 2px solid #999;}");
+    ui->light_ilyes->setStyleSheet("#light{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #444;border: 2px solid #777;}#light:pressed {background-color: #222;border: 2px solid #999;}");
+    ui->label->setStyleSheet("#bg{background-color:#F5F5F5;}");
+    ui->menu->setStyleSheet("#menu{background-color:#A9A9A9;border-radius: 10px;padding: 5px;}");
+    ui->IdEdit->setStyleSheet("#IdEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->NameEdit->setStyleSheet("#NameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->LastnameEdit->setStyleSheet("#LastnameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->DateEdit->setStyleSheet("#DateEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->GradeEdit->setStyleSheet("#GradeEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
 
 
 }
 
 
-void MainWindow::on_light_ilyes_clicked()
+void MainWindowSupporteur::on_light_ilyes_clicked()
 {
     ui->tableView->setStyleSheet("#tableView{background:rgba(33, 133, 85, 0.4);border-radius: 10px;padding: 5px;}");
     ui->form->setStyleSheet("#form{background:rgba(214, 215, 222, 0.4);border-radius: 10px;padding: 5px;}");
