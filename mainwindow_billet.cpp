@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "mainwindow_billet.h"
+#include "ui_mainwindow_billet.h"
 #include "gestion_billet.h"
 #include <QMessageBox>
 #include <QSqlQueryModel>
@@ -735,3 +735,12 @@ void MainWindow::verifierUID(const QString& uid)
     }
 }
 
+
+/*void MainWindow::on_btn_supporteur_clicked()
+{
+
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindow2 *w2 = new MainWindow2(); // Crée une nouvelle fenêtre
+    w2->show(); // Affiche la nouvelle fenêtre
+}
+*/

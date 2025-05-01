@@ -1,5 +1,5 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef DIALOG_STAT_BILLET_H
+#define DIALOG_STAT_BILLET_H
 
 #include <QDialog>
 
@@ -19,4 +19,4 @@ private:
     Ui::Dialog *ui;
 };
 
-#endif // DIALOG_H
+#endif // DIALOG_STAT_BILLET_H

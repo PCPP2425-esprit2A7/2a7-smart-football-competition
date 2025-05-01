@@ -8,10 +8,10 @@ QT += core gui multimedia
 CONFIG += c++11
 SOURCES += qrcodegen.cpp \
     arduino.cpp \
-    dialog.cpp
+    dialog_stat_billet.cpp
 HEADERS += qrcodegen.hpp \
     arduino.h \
-    dialog.h
+    dialog_stat_billet.h
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -28,19 +28,19 @@ SOURCES += \
     generate_tickets.cpp \
     gestion_billet.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow_billet.cpp
 
 HEADERS += \
     connection.h \
     dialog_billet.h \
     generate_tickets.h \
     gestion_billet.h \
-    mainwindow.h
+    mainwindow_billet.h
 
 FORMS += \
-    dialog.ui \
     dialog_billet.ui \
-    mainwindow.ui
+    dialog_stat_billet.ui \
+    mainwindow_billet.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

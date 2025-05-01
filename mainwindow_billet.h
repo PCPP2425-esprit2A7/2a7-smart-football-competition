@@ -1,11 +1,11 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINWINDOW_BILLET_H
+#define MAINWINDOW_BILLET_H
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
 #include <QSortFilterProxyModel>
 #include "dialog_billet.h"
-#include"dialog.h"
+#include"dialog_stat_billet.h"
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include "arduino.h"
@@ -48,6 +48,8 @@ private slots:
     void on_dark_clicked();
 
     void on_light_clicked();
+    //void on_btn_supporteur_clicked();
+
 private:
     Ui::MainWindow *ui;
     generate_tickets *generate_tickets_window;
@@ -57,4 +59,4 @@ private:
     arduino *A;
 
 };
-#endif // MAINWINDOW_H
+#endif // MAINWINDOW_BILLET_H

@@ -1,5 +1,5 @@
 #include "gestion_billet.h"
-#include "mainwindow.h"
+#include "mainwindow_billet.h"
 #include "connection.h"
 #include <QMessageBox>
 #include <QApplication>

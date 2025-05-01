@@ -1,5 +1,5 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "dialog_stat_billet.h"
+#include "ui_dialog_stat_billet.h"
 
 #include <QtCharts>
 #include <QGraphicsScene>
