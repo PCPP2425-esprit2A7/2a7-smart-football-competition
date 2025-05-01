@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/1.png</file>
+        <file>img/2.png</file>
+        <file>img/3.png</file>
+        <file>img/4.png</file>
+        <file>img/bg.jpg</file>
+        <file>img/billet.png</file>
+        <file>img/carte-jaune.png</file>
+        <file>img/joueur-de-football.png</file>
+        <file>img/logo.jpeg</file>
+        <file>img/utilisateur.png</file>
+        <file>img/logo_yedkom-removebg.png</file>
+    </qresource>
+</RCC>
