@@ -31,12 +31,12 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QWidget *menu;
-    QLabel *user;
-    QLabel *joueur;
-    QLabel *arbitre;
-    QLabel *team;
-    QLabel *match;
-    QLabel *ticket;
+    QPushButton *btn_supporteur;
+    QPushButton *btn_joueur;
+    QPushButton *btn_arbitre;
+    QPushButton *btn_equipe;
+    QPushButton *btn_match;
+    QPushButton *btn_billet;
     QWidget *form;
     QLabel *label_2;
     QLabel *label_3;
@@ -86,37 +86,60 @@ public:
 " border-radius: 10px;         /* Rounded corners */\n"
 "    padding: 5px;\n"
 "}"));
-        user = new QLabel(menu);
-        user->setObjectName("user");
-        user->setGeometry(QRect(30, 20, 60, 60));
-        user->setPixmap(QPixmap(QString::fromUtf8(":/image/img/user.png")));
-        user->setScaledContents(true);
-        joueur = new QLabel(menu);
-        joueur->setObjectName("joueur");
-        joueur->setGeometry(QRect(20, 100, 70, 70));
-        joueur->setPixmap(QPixmap(QString::fromUtf8(":/image/img/soccer-player.png")));
-        joueur->setScaledContents(true);
-        arbitre = new QLabel(menu);
-        arbitre->setObjectName("arbitre");
-        arbitre->setGeometry(QRect(30, 190, 70, 70));
-        arbitre->setPixmap(QPixmap(QString::fromUtf8(":/image/img/card.png")));
-        arbitre->setScaledContents(true);
-        team = new QLabel(menu);
-        team->setObjectName("team");
-        team->setGeometry(QRect(30, 270, 60, 60));
-        team->setPixmap(QPixmap(QString::fromUtf8(":/image/img/image.png")));
-        team->setScaledContents(true);
-        match = new QLabel(menu);
-        match->setObjectName("match");
-        match->setGeometry(QRect(30, 350, 60, 60));
-        match->setPixmap(QPixmap(QString::fromUtf8(":/image/img/soccer-ball 1.png")));
-        match->setScaledContents(true);
-        ticket = new QLabel(menu);
-        ticket->setObjectName("ticket");
-        ticket->setGeometry(QRect(30, 430, 71, 70));
-        ticket->setPixmap(QPixmap(QString::fromUtf8(":/image/img/image 2.png")));
-        ticket->setScaledContents(true);
-        ticket->setWordWrap(false);
+        btn_supporteur = new QPushButton(menu);
+        btn_supporteur->setObjectName("btn_supporteur");
+        btn_supporteur->setGeometry(QRect(20, 10, 71, 81));
+        btn_supporteur->setStyleSheet(QString::fromUtf8("#btn_supporteur {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/image/img/user.png);\n"
+"    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
+        btn_joueur = new QPushButton(menu);
+        btn_joueur->setObjectName("btn_joueur");
+        btn_joueur->setGeometry(QRect(20, 90, 71, 81));
+        btn_joueur->setStyleSheet(QString::fromUtf8("#btn_joueur {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/image/img/soccer-player.png);\n"
+"    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
+        btn_arbitre = new QPushButton(menu);
+        btn_arbitre->setObjectName("btn_arbitre");
+        btn_arbitre->setGeometry(QRect(20, 170, 71, 81));
+        btn_arbitre->setStyleSheet(QString::fromUtf8("#btn_arbitre {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/image/img/card.png);\n"
+"    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
+        btn_equipe = new QPushButton(menu);
+        btn_equipe->setObjectName("btn_equipe");
+        btn_equipe->setGeometry(QRect(20, 260, 71, 81));
+        btn_equipe->setStyleSheet(QString::fromUtf8("#btn_equipe {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/image/img/image.png);\n"
+"    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
+        btn_match = new QPushButton(menu);
+        btn_match->setObjectName("btn_match");
+        btn_match->setGeometry(QRect(20, 340, 71, 81));
+        btn_match->setStyleSheet(QString::fromUtf8("#btn_match {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/image/img/soccer-ball 1.png);\n"
+"    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
+        btn_billet = new QPushButton(menu);
+        btn_billet->setObjectName("btn_billet");
+        btn_billet->setGeometry(QRect(20, 420, 71, 81));
+        btn_billet->setStyleSheet(QString::fromUtf8("#btn_billet {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/image/img/image 2.png);\n"
+"    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
         form = new QWidget(centralwidget);
         form->setObjectName("form");
         form->setGeometry(QRect(170, 150, 321, 511));
@@ -438,12 +461,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        user->setText(QString());
-        joueur->setText(QString());
-        arbitre->setText(QString());
-        team->setText(QString());
-        match->setText(QString());
-        ticket->setText(QString());
+        btn_supporteur->setText(QString());
+        btn_joueur->setText(QString());
+        btn_arbitre->setText(QString());
+        btn_equipe->setText(QString());
+        btn_match->setText(QString());
+        btn_billet->setText(QString());
         label_2->setText(QCoreApplication::translate("MainWindow", "Id :", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Type :", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Price :", nullptr));

@@ -619,8 +619,13 @@ void MainWindow::on_dark_clicked()
     ui->light->setStyleSheet("#light{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #444;border: 2px solid #777;}#light:pressed {background-color: #222;border: 2px solid #999;}");
     ui->bg->setStyleSheet("#bg{background-color:#F5F5F5;}");
     ui->menu->setStyleSheet("#menu{background-color:#A9A9A9;border-radius: 10px;padding: 5px;}");
-
-
+    ui->id->setStyleSheet("#id{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->type->setStyleSheet("#type{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->quantity->setStyleSheet("#quantity{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->area->setStyleSheet("#area{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->price->setStyleSheet("#price{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->date_issue->setStyleSheet("#date_issue{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
+    ui->date_event->setStyleSheet("#date_event{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
 }
 
 
@@ -643,6 +648,13 @@ void MainWindow::on_light_clicked()
     ui->dark->setStyleSheet("#dark{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#dark:hover {background-color: #444;border: 2px solid #777;}#dark:pressed {background-color: #222;border: 2px solid #999;}");
     ui->light->setStyleSheet("#light {background-color:transparent;color: #333; border: 2px solid #ccc;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #e0e0e0;border: 2px solid #bbb;}#light:pressed {background-color: #d0d0d0; border: 2px solid #999;}");
     ui->bg->setStyleSheet("#bg{background-image: url(:/image/img/bg.jpeg);}");
+    ui->id->setStyleSheet("#id{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->type->setStyleSheet("#type{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->quantity->setStyleSheet("#quantity{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->area->setStyleSheet("#area{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->price->setStyleSheet("#price{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->date_issue->setStyleSheet("#date_issue{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->date_event->setStyleSheet("#date_event{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
 
 }
 // void MainWindow::handleSerialData()
