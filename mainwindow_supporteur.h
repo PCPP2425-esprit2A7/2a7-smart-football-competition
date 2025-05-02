@@ -43,6 +43,9 @@ private slots:
 
     void on_light_ilyes_clicked();
 
+
+    void on_btn_billet_fromsup_clicked();
+
 private:
     Ui::MainWindowSupporteur *ui;
     Dialog *dialog_window;

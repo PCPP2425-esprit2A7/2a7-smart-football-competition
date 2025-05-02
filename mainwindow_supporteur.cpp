@@ -15,7 +15,7 @@
 #include <QPrintpreviewDialog>
 #include <QCoreApplication>
 #include "arduino.h"
-
+#include "mainwindow_billet.h"
 
 MainWindowSupporteur::MainWindowSupporteur(QWidget *parent)
     : QMainWindow(parent)
@@ -641,5 +641,17 @@ void MainWindowSupporteur::on_light_ilyes_clicked()
     ui->LastnameEdit->setStyleSheet("#LastnameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
     ui->DateEdit->setStyleSheet("#DateEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
     ui->GradeEdit->setStyleSheet("#GradeEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+}
+
+
+
+
+
+void MainWindowSupporteur::on_btn_billet_fromsup_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowBillet *w1 = new MainWindowBillet(); // Crée une nouvelle fenêtre
+    w1->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w1->show(); // Affiche la nouvelle fenêtre
 }
 

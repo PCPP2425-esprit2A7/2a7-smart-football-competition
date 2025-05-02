@@ -136,7 +136,7 @@ background-color:#218555;
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_billet">
+    <widget class="QPushButton" name="btn_billet_fromsup">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -183,13 +183,20 @@ background:rgba(214, 215, 222, 0.4);
        <height>20</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">#label_2{
 color : rgb(0,0,0);
 }</string>
      </property>
      <property name="text">
-      <string>id</string>
+      <string>id :</string>
      </property>
     </widget>
     <widget class="QLabel" name="NAME">
@@ -201,13 +208,20 @@ color : rgb(0,0,0);
        <height>20</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">#label_3{
 color : rgb(0,0,0);
 }</string>
      </property>
      <property name="text">
-      <string>Name</string>
+      <string>Name :</string>
      </property>
     </widget>
     <widget class="QPushButton" name="add">
@@ -218,6 +232,13 @@ color : rgb(0,0,0);
        <width>83</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">#add{
@@ -240,6 +261,13 @@ color : rgb(0,0,0);
        <height>29</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">#cancel{
 border-radius: 10px;         /* Rounded corners */
@@ -254,7 +282,7 @@ border-radius: 10px;         /* Rounded corners */
     <widget class="QLineEdit" name="IdEdit">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>90</x>
        <y>30</y>
        <width>191</width>
        <height>28</height>
@@ -273,7 +301,7 @@ border-radius: 10px;         /* Rounded corners */
     <widget class="QLineEdit" name="NameEdit">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>90</x>
        <y>80</y>
        <width>191</width>
        <height>28</height>
@@ -294,9 +322,16 @@ border-radius: 10px;         /* Rounded corners */
       <rect>
        <x>0</x>
        <y>130</y>
-       <width>81</width>
+       <width>111</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">#label_12{
@@ -304,14 +339,14 @@ color : rgb(0,0,0);
 }</string>
      </property>
      <property name="text">
-      <string>Last_Name</string>
+      <string>Last_Name :</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="LastnameEdit">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>130</y>
+       <x>100</x>
+       <y>120</y>
        <width>181</width>
        <height>28</height>
       </rect>
@@ -335,20 +370,27 @@ color : rgb(0,0,0);
        <height>20</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">#label_13{
 color : rgb(0,0,0);
 }</string>
      </property>
      <property name="text">
-      <string>Date_Nais</string>
+      <string>Date_Nais :</string>
      </property>
     </widget>
     <widget class="QDateEdit" name="DateEdit">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>180</y>
+       <x>100</x>
+       <y>170</y>
        <width>181</width>
        <height>29</height>
       </rect>
@@ -368,9 +410,16 @@ color : rgb(0,0,0);
       <rect>
        <x>10</x>
        <y>250</y>
-       <width>63</width>
+       <width>81</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">#label_14{
@@ -378,13 +427,13 @@ color : rgb(0,0,0);
 }</string>
      </property>
      <property name="text">
-      <string>Number</string>
+      <string>Number :</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="GradeEdit">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>100</x>
        <y>250</y>
        <width>181</width>
        <height>28</height>
@@ -478,6 +527,13 @@ background:rgba(33, 133, 85, 0.4);
       <height>29</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">#delete_2{
 border-radius: 10px;         /* Rounded corners */
@@ -497,6 +553,13 @@ border-radius: 10px;         /* Rounded corners */
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">#modify{
@@ -519,6 +582,13 @@ border-radius: 10px;         /* Rounded corners */
       <height>29</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">#stat{
 
@@ -535,13 +605,26 @@ border-radius: 10px;         /* Rounded corners */
     <property name="geometry">
      <rect>
       <x>1170</x>
-      <y>100</y>
-      <width>83</width>
-      <height>29</height>
+      <y>90</y>
+      <width>31</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pdf{
+	 qproperty-icon:url(:/img/img/1.png);
+  qproperty-iconSize: 30px 30px;
+}</string>
+    </property>
     <property name="text">
-     <string>PDF</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="light_ilyes">
@@ -552,6 +635,11 @@ border-radius: 10px;         /* Rounded corners */
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">#light {
@@ -584,6 +672,11 @@ border-radius: 10px;         /* Rounded corners */
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">#dark {
@@ -665,7 +758,7 @@ border-radius: 10px;         /* Rounded corners */
      <x>0</x>
      <y>0</y>
      <width>1303</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

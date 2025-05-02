@@ -64,7 +64,7 @@ background-color:#218555;
      <property name="styleSheet">
       <string notr="true">#btn_joueur {
     border: none;
-    qproperty-icon: url(:/image/img/soccer-player.png);
+    qproperty-icon:url(:/img/img/joueur-de-football.png);
     qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
 }
 </string>
@@ -85,7 +85,7 @@ background-color:#218555;
      <property name="styleSheet">
       <string notr="true">#btn_arbitre {
     border: none;
-    qproperty-icon: url(:/image/img/card.png);
+    qproperty-icon:url(:/img/img/carte-jaune.png);
     qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
 }
 </string>
@@ -106,7 +106,7 @@ background-color:#218555;
      <property name="styleSheet">
       <string notr="true">#btn_equipe {
     border: none;
-    qproperty-icon: url(:/image/img/image.png);
+    qproperty-icon:url(:/img/img/4.png);
     qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
 }
 </string>
@@ -127,7 +127,7 @@ background-color:#218555;
      <property name="styleSheet">
       <string notr="true">#btn_match {
     border: none;
-    qproperty-icon: url(:/image/img/soccer-ball 1.png);
+    qproperty-icon:url(:/img/img/3.png);
     qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
 }
 </string>
@@ -148,7 +148,7 @@ background-color:#218555;
      <property name="styleSheet">
       <string notr="true">#btn_billet {
     border: none;
-    qproperty-icon: url(:/image/img/image 2.png);
+    qproperty-icon:url(:/img/img/billet.png);
     qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
 }
 </string>
@@ -861,7 +861,7 @@ background:rgba(33, 133, 85, 0.4);
     </property>
     <property name="styleSheet">
      <string notr="true">#bg{
-	background-image: url(:/image/img/bg.jpeg);
+	background-image: url(:/img/img/bg.jpg);
 }</string>
     </property>
     <property name="text">
@@ -910,7 +910,7 @@ background:rgba(33, 133, 85, 0.4);
      <x>0</x>
      <y>0</y>
      <width>1427</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
