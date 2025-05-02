@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>img/background.png</file>
+        <file>img/ballon-de-football.png</file>
+        <file>img/billet.png</file>
+        <file>img/carte-jaune.png</file>
+        <file>img/football-team.png</file>
+        <file>img/joueur-de-football (1).png</file>
+        <file>img/logo.png</file>
+        <file>img/pdf.png</file>
+        <file>img/user.png</file>
+        <file>img/stat-removebg-preview.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/res"/>
+    <qresource prefix="/">
+        <file>../../Pictures/Captures d’écran/Capture d'écran 2025-02-01 165707.png</file>
+    </qresource>
+</RCC>
