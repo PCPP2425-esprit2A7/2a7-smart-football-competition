@@ -1,0 +1,12 @@
+debug/arbitre.o
+debug/dialog_arbitre.o
+debug/emaildialog_arbitre.o
+debug/historiquedialog.o
+debug/main.o
+debug/connection.o
+debug/mainwindow_arbitre.o
+debug/qrc_resource.o
+debug/moc_dialog_arbitre.o
+debug/moc_emaildialog_arbitre.o
+debug/moc_historiquedialog.o
+debug/moc_mainwindow_arbitre.o

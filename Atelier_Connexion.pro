@@ -4,7 +4,27 @@
 #
 #-------------------------------------------------
 
+QT += sql
+
+
 QT       += core gui sql
+QT += charts
+QT += printsupport
+QT += core gui widgets charts
+FORMS += \
+    dialog_arbitre.ui \
+    emaildialog_arbitre.ui \
+    historiquedialog.ui \
+
+
+
+
+
+#FORMS += \
+
+#emaildialog.ui \
+    #statistique.ui
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,16 +45,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    connection.cpp
+    arbitre.cpp \
+    dialog_arbitre.cpp \
+    emaildialog_arbitre.cpp \
+    historiquedialog.cpp \
+    main.cpp \
+    connection.cpp \
+    mainwindow_arbitre.cpp
+
 
 HEADERS += \
-        mainwindow.h \
-    connection.h
+    arbitre.h \
+    dialog_arbitre.h \
+    emaildialog_arbitre.h \
+    historiquedialog.h \
+    connection.h \
+    mainwindow_arbitre.h
+
 
 FORMS += \
-        mainwindow.ui
+    mainwindow_arbitre.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -43,3 +73,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    img/icons8-notifications-50.png \
+    img/icons8-search-50.png

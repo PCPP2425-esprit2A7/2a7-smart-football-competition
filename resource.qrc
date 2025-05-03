@@ -11,5 +11,7 @@
         <file>img/joueur.png</file>
         <file>img/logo.png</file>
         <file>img/background.jpg</file>
+        <file>img/icons8-search-50.png</file>
+        <file>img/icons8-notifications-50.png</file>
     </qresource>
 </RCC>

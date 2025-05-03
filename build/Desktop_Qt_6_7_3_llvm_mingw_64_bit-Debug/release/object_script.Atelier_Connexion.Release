@@ -1,0 +1,12 @@
+release/arbitre.o
+release/dialog_arbitre.o
+release/emaildialog_arbitre.o
+release/historiquedialog.o
+release/main.o
+release/connection.o
+release/mainwindow_arbitre.o
+release/qrc_resource.o
+release/moc_dialog_arbitre.o
+release/moc_emaildialog_arbitre.o
+release/moc_historiquedialog.o
+release/moc_mainwindow_arbitre.o
