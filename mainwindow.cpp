@@ -4,6 +4,34 @@
 #include <QMessageBox>
 #include<QsqlQueryModel>
 #include<QTableView>
+#include <QPdfWriter>
+#include <QPainter>
+#include <QFileDialog>
+#include <QSqlQuery>
+#include <QTextDocument>
+#include <QtPrintSupport/QPrinter>
+#include <QTextDocument>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QTextDocument>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+#include <QPrinter>
+#include <QPainter>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
+#include <QFileDialog>  //
+#include <QFileDialog>
+#include <QTextDocument>
+#include <QPrinter>
+#include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,6 +39,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->pushButton_chercher, &QPushButton::clicked, this, &MainWindow::on_pushButton_chercher_clicked);
+    connect(ui->pushButton_trier_asc, &QPushButton::clicked, this, &MainWindow::on_pushButton_trier_asc_clicked);
+    connect(ui->pushButton_trier_desc, &QPushButton::clicked, this, &MainWindow::on_pushButton_trier_desc_clicked);
+    connect(ui->pushButton_exportPDF, &QPushButton::clicked, this, &MainWindow::exporterPDF);
+
+
+
     afficher();
 
 }
@@ -19,6 +54,16 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::on_pushButton_chercher_clicked()
+{
+    QString nom = ui->lineEdit_nomEquipe->text();
+
+    Equipe e;
+    QSqlQueryModel* model = e.chercher_par_nom(nom);
+
+    ui->tableView->setModel(model);
+}
+
 //new
 void MainWindow::afficher()
 {
@@ -191,5 +236,113 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
     ui->prizesEdit->setText(QString::number(prizes));
     ui->coachEdit->setText(coach);
 }
+void MainWindow::on_pushButton_trier_asc_clicked()
+{
+    Equipe e;
+    ui->tableView->setModel(e.trier_par_date_asc());
+}
 
+void MainWindow::on_pushButton_trier_desc_clicked()
+{
+    Equipe e;
+    ui->tableView->setModel(e.trier_par_date_desc());
+}
+void MainWindow::exporterPDF()
+{
+    QString filePath = QFileDialog::getSaveFileName(this, "Exporter en PDF", "", "*.pdf");
+    if (filePath.isEmpty())
+        return;
+    if (!filePath.endsWith(".pdf"))
+        filePath += ".pdf";
 
+    QPrinter printer(QPrinter::PrinterMode::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(filePath);
+    printer.setPageSize(QPageSize::A4);
+    printer.setPageMargins(QMarginsF(15, 15, 15, 15));
+
+    QAbstractItemModel* model = ui->tableView->model();
+    if (!model) {
+        qDebug() << "Pas de modèle dans le QTableView.";
+        return;
+    }
+
+    // 📝 Construction du HTML
+    QString html;
+    html += "<h2 style='text-align: center;'>Liste des Équipes</h2>";
+    html += "<table border='1' cellspacing='0' cellpadding='4' width='100%'>";
+
+    // 🔠 En-têtes
+    html += "<tr bgcolor='#f0f0f0'>";
+    for (int col = 0; col < model->columnCount(); ++col) {
+        QString header = model->headerData(col, Qt::Horizontal).toString();
+        html += "<th>" + header + "</th>";
+    }
+    html += "</tr>";
+
+    // 📄 Données
+    for (int row = 0; row < model->rowCount(); ++row) {
+        html += "<tr>";
+        for (int col = 0; col < model->columnCount(); ++col) {
+            QString data = model->data(model->index(row, col)).toString();
+            html += "<td>" + data + "</td>";
+        }
+        html += "</tr>";
+    }
+
+    html += "</table>";
+
+    // 🖨️ Impression du document HTML
+    QTextDocument doc;
+    doc.setHtml(html);
+    doc.print(&printer);
+
+    QMessageBox::information(this, "Export PDF", "Exportation réussie vers :\n" + filePath);
+}
+void MainWindow::on_btn_statistiques_clicked()
+{
+    Equipe eq;
+    QSqlQueryModel* model = eq.statistiques_par_prix();
+    ui->tableView_2->setModel(model);
+
+}
+void MainWindow::on_btn_historique_clicked()
+{
+    // Lire le fichier texte de l'historique
+    QFile file("historique.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Erreur", "Impossible d'ouvrir le fichier historique.txt");
+        return;
+    }
+
+    QTextStream in(&file);
+    QString historiqueText = in.readAll();
+    file.close();
+
+    // Demander où sauvegarder le PDF
+    QString fileName = QFileDialog::getSaveFileName(this, "Enregistrer en PDF", "", "*.pdf");
+
+    if (fileName.isEmpty())
+        return;
+
+    if (QFileInfo(fileName).suffix().isEmpty())
+        fileName.append(".pdf");
+
+    // Créer un document texte
+    QTextDocument document;
+    document.setPlainText(historiqueText);
+
+    // Créer une imprimante virtuelle pour générer un PDF
+    QPrinter printer(QPrinter::PrinterMode::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(fileName);
+
+    // Imprimer le document
+    document.print(&printer);
+
+    QMessageBox::information(this, "Succès", "L'historique a été exporté en PDF !");
+}
+void MainWindow::on_btn_afficher_historique_clicked()
+{
+    // Tu peux laisser vide ou afficher un message pour le moment
+}

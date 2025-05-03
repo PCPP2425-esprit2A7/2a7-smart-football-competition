@@ -26,6 +26,17 @@ private slots:
     void on_delete_2_clicked();
 
     void on_tableView_clicked(const QModelIndex &index);
+    void on_pushButton_chercher_clicked();
+    void on_pushButton_trier_asc_clicked();
+    void on_pushButton_trier_desc_clicked();
+    void exporterPDF();
+
+    void on_btn_statistiques_clicked();
+private slots:
+    void on_btn_afficher_historique_clicked();
+private slots:
+    void on_btn_historique_clicked();
+
 
 private:
     Ui::MainWindow *ui;

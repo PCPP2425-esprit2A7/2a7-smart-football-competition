@@ -3,8 +3,11 @@
 #include <QSqlQuery>   // Assurez-vous d'avoir aussi cette ligne
 #include <QSqlQueryModel>
 #include <QTableView>
-
-//new
+#include <QDebug>
+#include <QFile>
+#include <QTextStream>
+#include <QDateTime>
+//constructeur
 Equipe::Equipe(int id, QString team_name, QDate creation_date,  int prizes, QString coach)
 {
     this->id=id;
@@ -13,27 +16,56 @@ Equipe::Equipe(int id, QString team_name, QDate creation_date,  int prizes, QStr
     this->prizes=prizes;
     this->coach=coach;
 }
-bool Equipe::ajouter() {
-
+bool Equipe::ajouter()
+{
     QSqlQuery query;
+    QString res = QString::number(id);
 
-
-    QString res = QString::number(id );
-
-
-    query.prepare("INSERT INTO EQUIPE (id,team_name,creation_date,prizes,coach) "
+    query.prepare("INSERT INTO EQUIPE (id, team_name, creation_date, prizes, coach) "
                   "VALUES (:id, :team_name, :creation_date, :prizes, :coach)");
-
 
     query.bindValue(":id", res);
     query.bindValue(":team_name", team_name);
     query.bindValue(":creation_date", creation_date);
     query.bindValue(":prizes", prizes);
     query.bindValue(":coach", coach);
-    // Exécution de la requête et retour du résultat
-    return query.exec(); // Renvoie true si l'insertion a réussi, false sinon
+
+    bool success = query.exec(); // Important !
+
+    if (success)
+    {
+        QString desc = "Ajout de l'équipe " + team_name;
+        ajouter_historique("Ajout", desc); // <==== TRES important
+    }
+    else
+    {
+        qDebug() << "Erreur lors de l'ajout de l'équipe :" << query.lastError().text();
+    }
+
+    return success;
+    if (success)
+    {
+        QString desc = "Ajout de l'équipe " + team_name;
+        ajouter_historique_fichier("Ajout", desc); // <<< ICI
+    }
 
 }
+
+QSqlQueryModel* Equipe::chercher_par_nom(QString nom_equipe)
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM EQUIPE WHERE TEAM_NAME LIKE :nom_equipe");
+    query.bindValue(":nom_equipe", "%" + nom_equipe + "%"); // Pour une recherche partielle
+
+    query.exec();
+    model->setQuery(std::move(query));
+
+
+    return model;
+}
+
 void Equipe::afficher(QTableView *tableView)
  {
     // Create a new query model
@@ -54,40 +86,67 @@ void Equipe::afficher(QTableView *tableView)
     tableView->resizeColumnsToContents();
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
-bool Equipe::modify(int id)
-{
-    QSqlQuery query;
+ bool Equipe::modify(int id)
+ {
+     QSqlQuery query;
+     QString res = QString::number(id);
 
-    // Prepare the update query for modifying ticket data
-    query.prepare("UPDATE EQUIPE SET  id = :id, team_name = :team_name,  creation_date = :creation_date, prizes = :prizes, coach = :coach WHERE id = :id");
+     query.prepare("UPDATE EQUIPE SET team_name = :team_name, creation_date = :creation_date, prizes = :prizes, coach = :coach "
+                   "WHERE id = :id");
 
-    query.bindValue(":id", id);
-    query.bindValue(":team_name", team_name);
-    query.bindValue(":creation_date", creation_date);
-    query.bindValue(":prizes", prizes);
-    query.bindValue(":coach", coach);
+     query.bindValue(":id", res);
+     query.bindValue(":team_name", team_name);
+     query.bindValue(":creation_date", creation_date);
+     query.bindValue(":prizes", prizes);
+     query.bindValue(":coach", coach);
 
-    // Execute the query
-    if (!query.exec()) {
-        qDebug() << "Erreur SQL lors de la mise à jour : " << query.lastError().text();
-        return false;
-    }
+     bool success = query.exec();
 
-    qDebug() << "Modification réussie pour l'ID : " << id;
-    return true;
-}
-bool Equipe::supprimer(int id) {
-    QSqlQuery query;
-    query.prepare("DELETE FROM EQUIPE WHERE id = :id");
-    query.bindValue(":id", id);
+     if (success)
+     {
+         QString desc = "Modification de l'équipe " + team_name;
+         ajouter_historique("Modification", desc); // <<<<< === ICI
+     }
+     else
+     {
+         qDebug() << "Erreur lors de la modification de l'équipe :" << query.lastError().text();
+     }
 
-    if (!query.exec()) {
-        return false; // Query execution failed
-    }
+     return success;
+     if (success)
+     {
+         QString desc = "Ajout de l'équipe " + team_name;
+         ajouter_historique_fichier("Ajout", desc); // <<< ICI
+     }
 
-    // Check if any rows were affected by the delete operation
-    return query.numRowsAffected() > 0;
-}
+ }
+
+ bool Equipe::supprimer(int id)
+ {
+     QSqlQuery query;
+     query.prepare("DELETE FROM EQUIPE WHERE id = :id");
+     query.bindValue(":id", id);
+
+     bool success = query.exec();
+
+     if (success)
+     {
+         QString desc = "Suppression de l'équipe avec ID " + QString::number(id);
+         ajouter_historique("Suppression", desc); // <<<<< === ICI
+     }
+     else
+     {
+         qDebug() << "Erreur lors de la suppression de l'équipe :" << query.lastError().text();
+     }
+
+     return success;
+     if (success)
+     {
+         QString desc = "Ajout de l'équipe " + team_name;
+         ajouter_historique_fichier("Ajout", desc); // <<< ICI
+     }
+
+ }
 
 
 
@@ -137,3 +196,61 @@ void Equipe::setprizes(int prizes) {
 void Equipe::setcoach(QString coach){
     this->coach=coach;
 }
+QSqlQueryModel* Equipe::trier_par_date_asc()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+    model->setQuery("SELECT * FROM EQUIPE ORDER BY CREATION_DATE ASC");
+    return model;
+}
+
+QSqlQueryModel* Equipe::trier_par_date_desc()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+    model->setQuery("SELECT * FROM EQUIPE ORDER BY CREATION_DATE DESC");
+    return model;
+}
+
+QSqlQueryModel* Equipe::statistiques_par_prix()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+
+    model->setQuery("SELECT PRIZES, COUNT(*) AS nombre_equipes "
+                    "FROM EQUIPE "
+                    "GROUP BY PRIZES "
+                    "ORDER BY PRIZES");
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Nombre de prix"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nombre d'équipes"));
+
+    return model;
+}
+bool Equipe::ajouter_historique(QString action_type, QString description)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO HISTORIQUE (ID, ACTION_TYPE, ACTION_DATE, DESCRIPTION) "
+                  "VALUES (seq_historique.NEXTVAL, :action_type, SYSDATE, :description)");
+    query.bindValue(":action_type", action_type);
+    query.bindValue(":description", description);
+
+    bool success = query.exec();
+
+    if (!success) {
+        qDebug() << "Erreur lors de l'ajout dans historique :" << query.lastError().text();
+    } else {
+        qDebug() << "Ajout dans historique réussi.";
+    }
+
+    return success;
+}
+void Equipe::ajouter_historique_fichier(QString action_type, QString description)
+{
+    QFile file("historique.txt"); // Le fichier sera créé à côté de ton .exe
+    if (file.open(QIODevice::Append | QIODevice::Text))
+    {
+        QTextStream out(&file);
+        QString dateTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
+        out << action_type << " | " << dateTime << " | " << description << "\n";
+        file.close();
+    }
+}
+
