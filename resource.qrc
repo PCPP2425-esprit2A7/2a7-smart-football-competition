@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/476330844_620145677092867_6932507229978630654_n-removebg-preview.png</file>
+        <file>img/joueur - Copie.png</file>
+        <file>img/476391542_28562245740056869_6651088239823792955_n-removebg-preview (1).png</file>
+        <file>img/arbitre - Copie.png</file>
+        <file>img/arbitre.png</file>
+        <file>img/background.jpg</file>
+        <file>img/billets - Copie.png</file>
+        <file>img/equipe - Copie.png</file>
+        <file>img/equipe.png</file>
+        <file>img/joueur.png</file>
+        <file>img/logo - Copie.png</file>
+        <file>img/match - Copie.png</file>
+        <file>img/match.png</file>
+        <file>img/supporteur.png</file>
+        <file>maps/default_map.png</file>
+
+    </qresource>
+</RCC>

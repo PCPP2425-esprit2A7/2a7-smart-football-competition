@@ -1,0 +1,801 @@
+#include "mainwindow.h"
+#include "./ui_mainwindow.h"
+#include "match.h"
+#include "connection.h"
+#include <QMessageBox>
+#include <QSqlError>
+#include <QRegularExpression>
+#include <QDateTime>
+#include <QPrinter>
+#include <QPainter>
+#include <QFileDialog>
+#include <QStandardPaths>
+#include "calendrierwidget.h"
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QVBoxLayout>  // Ajoutez cette ligne en haut du fichier
+#include <QMessageBox>
+#include "superviser.h"
+#include "ui_superviser.h"
+#include <QSqlQuery>
+#include "superviser.h"
+#include <QDebug>
+#include <QSerialPort>
+#include<QTimer>
+#include<QPrinter>
+#include<QPrintPreviewDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
+#include <QStandardPaths>
+#include <QDesktopServices>
+
+
+const QRegularExpression MainWindow::scoreRegex("^\\d+-\\d+$");
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow), model(new QSqlQueryModel(this) )
+{
+
+    ui->setupUi(this);
+    // Ajout des options de tri
+    ui->tri->addItem("Trier par date");
+    ui->tri->addItem("Date (plus ancien)");
+    ui->tri->addItem("Date (plus récent)");
+    // Dans le constructeur de MainWindow
+
+    // Création du bouton Superviser
+    btnSuperviser = new QPushButton("SUPERVISER", this);
+    btnSuperviser->setObjectName("superviserBtn");
+
+    // Style optionnel (pour le rendre plus visible)
+    btnSuperviser->setStyleSheet(
+        "QPushButton {"
+        "background-color: #4CAF50;"
+        "color: white;"
+        "border: none;"
+        "padding: 10px;"
+        "font-weight: bold;"
+        "}"
+        "QPushButton:hover { background-color: #45a049; }"
+        );
+
+    // Positionnement manuel (si vraiment nécessaire)
+    btnSuperviser->setGeometry(20, 20, 120, 40);  // x, y, width, height
+
+    // Connexion du signal
+    connect(btnSuperviser, &QPushButton::clicked, this, &MainWindow::ouvrirSuperviser);
+
+
+
+
+    connect(ui->pushButton_modifier, &QPushButton::clicked, this, &MainWindow::on_pushButton_modifier_clicked);
+    connect(ui->tri, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &MainWindow::on_comboBoxTriDate_currentIndexChanged);
+    //ui->comboBox_2->addItems({"ID", "Date_time", "Place", "Score", "Status", "Arbitre"});
+    //ui->comboBox_2->setCurrentIndex(-1);
+    model = new QSqlQueryModel(this);
+    ui->tableView->setModel(model);
+    // Configurer la vue
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    //calendrierrrr
+
+
+
+   calendrierWidget = new CalendrierWidget(this);
+    ui->tabWidget->addTab(calendrierWidget, tr("Calendrier"));
+
+    loadMatchData(); // Charger les données initiales
+    setupTableView();
+    loadMatchData();
+
+    connect(ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, [this]() {
+                if (ui->tableView->selectionModel()->selectedRows().count() > 0) {
+                    on_tableView_clicked(ui->tableView->selectionModel()->selectedRows().first());
+                }
+            });
+    mapScene = new QGraphicsScene(this);
+    mapView = new QGraphicsView(mapScene, ui->tab_3);
+
+    // Configuration de la vue
+    mapView->setRenderHint(QPainter::Antialiasing);
+    mapView->setDragMode(QGraphicsView::ScrollHandDrag);
+
+    // Ajout d'un fond de carte (remplacez par votre image)
+    QPixmap mapBackground;
+    mapBackground.load("C:/Users/douaa/Desktop/ddddddd/maps/default_map.png"); // Chemin absolu
+    if(!mapBackground.isNull()) {
+        mapScene->addPixmap(mapBackground);
+    } else {
+        // Fond alternatif si l'image n'est pas trouvée
+        mapScene->addRect(0, 0, 800, 600, QPen(Qt::blue), QBrush(Qt::lightGray));
+        mapScene->addText("Carte des Matchs - Fond non chargé");
+    }
+
+    // Configuration du layout
+    QVBoxLayout *layout = new QVBoxLayout(ui->tab_3);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(mapView);
+}
+void MainWindow::on_pushButton_exportPDF_clicked() {
+    qDebug() << "on_pdf_clicked() called.";
+
+    // Fetch data from the database
+    QSqlQuery query;
+    query.prepare("SELECT ID,STATUS, DATE_TIME, PLACE, SCORE, ARBITRE, TEAM1, TEAM2 FROM MATCH");
+
+    if (!query.exec()) {
+        QMessageBox::critical(this, "Database Error", "Failed to retrieve data: " + query.lastError().text());
+        qDebug() << "SQL Error: " << query.lastError().text();
+        return;
+    }
+
+    int rowCount = 0;
+    QString html = "<h2>match List</h2><table border='1' width='100%'>";
+    html += "<tr><th>ID</th><th>status</th><th>date_time</th><th>place</th><th>score</th><th>arbitre</th>";
+   // QStringList headers = {"ID", "Date/Heure", "Lieu", "Score", "Statut", "Arbitre"};
+    while (query.next()) {
+        rowCount++;
+        html += "<tr>";
+        html += "<td>" + query.value(0).toString() + "</td>";
+        html += "<td>" + query.value(1).toString() + "</td>";
+        html += "<td>" + query.value(2).toString() + "</td>";
+        html += "<td>" + query.value(3).toString() + "</td>";
+        html += "</tr>";
+        qDebug() << "Row retrieved: " << query.value(0).toString();
+    }
+
+    html += "</table>";
+
+    if (rowCount == 0) {
+        QMessageBox::warning(this, "No Data", "No tickets found in the database.");
+        qDebug() << "No tickets found!";
+        return;
+    }
+
+    // Create a QTextDocument for preview
+    QTextDocument doc;
+    doc.setHtml(html);
+
+    // Create a QPrintPreviewDialog to allow preview of the document
+    QPrinter printer(QPrinter::HighResolution);
+    QPrintPreviewDialog previewDialog(&printer, this);
+
+    connect(&previewDialog, &QPrintPreviewDialog::paintRequested, [&doc](QPrinter *printer) {
+        doc.print(printer);  // Print the document to the printer selected
+    });
+
+    // Show the print preview dialog
+    previewDialog.exec();
+
+    // If the user decides to save, ask for the file path
+    if (printer.outputFileName().isEmpty()) {
+        QString pdfPath = QFileDialog::getSaveFileName(this, "Save PDF", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/tickets_list.pdf", "PDF Files (*.pdf)");
+
+        if (pdfPath.isEmpty()) {
+            return;  // User canceled the save dialog
+        }
+
+        // Set the output file name to save the PDF
+        printer.setOutputFileName(pdfPath);
+
+        // Print the document (this time to the file)
+        doc.print(&printer);
+
+        qDebug() << "PDF saved at: " << pdfPath;
+        QMessageBox::information(this, "PDF Export", "The PDF has been saved successfully.");
+
+        // Optionally, open the PDF file in the default PDF viewer
+        QDesktopServices::openUrl(QUrl::fromLocalFile(pdfPath));
+    }
+}
+/*void MainWindow::on_pushButton_exportPDF_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(
+        this,
+        "Exporter en PDF",
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/liste_matchs.pdf",
+        "Fichiers PDF (*.pdf)"
+        );
+
+    if (fileName.isEmpty()) return;
+
+    QPrinter printer;
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(fileName);
+
+    QPainter painter;
+    if (!painter.begin(&printer)) {
+        QMessageBox::critical(this, "Erreur", "Impossible de créer le PDF");
+        return;
+    }
+
+    // Paramètres de dessin
+    const int margin = 40;
+    int yPos = margin;
+    const int lineHeight = 20;
+    const int pageWidth = printer.width();
+
+    // Titre
+    painter.setFont(QFont("Arial", 14, QFont::Bold));
+    painter.drawText(margin, yPos, "Liste des Matchs - " + QDate::currentDate().toString("dd/MM/yyyy"));
+    yPos += lineHeight * 2;
+
+    // En-têtes
+    QStringList headers = {"ID", "Date/Heure", "Lieu", "Score", "Statut", "Arbitre"};
+    int colWidth = (pageWidth - 2*margin) / headers.size();
+
+    painter.setFont(QFont("Arial", 10, QFont::Bold));
+    for (int i = 0; i < headers.size(); ++i) {
+        painter.drawText(margin + i*colWidth, yPos, headers[i]);
+    }
+    yPos += lineHeight;
+
+    // Données
+    painter.setFont(QFont("Arial", 9));
+    for (int row = 0; row < model->rowCount(); ++row) {
+        for (int col = 0; col < headers.size(); ++col) {
+            QString text = model->index(row, col).data().toString();
+
+            // Formatage spécial pour la date
+            if (col == 1) {
+                QDateTime dt = QDateTime::fromString(text, "yyyy-MM-dd HH:mm:ss");
+                if (dt.isValid()) text = dt.toString("dd/MM/yyyy HH:mm");
+            }
+
+            painter.drawText(margin + col*colWidth, yPos, text);
+        }
+        yPos += lineHeight;
+    }
+
+    painter.end();
+    QMessageBox::information(this, "Export réussi", "PDF généré avec succès:\n" + fileName);
+}
+*/
+// Le reste de vos méthodes existantes reste inchangé
+MainWindow::~MainWindow()
+{
+    delete model;
+    delete ui;
+    delete btnSuperviser;
+}
+
+void MainWindow::setupTableView()
+{
+    ui->tableView->setModel(model);
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    ui->tableView->setSortingEnabled(true);
+}
+void MainWindow::loadMatchData() {
+    QSqlQueryModel *newModel = new QSqlQueryModel();
+    newModel->setQuery("SELECT ID, DATE_TIME, PLACE, SCORE, STATUS, ARBITRE, TEAM1, TEAM2 FROM MATCH");
+
+    if (newModel->lastError().isValid()) {
+        QMessageBox::critical(this, "Erreur", "Erreur de chargement des données: " + newModel->lastError().text());
+        delete newModel;
+        return;
+    }
+
+    // Set headers
+    newModel->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    newModel->setHeaderData(1, Qt::Horizontal, tr("Date/Heure"));
+    newModel->setHeaderData(2, Qt::Horizontal, tr("Lieu"));
+    newModel->setHeaderData(3, Qt::Horizontal, tr("Score"));
+    newModel->setHeaderData(4, Qt::Horizontal, tr("Statut"));
+    newModel->setHeaderData(5, Qt::Horizontal, tr("Arbitre"));
+    newModel->setHeaderData(6, Qt::Horizontal, tr("Équipe 1"));  // Updated header
+    newModel->setHeaderData(7, Qt::Horizontal, tr("Équipe 2"));  // Updated header
+
+    // Replace old model
+    delete model;
+    model = newModel;
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
+}
+
+
+
+void MainWindow::on_tableView_clicked(const QModelIndex &index)
+{
+    if (!index.isValid()) return;
+
+    int row = index.row();
+    ui->lineEdit_id->setText(model->data(model->index(row, 0)).toString());
+
+    QDateTime dt = QDateTime::fromString(
+        model->data(model->index(row, 1)).toString(),
+        "yyyy-MM-dd HH:mm:ss"
+        );
+    ui->dateTimeEdit->setDateTime(dt.isValid() ? dt : QDateTime::currentDateTime());
+
+    ui->lineEdit_place->setText(model->data(model->index(row, 2)).toString());
+    ui->lineEdit_score->setText(model->data(model->index(row, 3)).toString());
+    ui->comboBox_status->setCurrentText(model->data(model->index(row, 4)).toString());
+    ui->lineEdit_arb->setText(model->data(model->index(row, 5)).toString());
+
+    ui->team1->setText(model->data(model->index(row, 6)).toString());  // TEAM1
+    ui->team2->setText(model->data(model->index(row, 7)).toString());  // TEAM2
+}
+
+
+void MainWindow::on_pushButton_ajouter_clicked() {
+    // Get values from UI
+    QDateTime datetime = ui->dateTimeEdit->dateTime();
+    QString place = ui->lineEdit_place->text().trimmed();
+    QString score = ui->lineEdit_score->text().trimmed();
+    QString status = ui->comboBox_status->currentText();
+    QString team1 = ui->team1->text().trimmed();
+    QString team2 = ui->team2->text().trimmed();
+
+    // Validate referee ID (if still using integer)
+    bool arbitreOk;
+    int arbitre = ui->lineEdit_arb->text().toInt(&arbitreOk);
+
+    // Validate inputs
+    QStringList errors;
+    if (place.isEmpty()) errors << "Le lieu doit être renseigné";
+    if (score.isEmpty()) errors << "Le score doit être renseigné";
+    if (!scoreRegex.match(score).hasMatch()) errors << "Format de score invalide (doit être X-Y)";
+    if (status.isEmpty()) errors << "Le statut doit être sélectionné";
+    if (team1.isEmpty()) errors << "Le nom de l'équipe 1 doit être renseigné";
+    if (team2.isEmpty()) errors << "Le nom de l'équipe 2 doit être renseigné";
+    if (!arbitreOk) errors << "L'arbitre doit être un nombre valide";
+
+    if (!errors.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", errors.join("\n"));
+        return;
+    }
+
+    // Create and add match
+    Match m(0,
+            datetime.toString("dd/MM/yyyy HH:mm"),
+            place,
+            score,
+            status,
+            arbitre,
+            team1,
+            team2);
+
+    if (m.ajouterMatch()) {
+        QMessageBox::information(this, "Succès", "Match ajouté avec succès!");
+        ui->statusBar->showMessage("Match ajouté", 3000);
+        loadMatchData();
+        clear();
+    } else {
+        QMessageBox::critical(this, "Erreur",
+                              "Échec de l'ajout du match.\nDétails: " +
+                                  QSqlDatabase::database().lastError().text());
+    }
+}
+
+void MainWindow::on_pushButton_modifier_clicked()
+{
+    qDebug() << "=== Début modification ===";
+    // Vérifier qu'un ID est bien sélectionné
+    if (ui->lineEdit_id->text().isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez sélectionner un match à modifier en cliquant sur un élément du tableau");
+        return;
+    }
+
+    // Récupérer l'ID du match à modifier
+    int id = ui->lineEdit_id->text().toInt();
+    if (id <= 0) {
+        QMessageBox::warning(this, "Erreur", "ID de match invalide");
+        return;
+    }
+
+    // Valider les données
+    QStringList errors;
+
+    if (ui->lineEdit_place->text().trimmed().isEmpty())
+        errors << "Le lieu doit être renseigné";
+
+    if (ui->lineEdit_score->text().trimmed().isEmpty())
+        errors << "Le score doit être renseigné";
+    else if (!QRegularExpression("^\\d+-\\d+$").match(ui->lineEdit_score->text()).hasMatch())
+        errors << "Format de score invalide (doit être X-Y)";
+
+    if (ui->comboBox_status->currentText().isEmpty())
+        errors << "Le statut doit être sélectionné";
+
+    if (ui->team1->text().trimmed().isEmpty())
+        errors << "Le nom de l'équipe 1 doit être renseigné";
+
+    if (ui->team2->text().trimmed().isEmpty())
+        errors << "Le nom de l'équipe 2 doit être renseigné";
+
+    if (!errors.isEmpty()) {
+        QMessageBox::warning(this, "Erreur de validation", errors.join("\n"));
+        return;
+    }
+
+    // Get team names as strings (no longer converting to int)
+    QString team1 = ui->team1->text().trimmed();
+    QString team2 = ui->team2->text().trimmed();
+
+    // Validate referee ID (if still using integer for arbitre)
+    bool arbitreOk;
+    int arbitre = ui->lineEdit_arb->text().toInt(&arbitreOk);
+    if (!arbitreOk) {
+        QMessageBox::warning(this, "Erreur", "L'ID de l'arbitre doit être un nombre valide");
+        return;
+    }
+
+    // Demander confirmation
+    if (QMessageBox::question(this, "Confirmation",
+                              "Êtes-vous sûr de vouloir modifier ce match?",
+                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::No) {
+        return;
+    }
+
+    // Debug output
+    qDebug() << "Valeurs à modifier:";
+    qDebug() << "ID:" << id;
+    qDebug() << "Date:" << ui->dateTimeEdit->dateTime().toString("yyyy-MM-dd HH:mm:ss");
+    qDebug() << "Lieu:" << ui->lineEdit_place->text().trimmed();
+    qDebug() << "Score:" << ui->lineEdit_score->text().trimmed();
+    qDebug() << "Statut:" << ui->comboBox_status->currentText();
+    qDebug() << "Arbitre:" << arbitre;
+    qDebug() << "Équipe1:" << team1;
+    qDebug() << "Équipe2:" << team2;
+
+    Match m;
+    bool result = m.modifierMatch(id,
+                                  ui->dateTimeEdit->dateTime().toString("yyyy-MM-dd HH:mm:ss"),
+                                  ui->lineEdit_place->text().trimmed(),
+                                  ui->lineEdit_score->text().trimmed(),
+                                  ui->comboBox_status->currentText(),
+                                  arbitre,
+                                  team1,
+                                  team2);
+
+    qDebug() << "Résultat modification:" << result;
+
+    if (result) {
+        QMessageBox::information(this, "Succès", "Match modifié avec succès !");
+
+        // Refresh the table view
+        if (model) {
+            model->setQuery("SELECT ID, DATE_TIME, PLACE, SCORE, STATUS, ARBITRE, TEAM1, TEAM2 FROM MATCH ORDER BY DATE_TIME");
+            setupTableView();
+        }
+    } else {
+        QMessageBox::critical(this, "Erreur", "Échec de la modification.");
+    }
+}
+
+void MainWindow::on_pushButton_supprimer_clicked()
+{
+    QModelIndexList selected = ui->tableView->selectionModel()->selectedRows();
+    if (selected.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Aucun match sélectionné");
+        return;
+    }
+
+    int id = model->data(model->index(selected.first().row(), 0)).toInt();
+
+    if (QMessageBox::question(this, "Confirmation",
+                              "Voulez-vous vraiment supprimer ce match?",
+                              QMessageBox::Yes|QMessageBox::No) == QMessageBox::No) {
+        return;
+    }
+
+    Match m;
+    if (m.supprimerMatch(id)) {
+        QMessageBox::information(this, "Succès", "Match supprimé avec succès");
+        loadMatchData();
+    } else {
+        QMessageBox::critical(this, "Erreur", "Échec de la suppression");
+    }
+}
+
+void MainWindow::on_pushButton_rechercher_clicked()
+{
+    // Récupération et nettoyage du texte
+    QString searchText = ui->lineEdit_recherche->text().trimmed();
+
+    // Contrôle de saisie - Vérification que le texte n'est pas vide
+    if(searchText.isEmpty()) {
+        QMessageBox::information(this, "Champ vide", "Veuillez saisir un ID ou un lieu à rechercher");
+        ui->lineEdit_recherche->setFocus();
+        return;
+    }
+
+    // Contrôle de saisie - Si recherche par ID, vérifier que c'est un nombre
+    bool isNumeric;
+    int id = searchText.toInt(&isNumeric);
+
+    // Préparation de la requête en fonction du type de recherche
+    QSqlQuery query;
+    if(isNumeric) {
+        // Recherche par ID (exact match)
+        query.prepare("SELECT * FROM MATCH WHERE ID = :id");
+        query.bindValue(":id", id);
+    } else {
+        // Recherche par lieu (partial match)
+        // Contrôle de saisie - longueur minimale
+        if(searchText.length() < 3) {
+            QMessageBox::warning(this, "Saisie trop courte",
+                                 "Veuillez saisir au moins 3 caractères pour la recherche par lieu");
+            ui->lineEdit_recherche->setFocus();
+            return;
+        }
+
+        query.prepare("SELECT * FROM MATCH WHERE PLACE LIKE :place");
+        query.bindValue(":place", "%" + searchText + "%");
+    }
+
+    // Exécution de la requête
+    if(!query.exec()) {
+        QMessageBox::critical(this, "Erreur",
+                              "Erreur lors de la recherche:\n" + query.lastError().text());
+        return;
+    }
+
+    // Affichage des résultats
+    QSqlQueryModel *model = new QSqlQueryModel(this);
+    model->setQuery(query);
+
+    if(model->rowCount() == 0) {
+        QMessageBox::information(this, "Aucun résultat",
+                                 "Aucun match trouvé pour votre recherche");
+        delete model;
+    } else {
+        ui->tableView->setModel(model);
+        ui->tableView->resizeColumnsToContents();
+
+        // Rafraîchissement automatique après 3 secondes
+        QTimer::singleShot(3000, this, [this]() {
+            loadMatchData();
+          //  ui->statusbar->showMessage("Affichage actualisé", 2000);
+        });
+    }
+}
+
+
+void MainWindow::clear()
+{
+    ui->lineEdit_id->clear();
+    ui->lineEdit_place->clear();
+    ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    ui->lineEdit_score->clear();
+    ui->comboBox_status->setCurrentIndex(0);
+    ui->lineEdit_arb->clear();
+    ui->lineEdit_recherche->clear();
+    ui->team1->clear();
+    ui->team2->clear();
+}
+
+void MainWindow::on_pushButton_calculer_clicked()
+{
+    QMap<QString, int> scoreData;
+    QSqlQuery query("SELECT SCORE, COUNT(*) FROM MATCH GROUP BY SCORE");
+
+    while (query.next()) {
+        scoreData.insert(query.value(0).toString(), query.value(1).toInt());
+    }
+
+    if (scoreData.isEmpty()) {
+        QMessageBox::information(this, "Information", "Aucune donnée disponible");
+        return;
+    }
+
+    Match m;
+    m.displayScoreChart(scoreData, ui->graphicsView);
+}
+bool MainWindow::teamExists(int teamId) {
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM EQUIPE WHERE ID = :id");
+    query.bindValue(":id", teamId);
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt() > 0;
+    }
+    return false;
+}
+
+
+
+void MainWindow::on_comboBoxTriDate_currentIndexChanged(int index)
+{
+    switch(index) {
+    case 1: // Plus ancien
+        chargerDonneesTriees("ASC");
+        break;
+    case 2: // Plus récent
+        chargerDonneesTriees("DESC");
+        break;
+    default:
+        // Recharger sans tri
+        chargerDonneesTriees("");
+        break;
+    }
+}
+
+void MainWindow::chargerDonneesTriees(const QString& order)
+{
+    QSqlQueryModel *model = new QSqlQueryModel(this);
+    QString queryStr = "SELECT * FROM MATCH";
+
+    if (!order.isEmpty()) {
+        queryStr += " ORDER BY DATE_TIME " + order;
+    }
+
+    model->setQuery(queryStr);
+
+    if (model->lastError().isValid()) {
+        qDebug() << "Erreur de tri:" << model->lastError().text();
+        delete model;
+        return;
+    }
+
+    // Mise à jour de l'affichage
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
+}
+
+/*void MainWindow::on_pushButton_superviser_clicked()
+{
+
+        superviserWindow = new Superviser(this);
+
+    superviserWindow->show(); // Utilisation correcte comme objet
+}*/
+// Remplacer tout le setupUI() par :
+/*void MainWindow::setupUI()
+{
+    // Créer un widget conteneur visible
+    QFrame *container = new QFrame(this);
+    container->setFrameShape(QFrame::StyledPanel);
+    container->setStyleSheet("background-color: #f0f0f0;");
+    setCentralWidget(container);
+
+    // Layout vertical
+    QVBoxLayout *layout = new QVBoxLayout(container);
+    layout->setAlignment(Qt::AlignCenter);
+
+    // Bouton Superviser avec indicateur visuel fort
+    btnSuperviser = new QPushButton("SUPERVISER (Cliquez ici)", container);
+    btnSuperviser->setStyleSheet(
+        "QPushButton {"
+        "  background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+        "    stop:0 #ff5722, stop:1 #e91e63);"
+        "  color: white;"
+        "  font: bold 16px;"
+        "  padding: 15px;"
+        "  border-radius: 8px;"
+        "}"
+        );
+    btnSuperviser->setCursor(Qt::PointingHandCursor);
+    layout->addWidget(btnSuperviser);
+
+    // Forcer l'affichage
+    btnSuperviser->show();
+    container->show();
+}*/
+void MainWindow::ouvrirSuperviser() {
+    if (!fenetreSuperviser) {
+        fenetreSuperviser = new Superviser(this);
+        connect(fenetreSuperviser, &QObject::destroyed, [this]() {
+            fenetreSuperviser = nullptr;
+        });
+    }
+    fenetreSuperviser->show();
+    fenetreSuperviser->raise();
+    fenetreSuperviser->activateWindow();
+}
+void MainWindow::on_dark_clicked()
+{
+    // Set dark mode styles for the QTableView widget
+    QString darkTableStyle = R"(
+        QTableView {
+            background-color:#A9A9A9;   /* Black background */
+            color: white;                /* White text */
+        }
+
+        QTableView::item {
+            background-color:#A9A9A9;   /* Black background for table items */
+            color: white;                /* White text for table items */
+        }
+
+        QHeaderView::section {
+            background-color:#A9A9A9;   /* Dark grey for header */
+            color: white;                /* White text for header */
+            padding: 5px;
+        }
+    )";
+
+    // Apply the stylesheet to the table widget
+    ui->tableView->setStyleSheet(darkTableStyle);
+    // Set styles for the Form widget (background black, white border)
+    QString formStyle = R"(
+        #form {
+            background-color: #A9A9A9;   /* Black background */
+            border: 2px solid white;     /* White border */
+            border-radius: 10px;         /* Rounded corners */
+        }
+
+        /* Set QLabel text color to white */
+        #form QLabel {
+            color: white;
+        }
+
+        /* Set QLineEdit style (black background, white border, white text) */
+        #form QLineEdit {
+            background-color: #121212;   /* Black background */
+            color:  #121212;                /* White text */
+            border: 1px solid white;     /* White border */
+            border-radius: 10px;         /* Rounded corners */
+            padding: 5px;
+        }
+
+        /* Set QComboBox and QTextEdit style (black background, white border, white text) */
+        #form QComboBox, #form QTextEdit {
+            background-color: #121212;   /* Black background */
+            color: black;                /* White text */
+            border: 1px solid white;     /* White border */
+            border-radius: 10px;         /* Rounded corners */
+            padding: 5px;
+        }
+    )";
+
+    // Apply the stylesheet to the Form widget
+    ui->form->setStyleSheet(formStyle);
+    // Set common button style (transparent background, white border, white text)
+    QString buttonStyle = R"(
+        QPushButton {
+            background-color: black;  /* Transparent background */
+            color: white;                   /* White text */
+            border: 1px solid white;        /* White border */
+            border-radius: 10px;            /* Rounded corners */
+            padding: 5px 10px;              /* Padding inside buttons */
+        }
+
+        QPushButton:hover {
+            background-color: rgba(255, 255, 255, 20%);  /* Light hover effect */
+        }
+
+        QPushButton:pressed {
+            background-color: rgba(255, 255, 255, 40%);  /* Darker effect when pressed */
+        }
+    )";
+
+    // Apply the button style to all buttons
+    ui->pushButton_ajouter->setStyleSheet(buttonStyle);
+    ui->pushButton_quitter->setStyleSheet("#cancel{border-radius: 10px;background: transparent;}");
+    ui->pushButton_modifier->setStyleSheet(buttonStyle);
+   // ui->generate->setStyleSheet(buttonStyle);
+   // ui->stat->setStyleSheet(buttonStyle);
+    ui->pushButton_supprimer->setStyleSheet("#delete_2{border-radius: 10px;background: transparent;}");
+   // ui->dark->setStyleSheet("#dark {background-color:transparent;color: #333; border: 2px solid #ccc;border-radius: 10px;padding: 5px 10px; }#dark:hover {background-color: #e0e0e0;border: 2px solid #bbb;}#dark:pressed {background-color: #d0d0d0; border: 2px solid #999;}");
+   // ui->light->setStyleSheet("#light{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #444;border: 2px solid #777;}#light:pressed {background-color: #222;border: 2px solid #999;}");
+    ui->background->setStyleSheet("#bg{background-color:#F5F5F5;}");
+    ui->menu->setStyleSheet("#menu{background-color:#A9A9A9;border-radius: 10px;padding: 5px;}");
+
+
+}
+
+
+
+
+void MainWindow::on_light_clicked()
+{
+    // Clear only the dark mode custom stylesheet applied earlier
+    qApp->setStyleSheet("");  // Clear the global dark mode stylesheet
+    // reset
+    ui->tableView->setStyleSheet("#table{background:rgba(33, 133, 85, 0.4);border-radius: 10px;padding: 5px;}");
+    ui->form->setStyleSheet("#form{background:rgba(214, 215, 222, 0.4);border-radius: 10px;padding: 5px;}");
+    ui->menu->setStyleSheet("#menu{background-color:#218555;border-radius: 10px;padding: 5px;}");
+    ui->pushButton_ajouter->setStyleSheet("#add{border-radius: 10px;padding: 5px;background: #218555; }");
+    ui->pushButton_quitter->setStyleSheet("#cancel{border-radius: 10px;background: transparent;}");
+    ui->pushButton_modifier->setStyleSheet("#modify{border-radius: 10px;padding: 5px;background: #218555; }");
+   // ui->generate->setStyleSheet("#generate{border-radius: 10px;padding: 5px;background: #218555; }");
+  //  ui->stat->setStyleSheet("#stat{border-radius: 10px;padding: 5px;background: #218555; }");
+    ui->pushButton_supprimer->setStyleSheet("#delete_2{border-radius: 10px;background: transparent;}");
+   // ui->dark->setStyleSheet("#dark{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#dark:hover {background-color: #444;border: 2px solid #777;}#dark:pressed {background-color: #222;border: 2px solid #999;}");
+   // ui->light->setStyleSheet("#light {background-color:transparent;color: #333; border: 2px solid #ccc;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #e0e0e0;border: 2px solid #bbb;}#light:pressed {background-color: #d0d0d0; border: 2px solid #999;}");
+    ui->background->setStyleSheet("#bg{background-image: url(:/image/img/bg.jpeg);}");
+
+}
