@@ -308,41 +308,27 @@ void MainWindow::on_btn_statistiques_clicked()
 }
 void MainWindow::on_btn_historique_clicked()
 {
-    // Lire le fichier texte de l'historique
-    QFile file("historique.txt");
+    QString filePath = "historique.txt";
+    QFile file(filePath);
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::warning(this, "Erreur", "Impossible d'ouvrir le fichier historique.txt");
+        QMessageBox::critical(this, "Erreur", "Impossible d'ouvrir le fichier historique.txt");
         return;
     }
 
     QTextStream in(&file);
-    QString historiqueText = in.readAll();
+    QString contenu = in.readAll();
     file.close();
 
-    // Demander où sauvegarder le PDF
-    QString fileName = QFileDialog::getSaveFileName(this, "Enregistrer en PDF", "", "*.pdf");
-
-    if (fileName.isEmpty())
-        return;
-
-    if (QFileInfo(fileName).suffix().isEmpty())
-        fileName.append(".pdf");
-
-    // Créer un document texte
-    QTextDocument document;
-    document.setPlainText(historiqueText);
-
-    // Créer une imprimante virtuelle pour générer un PDF
-    QPrinter printer(QPrinter::PrinterMode::HighResolution);
+    // Exporter vers PDF
+    QPrinter printer(QPrinter::HighResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(fileName);
+    printer.setOutputFileName("historique_exporte.pdf");
 
-    // Imprimer le document
-    document.print(&printer);
+    QTextDocument doc;
+    doc.setPlainText(contenu);
+    doc.print(&printer);
 
-    QMessageBox::information(this, "Succès", "L'historique a été exporté en PDF !");
+    QMessageBox::information(this, "Succès", "Historique exporté en PDF !");
 }
-void MainWindow::on_btn_afficher_historique_clicked()
-{
-    // Tu peux laisser vide ou afficher un message pour le moment
-}
+

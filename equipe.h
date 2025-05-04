@@ -38,6 +38,7 @@ public:
     void setprizes(int prizes);
     void setcoach(QString coach);
     void ajouter_historique_fichier(QString action_type, QString description);
+    void ecrireDansFichierHistorique(const QString &texte);
 
     QSqlQueryModel* chercher_par_nom(QString nom_equipe);
     //new

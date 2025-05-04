@@ -17,8 +17,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>0</y>
+      <x>-90</x>
+      <y>80</y>
       <width>1311</width>
       <height>561</height>
      </rect>
@@ -65,25 +65,6 @@
      <string notr="true">#menu {
 background-color: #619D80;}</string>
     </property>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>20</y>
-       <width>41</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="img.qrc">:/img/384564169_836385394894848_168754667894700015_n.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
@@ -179,6 +160,27 @@ background-color: #619D80;}</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QPushButton" name="btn_supporteur">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>93</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_supporteur {
+    border: none;
+    qproperty-icon: url(:/img/384564169_836385394894848_168754667894700015_n.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="box" native="true">
     <property name="geometry">
@@ -207,9 +209,9 @@ background-color: #619D80;}</string>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -227,9 +229,9 @@ background-color: #619D80;}</string>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -247,9 +249,9 @@ background-color: #619D80;}</string>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -267,9 +269,9 @@ background-color: #619D80;}</string>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -344,9 +346,9 @@ background-color: #619D80;}</string>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
@@ -372,8 +374,8 @@ background-color: #619D80;}</string>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
        <bold>false</bold>
       </font>
      </property>
@@ -428,9 +430,9 @@ background:transparent;
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -449,9 +451,9 @@ background:transparent;
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -477,9 +479,9 @@ background:transparent;
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -620,6 +622,13 @@ search{
       <height>29</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">
 
@@ -640,6 +649,13 @@ search{
       <height>29</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">
 	color: rgb(0, 0, 0);
@@ -659,6 +675,13 @@ search{
       <width>93</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">
@@ -698,11 +721,18 @@ search{
    <widget class="QPushButton" name="btn_statistiques">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>300</y>
+      <x>530</x>
+      <y>100</y>
       <width>93</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">
@@ -718,8 +748,8 @@ search{
    <widget class="QTableView" name="tableView_2">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>340</y>
+      <x>520</x>
+      <y>140</y>
       <width>281</width>
       <height>192</height>
      </rect>
@@ -731,14 +761,21 @@ search{
 </string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_afficher_historique">
+   <widget class="QPushButton" name="btn_historique">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>90</y>
+      <x>730</x>
+      <y>50</y>
       <width>93</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">
@@ -749,22 +786,6 @@ search{
     </property>
     <property name="text">
      <string>historique</string>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView_historique">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>120</y>
-      <width>301</width>
-      <height>181</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(97, 157, 128, 0.4); /* Adjusted RGBA version of #619D80 */
-   border-radius: 10px;
-   padding:5px;
-</string>
     </property>
    </widget>
   </widget>

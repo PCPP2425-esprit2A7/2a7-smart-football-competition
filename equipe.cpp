@@ -7,6 +7,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDateTime>
+#include <QCoreApplication>
+#include <QStandardPaths>
+
 //constructeur
 Equipe::Equipe(int id, QString team_name, QDate creation_date,  int prizes, QString coach)
 {
@@ -30,24 +33,12 @@ bool Equipe::ajouter()
     query.bindValue(":prizes", prizes);
     query.bindValue(":coach", coach);
 
-    bool success = query.exec(); // Important !
-
-    if (success)
-    {
-        QString desc = "Ajout de l'équipe " + team_name;
-        ajouter_historique("Ajout", desc); // <==== TRES important
-    }
-    else
-    {
-        qDebug() << "Erreur lors de l'ajout de l'équipe :" << query.lastError().text();
+    bool success = query.exec();
+    if (success) {
+        QString description = "Ajout de l'équipe : " + team_name;
+        ecrireDansFichierHistorique(description);
     }
 
-    return success;
-    if (success)
-    {
-        QString desc = "Ajout de l'équipe " + team_name;
-        ajouter_historique_fichier("Ajout", desc); // <<< ICI
-    }
 
 }
 
@@ -101,23 +92,11 @@ void Equipe::afficher(QTableView *tableView)
      query.bindValue(":coach", coach);
 
      bool success = query.exec();
-
-     if (success)
-     {
-         QString desc = "Modification de l'équipe " + team_name;
-         ajouter_historique("Modification", desc); // <<<<< === ICI
-     }
-     else
-     {
-         qDebug() << "Erreur lors de la modification de l'équipe :" << query.lastError().text();
+     if (success) {
+         QString description = "Ajout de l'équipe : " + team_name;
+         ecrireDansFichierHistorique(description);
      }
 
-     return success;
-     if (success)
-     {
-         QString desc = "Ajout de l'équipe " + team_name;
-         ajouter_historique_fichier("Ajout", desc); // <<< ICI
-     }
 
  }
 
@@ -128,23 +107,11 @@ void Equipe::afficher(QTableView *tableView)
      query.bindValue(":id", id);
 
      bool success = query.exec();
-
-     if (success)
-     {
-         QString desc = "Suppression de l'équipe avec ID " + QString::number(id);
-         ajouter_historique("Suppression", desc); // <<<<< === ICI
-     }
-     else
-     {
-         qDebug() << "Erreur lors de la suppression de l'équipe :" << query.lastError().text();
+     if (success) {
+         QString description = "Ajout de l'équipe : " + team_name;
+         ecrireDansFichierHistorique(description);
      }
 
-     return success;
-     if (success)
-     {
-         QString desc = "Ajout de l'équipe " + team_name;
-         ajouter_historique_fichier("Ajout", desc); // <<< ICI
-     }
 
  }
 
@@ -252,5 +219,20 @@ void Equipe::ajouter_historique_fichier(QString action_type, QString description
         out << action_type << " | " << dateTime << " | " << description << "\n";
         file.close();
     }
+}
+void Equipe::ecrireDansFichierHistorique(const QString &texte)
+{
+    QString filePath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "/historique.txt";
+
+    QFile file(filePath);
+
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qDebug() << "Erreur ouverture fichier :" << file.errorString();
+        return;
+    }
+
+    QTextStream out(&file);
+    out << texte << " | " << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << "\n";
+    file.close();
 }
 
