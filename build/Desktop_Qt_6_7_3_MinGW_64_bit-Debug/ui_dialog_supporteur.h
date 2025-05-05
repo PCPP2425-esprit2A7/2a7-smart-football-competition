@@ -17,23 +17,23 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_DialogSupporteur
 {
 public:
     QLabel *label;
     QWidget *stat;
 
-    void setupUi(QDialog *Dialog)
+    void setupUi(QDialog *DialogSupporteur)
     {
-        if (Dialog->objectName().isEmpty())
-            Dialog->setObjectName("Dialog");
-        Dialog->resize(988, 617);
-        label = new QLabel(Dialog);
+        if (DialogSupporteur->objectName().isEmpty())
+            DialogSupporteur->setObjectName("DialogSupporteur");
+        DialogSupporteur->resize(988, 617);
+        label = new QLabel(DialogSupporteur);
         label->setObjectName("label");
-        label->setGeometry(QRect(-20, -1, 1011, 641));
+        label->setGeometry(QRect(-20, 0, 1011, 641));
         label->setPixmap(QPixmap(QString::fromUtf8(":/img/img/bg.jpg")));
         label->setScaledContents(true);
-        stat = new QWidget(Dialog);
+        stat = new QWidget(DialogSupporteur);
         stat->setObjectName("stat");
         stat->setGeometry(QRect(130, 70, 731, 451));
         stat->setStyleSheet(QString::fromUtf8("#stat{\n"
@@ -42,21 +42,21 @@ public:
 "\n"
 "}"));
 
-        retranslateUi(Dialog);
+        retranslateUi(DialogSupporteur);
 
-        QMetaObject::connectSlotsByName(Dialog);
+        QMetaObject::connectSlotsByName(DialogSupporteur);
     } // setupUi
 
-    void retranslateUi(QDialog *Dialog)
+    void retranslateUi(QDialog *DialogSupporteur)
     {
-        Dialog->setWindowTitle(QCoreApplication::translate("Dialog", "Dialog", nullptr));
+        DialogSupporteur->setWindowTitle(QCoreApplication::translate("DialogSupporteur", "Dialog", nullptr));
         label->setText(QString());
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Dialog: public Ui_Dialog {};
+    class DialogSupporteur: public Ui_DialogSupporteur {};
 } // namespace Ui
 
 QT_END_NAMESPACE

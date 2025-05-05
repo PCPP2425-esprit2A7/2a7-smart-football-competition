@@ -12,22 +12,22 @@
 #include <QtMath>   // For trigonometric calculations (cos, sin)
 #include <QMessageBox>
 
-Dialog::Dialog(QWidget *parent)
+DialogSupporteur::DialogSupporteur(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::Dialog)
+    , ui(new Ui::DialogSupporteur)
 {
     ui->setupUi(this);
     displayStatisticsByGrade();
 }
 
-Dialog::~Dialog()
+DialogSupporteur::~DialogSupporteur()
 {
     delete ui;
 }
 
 
 
-void Dialog::displayStatisticsByGrade()
+void DialogSupporteur::displayStatisticsByGrade()
 
 {
     if (!ui->stat) {

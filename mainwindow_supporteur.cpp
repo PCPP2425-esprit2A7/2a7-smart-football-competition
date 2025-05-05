@@ -16,7 +16,11 @@
 #include <QCoreApplication>
 #include "arduino.h"
 #include "mainwindow_billet.h"
-
+#include "mainwindow_arbitre.h"
+#include "mainwindow_joueur.h"
+#include "mainwindow_match.h"
+#include "mainwindow_equipe.h"
+#include "welcom_page.h"
 MainWindowSupporteur::MainWindowSupporteur(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindowSupporteur)
@@ -80,39 +84,71 @@ MainWindowSupporteur::~MainWindowSupporteur()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }*/
+// void MainWindowSupporteur::afficher()
+// {
+//     QSqlQueryModel *model = new QSqlQueryModel();
+//     model->setQuery("SELECT id, NAME, LAST_NAME, DATE_NAIS, GRADE FROM SUPPORTEUR");
+
+//     model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+//     model->setHeaderData(1, Qt::Horizontal, QObject::tr("NAME"));
+//     model->setHeaderData(2, Qt::Horizontal, QObject::tr("LAST_NAME"));
+//     model->setHeaderData(3, Qt::Horizontal, QObject::tr("DATE_NAIS"));
+//     model->setHeaderData(4, Qt::Horizontal, QObject::tr("GRADE"));
+
+//     QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(this);
+//     proxyModel->setSourceModel(model);
+//     proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+
+//     ui->tableView->setModel(proxyModel);
+//     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+//     ui->tableView->resizeColumnsToContents();
+
+//     // Connect the search bar
+//     connect(ui->search_bar, &QLineEdit::textChanged, this, [proxyModel](const QString &text) {
+//         proxyModel->setFilterKeyColumn(1);  // Column index for NAME
+//         proxyModel->setFilterRegularExpression(QRegularExpression(text, QRegularExpression::CaseInsensitiveOption));
+
+//     });
+//     // Resize columns and rows dynamically
+//     ui->tableView->setColumnWidth(5, 70);  // Set column width to fit the image
+//     ui->tableView->verticalHeader()->setDefaultSectionSize(70);  // Increase row height
+
+//     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+// }
+
 void MainWindowSupporteur::afficher()
 {
+    // Create and set the SQL model
     QSqlQueryModel *model = new QSqlQueryModel();
     model->setQuery("SELECT id, NAME, LAST_NAME, DATE_NAIS, GRADE FROM SUPPORTEUR");
 
+    // Set headers
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("NAME"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("LAST_NAME"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("DATE_NAIS"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("GRADE"));
 
+    // Create and configure proxy model for search/filtering
     QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(this);
     proxyModel->setSourceModel(model);
     proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    proxyModel->setFilterKeyColumn(-1); // Search in all columns
 
+    // Set proxy model to table view
     ui->tableView->setModel(proxyModel);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->verticalHeader()->setDefaultSectionSize(30); // Adjust row height
 
-    // Connect the search bar
+    // Connect search bar
     connect(ui->search_bar, &QLineEdit::textChanged, this, [proxyModel](const QString &text) {
-        proxyModel->setFilterKeyColumn(1);  // Column index for NAME
         proxyModel->setFilterRegularExpression(QRegularExpression(text, QRegularExpression::CaseInsensitiveOption));
-
     });
-    // Resize columns and rows dynamically
-    ui->tableView->setColumnWidth(5, 70);  // Set column width to fit the image
-    ui->tableView->verticalHeader()->setDefaultSectionSize(70);  // Increase row height
-
-    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-
 }
-
 
 /*void MainWindow::on_add_clicked() {
     //Validate if fields are not empty
@@ -384,7 +420,7 @@ void MainWindowSupporteur::on_tri_activated(int index)
 
 void MainWindowSupporteur::on_stat_clicked()
 {
-    dialog_window = new Dialog(this);
+    dialog_window = new DialogSupporteur(this);
     dialog_window->setAttribute(Qt::WA_DeleteOnClose); // Ensure memory cleanup
     dialog_window->show();
 }
@@ -618,7 +654,7 @@ void MainWindowSupporteur::on_dark_ilyes_clicked()
     ui->LastnameEdit->setStyleSheet("#LastnameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
     ui->DateEdit->setStyleSheet("#DateEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
     ui->GradeEdit->setStyleSheet("#GradeEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #333;}");
-
+    ui->home->setStyleSheet(buttonStyle);
 
 }
 
@@ -641,6 +677,7 @@ void MainWindowSupporteur::on_light_ilyes_clicked()
     ui->LastnameEdit->setStyleSheet("#LastnameEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
     ui->DateEdit->setStyleSheet("#DateEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
     ui->GradeEdit->setStyleSheet("#GradeEdit{border-radius: 10px;padding: 5px;background: white;border: 2px solid #619D80;}");
+    ui->home->setStyleSheet("#home{border-radius: 10px;padding: 5px;background: #218555; }");
 }
 
 
@@ -653,5 +690,54 @@ void MainWindowSupporteur::on_btn_billet_fromsup_clicked()
     MainWindowBillet *w1 = new MainWindowBillet(); // Crée une nouvelle fenêtre
     w1->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
     w1->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowSupporteur::on_btn_arbitre_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowArbitre *w2 = new MainWindowArbitre(); // Crée une nouvelle fenêtre
+    w2->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w2->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowSupporteur::on_btn_joueur_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowJoueur *w4 = new MainWindowJoueur(); // Crée une nouvelle fenêtre
+    w4->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w4->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowSupporteur::on_btn_match_clicked()
+{
+
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowMatch *w5 = new MainWindowMatch(); // Crée une nouvelle fenêtre
+    w5->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w5->show(); // Affiche la nouvelle fenêtre
+}
+
+
+
+
+
+void MainWindowSupporteur::on_home_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    welcom_page *w6 = new welcom_page(); // Crée une nouvelle fenêtre
+    w6->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w6->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowSupporteur::on_btn_equipe_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowEquipe *w6 = new MainWindowEquipe(); // Crée une nouvelle fenêtre
+    w6->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w6->show(); // Affiche la nouvelle fenêtre
 }
 

@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowArbitre</class>
+ <widget class="QMainWindow" name="MainWindowArbitre">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1537</width>
+    <height>710</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="menu">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>91</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#menu
+{
+background-color:#218555;
+ border-radius: 10px;         /* Rounded corners */
+    padding: 5px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>140</y>
+      <width>63</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Id</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>200</y>
+      <width>63</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>250</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>last_name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>300</y>
+      <width>63</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>350</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Nb_carton</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>410</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Nb_match_a</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>460</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Category</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>140</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>190</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit_2 { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>240</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit_3 { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>362</x>
+      <y>300</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit_4 { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>362</x>
+      <y>350</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit_5 { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_6">
+    <property name="geometry">
+     <rect>
+      <x>362</x>
+      <y>400</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit_6 { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>450</y>
+      <width>121</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#comboBox { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>a.touch</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a.principale</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a.changement</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a.var</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_rechercher">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>10</y>
+      <width>591</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#lineEdit_rechercher { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+    <property name="placeholderText">
+     <string>Recherche par nom</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_tri">
+    <property name="geometry">
+     <rect>
+      <x>1230</x>
+      <y>80</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#comboBox_tri{ 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+
+</string>
+    </property>
+    <property name="placeholderText">
+     <string>Filtrer</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>a.principale</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a.changement</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a.var</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a.touch</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="pushButton_ajouter">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>510</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_ajouter{
+	border-radius: 10px;         /* Rounded corners */
+    padding: 5px;                /* Padding for text */
+    background: #218555
+}</string>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_cancel">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>510</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_cancel{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_modifier">
+    <property name="geometry">
+     <rect>
+      <x>1370</x>
+      <y>520</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_modifier{
+border-radius: 10px;         /* Rounded corners */
+    padding: 5px;                /* Padding for text */
+    background: #218555
+}</string>
+    </property>
+    <property name="text">
+     <string>Modify</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_supprimer">
+    <property name="geometry">
+     <rect>
+      <x>1260</x>
+      <y>520</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_supprimer{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>120</y>
+      <width>901</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#tableView{
+background:rgba(33,133,85,0.4);
+border-radius:10px;
+padding:5px;
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_statistiques">
+    <property name="geometry">
+     <rect>
+      <x>1370</x>
+      <y>10</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_statistiques{
+	border-radius: 10px;         /* Rounded corners */
+    padding: 5px;                /* Padding for text */
+    background: #218555
+}</string>
+    </property>
+    <property name="text">
+     <string>Report statics</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PDF">
+    <property name="geometry">
+     <rect>
+      <x>1400</x>
+      <y>80</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#PDF{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::Printer"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_ouvrirEmailDialog">
+    <property name="geometry">
+     <rect>
+      <x>1200</x>
+      <y>10</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#btn_ouvrirEmailDialog{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MailForward"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_guess">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>520</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_guess{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::GoNext"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_resultat">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>520</y>
+      <width>431</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_resultat { 
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Historique">
+    <property name="geometry">
+     <rect>
+      <x>1260</x>
+      <y>10</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_Historique{
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent; /* Fond transparent */
+    border: 2px solid #619D80 /* Couleur de bordure */
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string>Historique</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_test_voice">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>20</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#btn_test_voice{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::AudioInputMicrophone"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="light">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#light {
+    background-color:transparent; 
+    color: #333; 
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 5px 10px; 
+}
+
+#light:hover {
+    background-color: #e0e0e0;
+    border: 2px solid #bbb;
+}
+
+#light:pressed {
+    background-color: #d0d0d0; 
+    border: 2px solid #999;
+}</string>
+    </property>
+    <property name="text">
+     <string>Light</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dark">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>570</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#dark {
+    background-color: #333; /* Dark gray background */
+    color: white; /* White text */
+    border: 2px solid #555; /* Slightly lighter border */
+   border-radius: 10px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better appearance */
+}
+#dark:hover {
+    background-color: #444; /* Slightly lighter on hover */
+    border: 2px solid #777;
+}
+
+#dark:pressed {
+    background-color: #222; /* Even darker when pressed */
+    border: 2px solid #999;
+}</string>
+    </property>
+    <property name="text">
+     <string>Dark</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bouton_supporteur_arbitre">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>120</y>
+      <width>81</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bouton_supporteur_arbitre {
+    border: none;
+    qproperty-icon:url(:/img/img/2.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/img/supporteur.png</normaloff>:/img/img/supporteur.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bouton_match_arbitre">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>420</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bouton_match_arbitre {
+    border: none;
+    qproperty-icon:url(:/img/img/3.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/img/match.png</normaloff>:/img/img/match.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bouton_arbitre_arbitre">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>270</y>
+      <width>91</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bouton_arbitre_arbitre {
+    border: none;
+    qproperty-icon:url(:/img/img/carte-jaune.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/img/arbitre.png</normaloff>:/img/img/arbitre.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bouton_joueur_arbitre">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>190</y>
+      <width>91</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bouton_joueur_arbitre{
+    border: none;
+    qproperty-icon: url(:/img/img/joueur-de-football.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/img/joueur.png</normaloff>:/img/img/joueur.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bouton_billet_arbitre">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>490</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bouton_billet_arbitre {
+    border: none;
+    qproperty-icon:url(:/img/img/billet.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/img/ticket.png</normaloff>:/img/img/ticket.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bouton_equipe_arbitre">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>340</y>
+      <width>93</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bouton_equipe_arbitre {
+    border: none;
+    qproperty-icon: url(:/img/img/4.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/img/equipe.png</normaloff>:/img/img/equipe.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bg">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>0</y>
+      <width>1521</width>
+      <height>721</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bg{
+background-image:url(:/img/img/bg.jpg);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="form" native="true">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>120</y>
+      <width>331</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#form{
+background:rgba(214, 215, 222, 0.4);
+ border-radius: 10px;         /* Rounded corners */
+    padding: 5px;}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bg_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>141</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#bg_2 {
+    border: none;
+    qproperty-icon:url(:/img/img/logo_yedkom-removebg.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resource.qrc">:/img/img/logo_yedkom-removebg.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="home">
+    <property name="geometry">
+     <rect>
+      <x>1400</x>
+      <y>620</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#home{
+border-radius: 10px;         /* Rounded corners */
+    padding: 5px;                /* Padding for text */
+    background: #218555
+}</string>
+    </property>
+    <property name="text">
+     <string>Home</string>
+    </property>
+   </widget>
+   <zorder>bg</zorder>
+   <zorder>form</zorder>
+   <zorder>menu</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_7</zorder>
+   <zorder>lineEdit</zorder>
+   <zorder>lineEdit_2</zorder>
+   <zorder>lineEdit_3</zorder>
+   <zorder>lineEdit_4</zorder>
+   <zorder>lineEdit_5</zorder>
+   <zorder>lineEdit_6</zorder>
+   <zorder>comboBox</zorder>
+   <zorder>lineEdit_rechercher</zorder>
+   <zorder>comboBox_tri</zorder>
+   <zorder>pushButton_ajouter</zorder>
+   <zorder>pushButton_cancel</zorder>
+   <zorder>pushButton_modifier</zorder>
+   <zorder>pushButton_supprimer</zorder>
+   <zorder>tableView</zorder>
+   <zorder>pushButton_statistiques</zorder>
+   <zorder>PDF</zorder>
+   <zorder>btn_ouvrirEmailDialog</zorder>
+   <zorder>pushButton_guess</zorder>
+   <zorder>label_resultat</zorder>
+   <zorder>pushButton_Historique</zorder>
+   <zorder>btn_test_voice</zorder>
+   <zorder>light</zorder>
+   <zorder>dark</zorder>
+   <zorder>bouton_supporteur_arbitre</zorder>
+   <zorder>bouton_match_arbitre</zorder>
+   <zorder>bouton_arbitre_arbitre</zorder>
+   <zorder>bouton_joueur_arbitre</zorder>
+   <zorder>bouton_billet_arbitre</zorder>
+   <zorder>bouton_equipe_arbitre</zorder>
+   <zorder>bg_2</zorder>
+   <zorder>home</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1537</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -43,8 +43,8 @@ public:
     //database operation
     bool add();
     void afficher(QTableView* tableView);
-    bool modify(int id);
-    bool delete_2(int id);
+    bool modify(QString id);
+    bool delete_2(QString id);
     QSqlQueryModel* triPrixCroissant();
     QSqlQueryModel* triPrixDecroissant();
     QSqlQueryModel* triid();

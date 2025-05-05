@@ -11,5 +11,6 @@
         <file>img/logo.jpeg</file>
         <file>img/utilisateur.png</file>
         <file>img/logo_yedkom-removebg.png</file>
+        <file>img/default_map.png</file>
     </qresource>
 </RCC>

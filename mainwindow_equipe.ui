@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowEquipe</class>
+ <widget class="QMainWindow" name="MainWindowEquipe">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1417</width>
+    <height>752</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>-90</x>
+      <y>0</y>
+      <width>1511</width>
+      <height>731</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label{
+background-image:url(:/img/img/bg.jpg);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>:/img/0059fdc0-f636-4fbb-a241-8234ae243df9.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>0</y>
+      <width>181</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resource.qrc">:/img/img/logo_yedkom-removebg.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="menu" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>121</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#menu {
+background-color: #218555;}</string>
+    </property>
+    <widget class="QPushButton" name="btn_supporteur_khaled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>93</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_supporteur_khaled {
+    border: none;
+    qproperty-icon: url(:/img/img/2.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_joueur_khaled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>93</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_joueur_khaled {
+    border: none;
+    qproperty-icon:url(:/img/img/joueur-de-football.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_arbitre_khaled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>93</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_arbitre_khaled
+ {
+    border: none;
+    qproperty-icon:url(:/img/img/carte-jaune.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_equipe_khaled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>93</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_equipe_khaled {
+    border: none;
+    qproperty-icon: url(:/img/img/4.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_match_khaled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>300</y>
+       <width>93</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_match_khaled
+ {
+    border: none;
+    qproperty-icon:url(:/img/img/3.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_billet_khaled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>93</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_billet_khaled {
+    border: none;
+    qproperty-icon:url(:/img/img/billet.png);
+    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="form" native="true">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>100</y>
+      <width>361</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#form
+{
+    background-color: rgba(214, 215, 222, 0.4);
+    border-radius: 20px;
+
+}</string>
+    </property>
+    <widget class="QLabel" name="id">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>63</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>ID:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="team_name">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Team_Name:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="creation_date">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Creation_Date:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="prizes">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>220</y>
+       <width>63</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Prizes:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="idEdit">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>30</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    background-color: white;  /* White background */
+    color: black;             /* Black text */
+    border: 2px solid #619D80; /* Green border */
+    border-radius: 5px;       /* Slightly rounded edges */
+    padding: 5px;             /* Spacing inside */
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="team_nameEdit">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>90</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    background-color: white;  /* White background */
+    color: black;             /* Black text */
+    border: 2px solid #619D80; /* Green border */
+    border-radius: 5px;       /* Slightly rounded edges */
+    padding: 5px;             /* Spacing inside */
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="prizesEdit">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>210</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    background-color: white;  /* White background */
+    color: black;             /* Black text */
+    border: 2px solid #619D80; /* Green border */
+    border-radius: 5px;       /* Slightly rounded edges */
+    padding: 5px;             /* Spacing inside */
+}</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="add">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>380</y>
+       <width>93</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#add{
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;
+}</string>
+     </property>
+     <property name="text">
+      <string>Add</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cancel">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>380</y>
+       <width>93</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#cancel{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;
+}</string>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateEdit">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>150</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="coachEdit">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>270</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    background-color: white;  /* White background */
+    color: black;             /* Black text */
+    border: 2px solid #619D80; /* Green border */
+    border-radius: 5px;       /* Slightly rounded edges */
+    padding: 5px;             /* Spacing inside */
+}</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="coach">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>280</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sylfaen</family>
+       <pointsize>14</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Coach:</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="modify">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>350</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#modify{
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;
+}</string>
+    </property>
+    <property name="text">
+     <string>Modify</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delete_2">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>350</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#delete_2{
+	color: rgb(0, 0, 0);
+	border-radius:10px;
+background:transparent;}</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>100</y>
+      <width>171</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Filtre..</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_nomEquipe">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>561</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#search{
+border-radius:10px;
+padding:5px;
+background:white;
+}
+search{
+    background-color: white;  /* White background */
+    color: black;             /* Black text */
+    border: 2px solid #619D80; /* Green border */
+   border: 2px solid #619D80; /* Green border */
+    padding: 5px;             /* Spacing inside */
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string>Search..</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>140</y>
+      <width>731</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#tableView{
+   background-color: rgba(97, 157, 128, 0.4); /* Adjusted RGBA version of #619D80 */
+   border-radius: 10px;
+   padding:5px;
+
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stat">
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>20</y>
+      <width>141</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#stat{
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;
+}</string>
+    </property>
+    <property name="text">
+     <string>Report statics</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_chercher">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>10</y>
+      <width>141</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+
+	border-radius: 10px;
+	padding: 5px;
+	background-color: #218555;</string>
+    </property>
+    <property name="text">
+     <string>CHERCHER</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_trier_asc">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>410</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;</string>
+    </property>
+    <property name="text">
+     <string>tri asc</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_trier_desc">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>410</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;</string>
+    </property>
+    <property name="text">
+     <string>tri dsc</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_exportPDF">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>90</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;</string>
+    </property>
+    <property name="text">
+     <string>PDF</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>:/img/462570095_921252616280712_7517074504935030371_n.png</normaloff>:/img/462570095_921252616280712_7517074504935030371_n.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_statistiques">
+    <property name="geometry">
+     <rect>
+      <x>1260</x>
+      <y>410</y>
+      <width>131</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;</string>
+    </property>
+    <property name="text">
+     <string>statistique</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView_2">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>460</y>
+      <width>751</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(97, 157, 128, 0.4); /* Adjusted RGBA version of #619D80 */
+   border-radius: 10px;
+   padding:5px;
+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_historique">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>410</y>
+      <width>131</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>14</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;</string>
+    </property>
+    <property name="text">
+     <string>historique</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dark">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>640</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#dark {
+    background-color: #333; /* Dark gray background */
+    color: white; /* White text */
+    border: 2px solid #555; /* Slightly lighter border */
+   border-radius: 10px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better appearance */
+}
+#dark:hover {
+    background-color: #444; /* Slightly lighter on hover */
+    border: 2px solid #777;
+}
+
+#dark:pressed {
+    background-color: #222; /* Even darker when pressed */
+    border: 2px solid #999;
+}</string>
+    </property>
+    <property name="text">
+     <string>dark</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="light">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>640</y>
+      <width>93</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#light {
+    background-color:transparent; 
+    color: #333; 
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 5px 10px; 
+}
+
+#light:hover {
+    background-color: #e0e0e0;
+    border: 2px solid #bbb;
+}
+
+#light:pressed {
+    background-color: #d0d0d0; 
+    border: 2px solid #999;
+}</string>
+    </property>
+    <property name="text">
+     <string>light</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="home">
+    <property name="geometry">
+     <rect>
+      <x>1300</x>
+      <y>670</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#home
+{
+	color: rgb(0, 0, 0);
+	border-radius: 10px;
+	padding: 5px;
+	background:#218555;
+}</string>
+    </property>
+    <property name="text">
+     <string>home</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1417</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

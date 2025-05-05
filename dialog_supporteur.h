@@ -4,20 +4,20 @@
 #include <QDialog>
 
 namespace Ui {
-class Dialog;
+class DialogSupporteur;
 }
 
-class Dialog : public QDialog
+class DialogSupporteur : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Dialog(QWidget *parent = nullptr);
-    ~Dialog();
+    explicit DialogSupporteur(QWidget *parent = nullptr);
+    ~DialogSupporteur();
     void displayStatisticsByGrade();
 
 private:
-    Ui::Dialog *ui;
+    Ui::DialogSupporteur *ui;
 };
 
 #endif // DIALOG_SUPPORTEUR_H

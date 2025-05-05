@@ -381,7 +381,6 @@ Makefile: ../../gsupporteur.pro C:/QT/6.7.3/mingw_64/mkspecs/win32-g++/qmake.con
 		C:/QT/6.7.3/mingw_64/mkspecs/features/qt_config.prf \
 		C:/QT/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf \
 		C:/QT/6.7.3/mingw_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		C:/QT/6.7.3/mingw_64/mkspecs/features/exclusive_builds.prf \
 		C:/QT/6.7.3/mingw_64/mkspecs/features/toolchain.prf \
 		C:/QT/6.7.3/mingw_64/mkspecs/features/default_pre.prf \
@@ -419,6 +418,7 @@ Makefile: ../../gsupporteur.pro C:/QT/6.7.3/mingw_64/mkspecs/win32-g++/qmake.con
 		C:/QT/6.7.3/mingw_64/lib/Qt6Network.prl \
 		C:/QT/6.7.3/mingw_64/lib/Qt6Core.prl \
 		C:/QT/6.7.3/mingw_64/lib/Qt6EntryPoint.prl \
+		.qmake.stash \
 		C:/QT/6.7.3/mingw_64/mkspecs/features/build_pass.prf \
 		../../resource.qrc
 	$(QMAKE) -o Makefile ..\..\gsupporteur.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -733,7 +733,6 @@ C:/QT/6.7.3/mingw_64/mkspecs/features/qt_functions.prf:
 C:/QT/6.7.3/mingw_64/mkspecs/features/qt_config.prf:
 C:/QT/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf:
 C:/QT/6.7.3/mingw_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 C:/QT/6.7.3/mingw_64/mkspecs/features/exclusive_builds.prf:
 C:/QT/6.7.3/mingw_64/mkspecs/features/toolchain.prf:
 C:/QT/6.7.3/mingw_64/mkspecs/features/default_pre.prf:
@@ -771,6 +770,7 @@ C:/QT/6.7.3/mingw_64/lib/Qt6SerialPort.prl:
 C:/QT/6.7.3/mingw_64/lib/Qt6Network.prl:
 C:/QT/6.7.3/mingw_64/lib/Qt6Core.prl:
 C:/QT/6.7.3/mingw_64/lib/Qt6EntryPoint.prl:
+.qmake.stash:
 C:/QT/6.7.3/mingw_64/mkspecs/features/build_pass.prf:
 ../../resource.qrc:
 qmake: FORCE

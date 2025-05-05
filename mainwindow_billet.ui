@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1427</width>
+    <width>1530</width>
     <height>801</height>
    </rect>
   </property>
@@ -578,7 +578,7 @@ border-radius: 10px;         /* Rounded corners */
    <widget class="QComboBox" name="tri">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1090</x>
       <y>130</y>
       <width>231</width>
       <height>31</height>
@@ -725,7 +725,7 @@ border-radius: 10px;         /* Rounded corners */
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>121</width>
+      <width>151</width>
       <height>111</height>
      </rect>
     </property>
@@ -733,7 +733,7 @@ border-radius: 10px;         /* Rounded corners */
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/image/img/logo-removebg-preview.png</pixmap>
+     <pixmap resource="resource.qrc">:/img/img/logo_yedkom-removebg.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -742,7 +742,7 @@ border-radius: 10px;         /* Rounded corners */
    <widget class="QTableView" name="table">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>630</x>
       <y>170</y>
       <width>841</width>
       <height>491</height>
@@ -759,14 +759,22 @@ background:rgba(33, 133, 85, 0.4);
    <widget class="QPushButton" name="pdf">
     <property name="geometry">
      <rect>
-      <x>1290</x>
+      <x>1360</x>
       <y>130</y>
       <width>71</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">#pdf {
+    border: none;
+    qproperty-icon: url(:/img/img/1.png);
+    qproperty-iconSize: 30px 30px; /* Ajuste la taille selon ton bouton */
+}
+</string>
+    </property>
     <property name="text">
-     <string>PDF</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset>
@@ -855,7 +863,7 @@ background:rgba(33, 133, 85, 0.4);
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1431</width>
+      <width>1531</width>
       <height>761</height>
      </rect>
     </property>
@@ -888,6 +896,33 @@ background:rgba(33, 133, 85, 0.4);
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="home">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>710</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#home{
+
+    border-radius: 10px;         /* Rounded corners */
+    padding: 5px;                /* Padding for text */
+    background: #218555
+; }</string>
+    </property>
+    <property name="text">
+     <string>Home</string>
+    </property>
+   </widget>
    <zorder>bg</zorder>
    <zorder>menu</zorder>
    <zorder>form</zorder>
@@ -903,19 +938,22 @@ background:rgba(33, 133, 85, 0.4);
    <zorder>light</zorder>
    <zorder>dark</zorder>
    <zorder>label_rfid</zorder>
+   <zorder>home</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1427</width>
+     <width>1530</width>
      <height>26</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

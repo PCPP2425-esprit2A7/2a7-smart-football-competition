@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>DialogSupporteur</class>
+ <widget class="QDialog" name="DialogSupporteur">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>-20</x>
-     <y>-1</y>
+     <y>0</y>
      <width>1011</width>
      <height>641</height>
     </rect>

@@ -33,16 +33,16 @@ QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSDialogENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSDialogENDCLASS = QtMocHelpers::stringData(
-    "Dialog"
+struct qt_meta_stringdata_CLASSDialogSupporteurENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSDialogSupporteurENDCLASS = QtMocHelpers::stringData(
+    "DialogSupporteur"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
 #endif // !QT_MOC_HAS_STRINGDATA
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSDialogENDCLASS[] = {
+Q_CONSTINIT static const uint qt_meta_data_CLASSDialogSupporteurENDCLASS[] = {
 
  // content:
       12,       // revision
@@ -58,20 +58,20 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSDialogENDCLASS[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject Dialog::staticMetaObject = { {
+Q_CONSTINIT const QMetaObject DialogSupporteur::staticMetaObject = { {
     QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
-    qt_meta_stringdata_CLASSDialogENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSDialogENDCLASS,
+    qt_meta_stringdata_CLASSDialogSupporteurENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSDialogSupporteurENDCLASS,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSDialogENDCLASS_t,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSDialogSupporteurENDCLASS_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<Dialog, std::true_type>
+        QtPrivate::TypeAndForceComplete<DialogSupporteur, std::true_type>
     >,
     nullptr
 } };
 
-void Dialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void DialogSupporteur::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     (void)_o;
     (void)_id;
@@ -79,20 +79,20 @@ void Dialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     (void)_a;
 }
 
-const QMetaObject *Dialog::metaObject() const
+const QMetaObject *DialogSupporteur::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Dialog::qt_metacast(const char *_clname)
+void *DialogSupporteur::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSDialogENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSDialogSupporteurENDCLASS.stringdata0))
         return static_cast<void*>(this);
     return QDialog::qt_metacast(_clname);
 }
 
-int Dialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int DialogSupporteur::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QDialog::qt_metacall(_c, _id, _a);
     return _id;

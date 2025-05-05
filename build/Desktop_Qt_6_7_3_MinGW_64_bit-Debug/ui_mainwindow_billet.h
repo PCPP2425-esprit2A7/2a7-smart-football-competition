@@ -67,6 +67,7 @@ public:
     QPushButton *dark;
     QLabel *bg;
     QLabel *label_rfid;
+    QPushButton *home;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -74,7 +75,7 @@ public:
     {
         if (MainWindowBillet->objectName().isEmpty())
             MainWindowBillet->setObjectName("MainWindowBillet");
-        MainWindowBillet->resize(1427, 801);
+        MainWindowBillet->resize(1530, 801);
         centralwidget = new QWidget(MainWindowBillet);
         centralwidget->setObjectName("centralwidget");
         menu = new QWidget(centralwidget);
@@ -307,7 +308,7 @@ public:
         tri->addItem(QString());
         tri->addItem(QString());
         tri->setObjectName("tri");
-        tri->setGeometry(QRect(1030, 130, 231, 31));
+        tri->setGeometry(QRect(1090, 130, 231, 31));
         tri->setStyleSheet(QString::fromUtf8("#tri\n"
 " {\n"
 "   border: 2px solid gray;       /* Border color and thickness */\n"
@@ -357,12 +358,12 @@ public:
 "}"));
         logo = new QLabel(centralwidget);
         logo->setObjectName("logo");
-        logo->setGeometry(QRect(20, 20, 121, 111));
-        logo->setPixmap(QPixmap(QString::fromUtf8(":/image/img/logo-removebg-preview.png")));
+        logo->setGeometry(QRect(20, 20, 151, 111));
+        logo->setPixmap(QPixmap(QString::fromUtf8(":/img/img/logo_yedkom-removebg.png")));
         logo->setScaledContents(true);
         table = new QTableView(centralwidget);
         table->setObjectName("table");
-        table->setGeometry(QRect(530, 170, 841, 491));
+        table->setGeometry(QRect(630, 170, 841, 491));
         table->setStyleSheet(QString::fromUtf8("#table{\n"
 "background:rgba(33, 133, 85, 0.4);\n"
 " border-radius: 10px;         /* Rounded corners */\n"
@@ -370,7 +371,13 @@ public:
 "}"));
         pdf = new QPushButton(centralwidget);
         pdf->setObjectName("pdf");
-        pdf->setGeometry(QRect(1290, 130, 71, 31));
+        pdf->setGeometry(QRect(1360, 130, 71, 31));
+        pdf->setStyleSheet(QString::fromUtf8("#pdf {\n"
+"    border: none;\n"
+"    qproperty-icon: url(:/img/img/1.png);\n"
+"    qproperty-iconSize: 30px 30px; /* Ajuste la taille selon ton bouton */\n"
+"}\n"
+""));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/image/img/pdf.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         pdf->setIcon(icon);
@@ -417,7 +424,7 @@ public:
 "}"));
         bg = new QLabel(centralwidget);
         bg->setObjectName("bg");
-        bg->setGeometry(QRect(0, 0, 1431, 761));
+        bg->setGeometry(QRect(0, 0, 1531, 761));
         bg->setStyleSheet(QString::fromUtf8("#bg{\n"
 "	background-image: url(:/img/img/bg.jpg);\n"
 "}"));
@@ -429,6 +436,19 @@ public:
         font4.setPointSize(11);
         font4.setBold(true);
         label_rfid->setFont(font4);
+        home = new QPushButton(centralwidget);
+        home->setObjectName("home");
+        home->setGeometry(QRect(1420, 710, 93, 29));
+        QFont font5;
+        font5.setPointSize(10);
+        font5.setBold(true);
+        home->setFont(font5);
+        home->setStyleSheet(QString::fromUtf8("#home{\n"
+"\n"
+"    border-radius: 10px;         /* Rounded corners */\n"
+"    padding: 5px;                /* Padding for text */\n"
+"    background: #218555\n"
+"; }"));
         MainWindowBillet->setCentralWidget(centralwidget);
         bg->raise();
         menu->raise();
@@ -445,9 +465,10 @@ public:
         light->raise();
         dark->raise();
         label_rfid->raise();
+        home->raise();
         menubar = new QMenuBar(MainWindowBillet);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1427, 26));
+        menubar->setGeometry(QRect(0, 0, 1530, 26));
         MainWindowBillet->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindowBillet);
         statusbar->setObjectName("statusbar");
@@ -498,11 +519,12 @@ public:
         generate->setText(QCoreApplication::translate("MainWindowBillet", "Generate", nullptr));
         delete_2->setText(QCoreApplication::translate("MainWindowBillet", "Delete", nullptr));
         logo->setText(QString());
-        pdf->setText(QCoreApplication::translate("MainWindowBillet", "PDF", nullptr));
+        pdf->setText(QString());
         light->setText(QCoreApplication::translate("MainWindowBillet", "Light", nullptr));
         dark->setText(QCoreApplication::translate("MainWindowBillet", "Dark", nullptr));
         bg->setText(QString());
         label_rfid->setText(QString());
+        home->setText(QCoreApplication::translate("MainWindowBillet", "Home", nullptr));
     } // retranslateUi
 
 };

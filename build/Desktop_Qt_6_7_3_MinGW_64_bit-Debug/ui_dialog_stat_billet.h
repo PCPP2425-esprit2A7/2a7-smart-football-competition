@@ -17,23 +17,23 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_DialogStat
 {
 public:
     QLabel *label;
     QWidget *statisticsWidget;
 
-    void setupUi(QDialog *Dialog)
+    void setupUi(QDialog *DialogStat)
     {
-        if (Dialog->objectName().isEmpty())
-            Dialog->setObjectName("Dialog");
-        Dialog->resize(957, 642);
-        label = new QLabel(Dialog);
+        if (DialogStat->objectName().isEmpty())
+            DialogStat->setObjectName("DialogStat");
+        DialogStat->resize(957, 642);
+        label = new QLabel(DialogStat);
         label->setObjectName("label");
         label->setGeometry(QRect(0, 0, 961, 641));
         label->setPixmap(QPixmap(QString::fromUtf8(":/img/img/bg.jpg")));
         label->setScaledContents(true);
-        statisticsWidget = new QWidget(Dialog);
+        statisticsWidget = new QWidget(DialogStat);
         statisticsWidget->setObjectName("statisticsWidget");
         statisticsWidget->setGeometry(QRect(90, 70, 701, 511));
         statisticsWidget->setStyleSheet(QString::fromUtf8("#statisticsWidget{\n"
@@ -42,21 +42,21 @@ public:
 "\n"
 "}"));
 
-        retranslateUi(Dialog);
+        retranslateUi(DialogStat);
 
-        QMetaObject::connectSlotsByName(Dialog);
+        QMetaObject::connectSlotsByName(DialogStat);
     } // setupUi
 
-    void retranslateUi(QDialog *Dialog)
+    void retranslateUi(QDialog *DialogStat)
     {
-        Dialog->setWindowTitle(QCoreApplication::translate("Dialog", "Dialog", nullptr));
+        DialogStat->setWindowTitle(QCoreApplication::translate("DialogStat", "Dialog", nullptr));
         label->setText(QString());
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Dialog: public Ui_Dialog {};
+    class DialogStat: public Ui_DialogStat {};
 } // namespace Ui
 
 QT_END_NAMESPACE

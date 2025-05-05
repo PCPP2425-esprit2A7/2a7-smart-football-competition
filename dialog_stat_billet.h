@@ -4,7 +4,7 @@
 #include <QDialog>
 
 namespace Ui {
-class Dialog;
+class DialogStat;
 }
 
 class DialogStat : public QDialog
@@ -16,7 +16,7 @@ public:
     ~DialogStat();
     void displayStatistics();
 private:
-    Ui::Dialog  *ui;
+    Ui::DialogStat  *ui;
 };
 
 #endif // DIALOG_STAT_BILLET_H

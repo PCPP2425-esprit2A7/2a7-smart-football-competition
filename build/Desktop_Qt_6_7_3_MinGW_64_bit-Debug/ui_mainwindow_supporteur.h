@@ -60,6 +60,7 @@ public:
     QPushButton *dark_ilyes;
     QLabel *label_2;
     QLabel *label;
+    QPushButton *home;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -67,7 +68,7 @@ public:
     {
         if (MainWindowSupporteur->objectName().isEmpty())
             MainWindowSupporteur->setObjectName("MainWindowSupporteur");
-        MainWindowSupporteur->resize(1303, 735);
+        MainWindowSupporteur->resize(1505, 735);
         centralwidget = new QWidget(MainWindowSupporteur);
         centralwidget->setObjectName("centralwidget");
         menu = new QWidget(centralwidget);
@@ -99,7 +100,7 @@ public:
 ""));
         btn_arbitre = new QPushButton(menu);
         btn_arbitre->setObjectName("btn_arbitre");
-        btn_arbitre->setGeometry(QRect(20, 170, 83, 71));
+        btn_arbitre->setGeometry(QRect(20, 160, 83, 71));
         btn_arbitre->setStyleSheet(QString::fromUtf8("#btn_arbitre {\n"
 "    border: none;\n"
 "    qproperty-icon: url(:/img/img/carte-jaune.png);\n"
@@ -108,7 +109,7 @@ public:
 ""));
         btn_equipe = new QPushButton(menu);
         btn_equipe->setObjectName("btn_equipe");
-        btn_equipe->setGeometry(QRect(20, 240, 83, 61));
+        btn_equipe->setGeometry(QRect(20, 230, 83, 61));
         btn_equipe->setStyleSheet(QString::fromUtf8("#btn_equipe {\n"
 "    border: none;\n"
 "    qproperty-icon: url(:/img/img/4.png);\n"
@@ -127,7 +128,7 @@ public:
         btn_billet_fromsup = new QPushButton(menu);
         btn_billet_fromsup->setObjectName("btn_billet_fromsup");
         btn_billet_fromsup->setGeometry(QRect(20, 370, 83, 61));
-        btn_billet_fromsup->setStyleSheet(QString::fromUtf8("#btn_billet {\n"
+        btn_billet_fromsup->setStyleSheet(QString::fromUtf8("#btn_billet_fromsup {\n"
 "    border: none;\n"
 "    qproperty-icon:url(:/img/img/billet.png);\n"
 "    qproperty-iconSize: 64px 64px; /* Ajuste la taille selon ton bouton */\n"
@@ -263,7 +264,7 @@ public:
         tri->addItem(QString());
         tri->addItem(QString());
         tri->setObjectName("tri");
-        tri->setGeometry(QRect(890, 100, 251, 28));
+        tri->setGeometry(QRect(1060, 100, 251, 28));
         tri->setStyleSheet(QString::fromUtf8("#tri\n"
 " {\n"
 "   border: 2px solid gray;       /* Border color and thickness */\n"
@@ -273,7 +274,7 @@ public:
 "}"));
         tableView = new QTableView(centralwidget);
         tableView->setObjectName("tableView");
-        tableView->setGeometry(QRect(470, 160, 801, 311));
+        tableView->setGeometry(QRect(490, 150, 891, 311));
         tableView->setStyleSheet(QString::fromUtf8("#tableView{\n"
 "background:rgba(33, 133, 85, 0.4);\n"
 " border-radius: 10px;         /* Rounded corners */\n"
@@ -281,7 +282,7 @@ public:
 "}"));
         delete_2 = new QPushButton(centralwidget);
         delete_2->setObjectName("delete_2");
-        delete_2->setGeometry(QRect(1000, 490, 83, 29));
+        delete_2->setGeometry(QRect(1160, 490, 83, 29));
         delete_2->setFont(font);
         delete_2->setStyleSheet(QString::fromUtf8("#delete_2{\n"
 "border-radius: 10px;         /* Rounded corners */\n"
@@ -290,7 +291,7 @@ public:
 "}"));
         modify = new QPushButton(centralwidget);
         modify->setObjectName("modify");
-        modify->setGeometry(QRect(1120, 490, 83, 29));
+        modify->setGeometry(QRect(1290, 490, 83, 29));
         modify->setFont(font);
         modify->setStyleSheet(QString::fromUtf8("#modify{\n"
 "\n"
@@ -300,7 +301,7 @@ public:
 "; }"));
         stat = new QPushButton(centralwidget);
         stat->setObjectName("stat");
-        stat->setGeometry(QRect(1100, 20, 151, 29));
+        stat->setGeometry(QRect(1290, 20, 151, 29));
         stat->setFont(font);
         stat->setStyleSheet(QString::fromUtf8("#stat{\n"
 "\n"
@@ -310,12 +311,19 @@ public:
 "; }"));
         pdf = new QPushButton(centralwidget);
         pdf->setObjectName("pdf");
-        pdf->setGeometry(QRect(1170, 100, 83, 29));
+        pdf->setGeometry(QRect(1330, 90, 31, 41));
         pdf->setFont(font);
+        pdf->setStyleSheet(QString::fromUtf8("#pdf{\n"
+"	 qproperty-icon:url(:/img/img/1.png);\n"
+"  qproperty-iconSize: 30px 30px;\n"
+"}"));
         light_ilyes = new QPushButton(centralwidget);
         light_ilyes->setObjectName("light_ilyes");
-        light_ilyes->setGeometry(QRect(50, 580, 83, 29));
-        light_ilyes->setStyleSheet(QString::fromUtf8("#light {\n"
+        light_ilyes->setGeometry(QRect(50, 580, 91, 31));
+        QFont font1;
+        font1.setBold(true);
+        light_ilyes->setFont(font1);
+        light_ilyes->setStyleSheet(QString::fromUtf8("#light_ilyes {\n"
 "    background-color:transparent; \n"
 "    color: #333; \n"
 "    border: 2px solid #ccc;\n"
@@ -323,46 +331,61 @@ public:
 "    padding: 5px 10px; \n"
 "}\n"
 "\n"
-"#light:hover {\n"
+"#light_ilyes:hover {\n"
 "    background-color: #e0e0e0;\n"
 "    border: 2px solid #bbb;\n"
 "}\n"
 "\n"
-"#light:pressed {\n"
+"#light_ilyes:pressed {\n"
 "    background-color: #d0d0d0; \n"
 "    border: 2px solid #999;\n"
 "}"));
         dark_ilyes = new QPushButton(centralwidget);
         dark_ilyes->setObjectName("dark_ilyes");
         dark_ilyes->setGeometry(QRect(160, 580, 83, 29));
-        dark_ilyes->setStyleSheet(QString::fromUtf8("#dark {\n"
+        dark_ilyes->setFont(font1);
+        dark_ilyes->setStyleSheet(QString::fromUtf8("#dark_ilyes {\n"
 "    background-color: #333; /* Dark gray background */\n"
 "    color: white; /* White text */\n"
 "    border: 2px solid #555; /* Slightly lighter border */\n"
 "   border-radius: 10px; /* Rounded corners */\n"
 "    padding: 5px 10px; /* Padding for better appearance */\n"
 "}\n"
-"#dark:hover {\n"
+"#dark_ilyes:hover {\n"
 "    background-color: #444; /* Slightly lighter on hover */\n"
 "    border: 2px solid #777;\n"
 "}\n"
 "\n"
-"#dark:pressed {\n"
+"#dark_ilyes:pressed {\n"
 "    background-color: #222; /* Even darker when pressed */\n"
 "    border: 2px solid #999;\n"
 "}"));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(40, 50, 101, 51));
+        label_2->setGeometry(QRect(20, 10, 121, 91));
         label_2->setPixmap(QPixmap(QString::fromUtf8(":/img/img/logo_yedkom-removebg.png")));
         label_2->setScaledContents(true);
         label = new QLabel(centralwidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(0, 0, 1281, 641));
+        label->setGeometry(QRect(0, 0, 1481, 681));
         label->setStyleSheet(QString::fromUtf8("#label {\n"
 "    background-image:url(:/img/img/bg.jpg);\n"
 "}\n"
 ""));
+        home = new QPushButton(centralwidget);
+        home->setObjectName("home");
+        home->setGeometry(QRect(1340, 630, 93, 29));
+        QFont font2;
+        font2.setPointSize(10);
+        font2.setBold(true);
+        home->setFont(font2);
+        home->setStyleSheet(QString::fromUtf8("#home\n"
+"{\n"
+"\n"
+"    border-radius: 10px;         /* Rounded corners */\n"
+"    padding: 5px;                /* Padding for text */\n"
+"    background: #218555\n"
+"; }"));
         MainWindowSupporteur->setCentralWidget(centralwidget);
         label->raise();
         menu->raise();
@@ -377,9 +400,10 @@ public:
         light_ilyes->raise();
         dark_ilyes->raise();
         label_2->raise();
+        home->raise();
         menubar = new QMenuBar(MainWindowSupporteur);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1303, 26));
+        menubar->setGeometry(QRect(0, 0, 1505, 26));
         MainWindowSupporteur->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindowSupporteur);
         statusbar->setObjectName("statusbar");
@@ -413,11 +437,12 @@ public:
         delete_2->setText(QCoreApplication::translate("MainWindowSupporteur", "delete", nullptr));
         modify->setText(QCoreApplication::translate("MainWindowSupporteur", "modify", nullptr));
         stat->setText(QCoreApplication::translate("MainWindowSupporteur", "report statistique", nullptr));
-        pdf->setText(QCoreApplication::translate("MainWindowSupporteur", "PDF", nullptr));
+        pdf->setText(QString());
         light_ilyes->setText(QCoreApplication::translate("MainWindowSupporteur", "light", nullptr));
         dark_ilyes->setText(QCoreApplication::translate("MainWindowSupporteur", "Dark", nullptr));
         label_2->setText(QString());
         label->setText(QString());
+        home->setText(QCoreApplication::translate("MainWindowSupporteur", "Home", nullptr));
     } // retranslateUi
 
 };

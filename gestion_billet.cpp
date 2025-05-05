@@ -128,7 +128,7 @@ void gestion_billet::afficher(QTableView *tableView) {
 }
 
 // Modify a ticket
-bool gestion_billet::modify(int id)
+bool gestion_billet::modify(QString id)
 {
     QSqlQuery query;
     if (!isValid()) {
@@ -157,7 +157,7 @@ bool gestion_billet::modify(int id)
 }
 
 // Delete a ticket
-bool gestion_billet::delete_2(int id) {
+bool gestion_billet::delete_2(QString id) {
     QSqlQuery query;
     query.prepare("DELETE FROM BILLET WHERE id = :ID");
     query.bindValue(":ID", id);

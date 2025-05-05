@@ -27,8 +27,11 @@
 #include "arduino.h"  // Include arduino header in your mainwindow cpp file
 
 #include "mainwindow_supporteur.h"
-
-
+#include "mainwindow_arbitre.h"
+#include "mainwindow_joueur.h"
+#include "mainwindow_match.h"
+#include "mainwindow_equipe.h"
+#include "welcom_page.h"
 MainWindowBillet::MainWindowBillet(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindowBillet)
@@ -260,7 +263,7 @@ void MainWindowBillet::on_delete_2_clicked()
     }
 
     // Get the ticket ID from the selected row (assuming it's in the first column)
-    int id = selectedRows.first().data(Qt::DisplayRole).toInt();
+    QString id = selectedRows.first().data(Qt::DisplayRole).toString();
 
     // Call the delete_2 function from gestion_billet class
     gestion_billet billet;
@@ -287,17 +290,70 @@ void MainWindowBillet::on_cancel_clicked()
     qDebug() << "Form has been reset.";
 }
 
+// void MainWindowBillet::on_modify_clicked()
+// {
+//     QModelIndexList selectedIndexes = ui->table->selectionModel()->selectedRows();
+
+//     if (selectedIndexes.isEmpty()) {
+//         // If no row is selected, show a message
+//         QMessageBox::warning(this, "Sélection manquante", "Please select a line before editing.");
+//         return; // Exit the function if no row is selected
+//     }
+//     // Retrieve the input values from the form
+//     int id = ui->id->text().toInt();
+//     QString type = ui->type->currentText();
+//     int price = ui->price->text().toInt();
+//     int quantity = ui->quantity->text().toInt();
+//     QString area = ui->area->currentText();
+//     QDate date_issue = ui->date_issue->date();
+//     QDate date_event = ui->date_event->date();
+
+//     // Log input values for debugging
+//     qDebug() << "Attempting modification with ID:" << id;
+//     qDebug() << "New values - Type:" << type << ", Price:" << price
+//              << ", Quantity:" << quantity << ", Area:" << area
+//              << ", Date Issue:" << date_issue << ", Date Event:" << date_event;
+
+//     // Create a gestion_billet object with the updated information
+//     gestion_billet billet;
+//     billet.settype(type);
+//     billet.setprice(price);
+//     billet.setquantity(quantity);
+//     billet.setarea(area);
+//     billet.setdate_issue(date_issue);
+//     billet.setdate_event(date_event);
+
+//     // Attempt to modify the ticket record and log the result
+//     bool test = billet.modify(id);
+//     qDebug() << "Modifier function result:" << test;
+
+//     // Display message based on the success of the modification
+//     if (test) {
+//         // Refresh the table view to reflect changes
+//         afficher(); // This function should refresh the table view with the updated data
+
+//         // Show success message
+//         QMessageBox::information(this, QObject::tr("OK"),
+//                                  QObject::tr("Change made\nClick Cancel to exit."),
+//                                  QMessageBox::Cancel);
+//     } else {
+//         // Show error message if modification fails
+//         QMessageBox::critical(this, QObject::tr("Erreur"),
+//                               QObject::tr("The change could not be made.\nClick Cancel to exit."),
+//                               QMessageBox::Cancel);
+//     }
+// }
 void MainWindowBillet::on_modify_clicked()
 {
     QModelIndexList selectedIndexes = ui->table->selectionModel()->selectedRows();
 
     if (selectedIndexes.isEmpty()) {
-        // If no row is selected, show a message
         QMessageBox::warning(this, "Sélection manquante", "Please select a line before editing.");
-        return; // Exit the function if no row is selected
+        return;
     }
-    // Retrieve the input values from the form
-    int id = ui->id->text().toInt();
+
+    // ✅ Use QString instead of int for ID
+    QString id = ui->id->text();
     QString type = ui->type->currentText();
     int price = ui->price->text().toInt();
     int quantity = ui->quantity->text().toInt();
@@ -305,13 +361,11 @@ void MainWindowBillet::on_modify_clicked()
     QDate date_issue = ui->date_issue->date();
     QDate date_event = ui->date_event->date();
 
-    // Log input values for debugging
     qDebug() << "Attempting modification with ID:" << id;
     qDebug() << "New values - Type:" << type << ", Price:" << price
              << ", Quantity:" << quantity << ", Area:" << area
              << ", Date Issue:" << date_issue << ", Date Event:" << date_event;
 
-    // Create a gestion_billet object with the updated information
     gestion_billet billet;
     billet.settype(type);
     billet.setprice(price);
@@ -320,21 +374,16 @@ void MainWindowBillet::on_modify_clicked()
     billet.setdate_issue(date_issue);
     billet.setdate_event(date_event);
 
-    // Attempt to modify the ticket record and log the result
+    // ✅ Now passing QString to modify()
     bool test = billet.modify(id);
     qDebug() << "Modifier function result:" << test;
 
-    // Display message based on the success of the modification
     if (test) {
-        // Refresh the table view to reflect changes
-        afficher(); // This function should refresh the table view with the updated data
-
-        // Show success message
+        afficher();
         QMessageBox::information(this, QObject::tr("OK"),
                                  QObject::tr("Change made\nClick Cancel to exit."),
                                  QMessageBox::Cancel);
     } else {
-        // Show error message if modification fails
         QMessageBox::critical(this, QObject::tr("Erreur"),
                               QObject::tr("The change could not be made.\nClick Cancel to exit."),
                               QMessageBox::Cancel);
@@ -617,6 +666,7 @@ void MainWindowBillet::on_dark_clicked()
     ui->modify->setStyleSheet(buttonStyle);
     ui->generate->setStyleSheet(buttonStyle);
     ui->stat->setStyleSheet(buttonStyle);
+    ui->home->setStyleSheet(buttonStyle);
     ui->delete_2->setStyleSheet("#delete_2{border-radius: 10px;background: transparent;}");
     ui->dark->setStyleSheet("#dark {background-color:transparent;color: #333; border: 2px solid #ccc;border-radius: 10px;padding: 5px 10px; }#dark:hover {background-color: #e0e0e0;border: 2px solid #bbb;}#dark:pressed {background-color: #d0d0d0; border: 2px solid #999;}");
     ui->light->setStyleSheet("#light{background-color: #333;color: white;border: 2px solid #555;border-radius: 10px;padding: 5px 10px; }#light:hover {background-color: #444;border: 2px solid #777;}#light:pressed {background-color: #222;border: 2px solid #999;}");
@@ -643,6 +693,7 @@ void MainWindowBillet::on_light_clicked()
     ui->form->setStyleSheet("#form{background:rgba(214, 215, 222, 0.4);border-radius: 10px;padding: 5px;}");
     ui->menu->setStyleSheet("#menu{background-color:#218555;border-radius: 10px;padding: 5px;}");
     ui->add->setStyleSheet("#add{border-radius: 10px;padding: 5px;background: #218555; }");
+    ui->home->setStyleSheet("#home{border-radius: 10px;padding: 5px;background: #218555; }");
     ui->cancel->setStyleSheet("#cancel{border-radius: 10px;background: transparent;}");
     ui->modify->setStyleSheet("#modify{border-radius: 10px;padding: 5px;background: #218555; }");
     ui->generate->setStyleSheet("#generate{border-radius: 10px;padding: 5px;background: #218555; }");
@@ -754,8 +805,53 @@ void MainWindowBillet::verifierUID(const QString& uid)
 void MainWindowBillet::on_btn_supporteur_clicked()
 {
     this->close(); // Cache la fenêtre actuelle (facultatif)
-    MainWindowSupporteur *w2 = new MainWindowSupporteur(); // Crée une nouvelle fenêtre
+    MainWindowSupporteur *w1 = new MainWindowSupporteur(); // Crée une nouvelle fenêtre
+    w1->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w1->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowBillet::on_btn_arbitre_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowArbitre *w3 = new MainWindowArbitre(); // Crée une nouvelle fenêtre
+    w3->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w3->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowBillet::on_btn_joueur_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowJoueur *w2 = new MainWindowJoueur(); // Crée une nouvelle fenêtre
     w2->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
     w2->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowBillet::on_btn_match_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowMatch *w3 = new MainWindowMatch(); // Crée une nouvelle fenêtre
+    w3->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w3->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowBillet::on_home_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    welcom_page *w6 = new welcom_page(); // Crée une nouvelle fenêtre
+    w6->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w6->show(); // Affiche la nouvelle fenêtre
+}
+
+
+void MainWindowBillet::on_btn_equipe_clicked()
+{
+    this->close(); // Cache la fenêtre actuelle (facultatif)
+    MainWindowEquipe *w6 = new MainWindowEquipe(); // Crée une nouvelle fenêtre
+    w6->setAttribute(Qt::WA_DeleteOnClose); // Pour éviter les fuites mémoire
+    w6->show(); // Affiche la nouvelle fenêtre
 }
 

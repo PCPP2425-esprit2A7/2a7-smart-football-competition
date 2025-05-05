@@ -46,9 +46,21 @@ private slots:
 
     void on_btn_billet_fromsup_clicked();
 
+    void on_btn_arbitre_clicked();
+
+    void on_btn_joueur_clicked();
+
+    void on_btn_match_clicked();
+
+
+
+    void on_home_clicked();
+
+    void on_btn_equipe_clicked();
+
 private:
     Ui::MainWindowSupporteur *ui;
-    Dialog *dialog_window;
+    DialogSupporteur *dialog_window;
     QByteArray data;
     arduino A;
     QSerialPort *serial;

@@ -14,7 +14,7 @@
 #include <QMessageBox>
 DialogStat::DialogStat(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::Dialog)
+    , ui(new Ui::DialogStat)
 {
     ui->setupUi(this);
     displayStatistics();

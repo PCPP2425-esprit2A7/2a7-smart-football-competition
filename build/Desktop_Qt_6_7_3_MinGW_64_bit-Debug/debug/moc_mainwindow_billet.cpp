@@ -54,7 +54,12 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowBilletENDCLASS = QtMocHelpers::
     "on_generate_clicked",
     "on_dark_clicked",
     "on_light_clicked",
-    "on_btn_supporteur_clicked"
+    "on_btn_supporteur_clicked",
+    "on_btn_arbitre_clicked",
+    "on_btn_joueur_clicked",
+    "on_btn_match_clicked",
+    "on_home_clicked",
+    "on_btn_equipe_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -67,7 +72,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowBilletENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -75,21 +80,26 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowBilletENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  104,    2, 0x0a,    1 /* Public */,
-       3,    1,  105,    2, 0x0a,    2 /* Public */,
-       5,    0,  108,    2, 0x08,    4 /* Private */,
-       6,    0,  109,    2, 0x08,    5 /* Private */,
-       7,    0,  110,    2, 0x08,    6 /* Private */,
-       8,    0,  111,    2, 0x08,    7 /* Private */,
-       9,    0,  112,    2, 0x08,    8 /* Private */,
-      10,    1,  113,    2, 0x08,    9 /* Private */,
-      13,    1,  116,    2, 0x08,   11 /* Private */,
-      14,    0,  119,    2, 0x08,   13 /* Private */,
-      15,    0,  120,    2, 0x08,   14 /* Private */,
-      16,    0,  121,    2, 0x08,   15 /* Private */,
-      17,    0,  122,    2, 0x08,   16 /* Private */,
-      18,    0,  123,    2, 0x08,   17 /* Private */,
-      19,    0,  124,    2, 0x08,   18 /* Private */,
+       1,    0,  134,    2, 0x0a,    1 /* Public */,
+       3,    1,  135,    2, 0x0a,    2 /* Public */,
+       5,    0,  138,    2, 0x08,    4 /* Private */,
+       6,    0,  139,    2, 0x08,    5 /* Private */,
+       7,    0,  140,    2, 0x08,    6 /* Private */,
+       8,    0,  141,    2, 0x08,    7 /* Private */,
+       9,    0,  142,    2, 0x08,    8 /* Private */,
+      10,    1,  143,    2, 0x08,    9 /* Private */,
+      13,    1,  146,    2, 0x08,   11 /* Private */,
+      14,    0,  149,    2, 0x08,   13 /* Private */,
+      15,    0,  150,    2, 0x08,   14 /* Private */,
+      16,    0,  151,    2, 0x08,   15 /* Private */,
+      17,    0,  152,    2, 0x08,   16 /* Private */,
+      18,    0,  153,    2, 0x08,   17 /* Private */,
+      19,    0,  154,    2, 0x08,   18 /* Private */,
+      20,    0,  155,    2, 0x08,   19 /* Private */,
+      21,    0,  156,    2, 0x08,   20 /* Private */,
+      22,    0,  157,    2, 0x08,   21 /* Private */,
+      23,    0,  158,    2, 0x08,   22 /* Private */,
+      24,    0,  159,    2, 0x08,   23 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -101,6 +111,11 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowBilletENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 11,   12,
     QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -152,6 +167,16 @@ Q_CONSTINIT const QMetaObject MainWindowBillet::staticMetaObject = { {
         // method 'on_light_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_btn_supporteur_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btn_arbitre_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btn_joueur_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btn_match_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_home_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btn_equipe_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -178,6 +203,11 @@ void MainWindowBillet::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 12: _t->on_dark_clicked(); break;
         case 13: _t->on_light_clicked(); break;
         case 14: _t->on_btn_supporteur_clicked(); break;
+        case 15: _t->on_btn_arbitre_clicked(); break;
+        case 16: _t->on_btn_joueur_clicked(); break;
+        case 17: _t->on_btn_match_clicked(); break;
+        case 18: _t->on_home_clicked(); break;
+        case 19: _t->on_btn_equipe_clicked(); break;
         default: ;
         }
     }
@@ -202,13 +232,13 @@ int MainWindowBillet::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 20)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 15;
+        _id -= 20;
     }
     return _id;
 }

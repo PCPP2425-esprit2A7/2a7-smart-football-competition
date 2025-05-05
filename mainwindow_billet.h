@@ -52,6 +52,16 @@ private slots:
 
     void on_btn_supporteur_clicked();
 
+    void on_btn_arbitre_clicked();
+
+    void on_btn_joueur_clicked();
+
+    void on_btn_match_clicked();
+
+    void on_home_clicked();
+
+    void on_btn_equipe_clicked();
+
 private:
     Ui::MainWindowBillet *ui;
     generate_tickets *generate_tickets_window;
